@@ -2,12 +2,92 @@
 
 {% block content %}
 
+    <style media="screen">
+        body{
+            padding: 3rem;
+        }
+        section.bus{
+            background: #243835;
+            padding: .2rem;
+            box-sizing: border-box;
+            width: 100%;
+            height: 16.5rem;
+            border-bottom-left-radius: 5rem;
+            border-top-left-radius: 5rem;
+            padding-left: 5rem;
+            border-right: solid 5rem;
+        }
+        .site{
+            color: #fff;
+            background: cadetblue;
+            width: 5rem;
+            height: 6rem;
+            text-align: center;
+            box-sizing: border-box;
+            padding-top: 2.5rem;
+            margin: 1rem;
+            float: left;
+            cursor: pointer;
+        }
+        .site:hover{
+            transition: .5s;
+            background: #43e33b;
+        }
+        .site-pre-assigned{
+            background: #43e33b;
+        }
+    </style>
+
+    <section class="bus">
+        <div class="site" id="1" data-numsite="1">No. 1</div>
+        <div class="site" id="2" data-numsite="2">No. 2</div>
+        <div class="site" id="3" data-numsite="3">No. 3</div>
+        <div class="site" id="4" data-numsite="4">No. 4</div>
+        <div class="site" id="5" data-numsite="5">No. 5</div>
+        <div class="site" id="6" data-numsite="6">No. 6</div>
+        <div class="site" id="7" data-numsite="7">No. 7</div>
+        <div class="site" id="8" data-numsite="8">No. 8</div>
+        <div class="site" id="9" data-numsite="9">No. 9</div>
+        <div class="site" id="10" data-numsite="10">No. 10</div>
+        <div class="site" id="11" data-numsite="11">No. 11</div>
+        <div class="site" id="12" data-numsite="12">No. 12</div>
+        <div class="site" id="13" data-numsite="13">No. 13</div>
+        <div class="site" id="14" data-numsite="14">No. 14</div>
+        <div class="site" id="15" data-numsite="15">No. 15</div>
+        <div class="site" id="16" data-numsite="16">No. 16</div>
+        <div class="site" id="17" data-numsite="17">No. 17</div>
+        <div class="site" id="18" data-numsite="18">No. 18</div>
+    </section>
+
     <script src="websocket-client.js" charset="utf-8"></script>
+    <script src="/assets/jquery-3.2.1.slim.min.js" charset="utf-8"></script>
     <script type="text/javascript">
-        const io = ws('');
-        io.channel('assign_ticket').connect(function(error, connected){
-            console.log(error, connected);
+
+        $(function(){
+
+            const io = ws('');
+            const client = io.channel('assign_ticket').connect(console.log);
+
+            var sites_limit = 1;
+
+            $(".site").click(function(event) {
+                if ($(".site-sess").length < sites_limit || $(this).hasClass('site-sess')){
+                    $(this).toggleClass('site-pre-assigned site-sess');
+                    client.emit('message', $(this).data('numsite'));
+                }
+                else{
+                    alert("Has alcanzado el limite de asientos seleccionados");
+                }
+            });
+
+            function selectSite(message){
+                console.log(message);
+            }
+
+            client.on('message', selectSite);
+
         });
+
     </script>
 
 {% endblock %}
