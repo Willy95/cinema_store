@@ -1,0 +1,13 @@
+{% extends 'master' %}
+
+{% block content %}
+
+    <script src="websocket-client.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        const io = ws('');
+        io.channel('assign_ticket').connect(function(error, connected){
+            console.log(error, connected);
+        });
+    </script>
+
+{% endblock %}
