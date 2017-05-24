@@ -1,42 +1,10 @@
 {% extends 'master' %}
 
 {% block content %}
+    <link rel="stylesheet" href="/assets/css/app.css">
 
-    <style media="screen">
-        body{
-            padding: 3rem;
-        }
-        section.bus{
-            background: #243835;
-            padding: .2rem;
-            box-sizing: border-box;
-            width: 100%;
-            height: 16.5rem;
-            border-bottom-left-radius: 5rem;
-            border-top-left-radius: 5rem;
-            padding-left: 5rem;
-            border-right: solid 5rem;
-        }
-        .site{
-            color: #fff;
-            background: cadetblue;
-            width: 5rem;
-            height: 6rem;
-            text-align: center;
-            box-sizing: border-box;
-            padding-top: 2.5rem;
-            margin: 1rem;
-            float: left;
-            cursor: pointer;
-        }
-        .site:hover{
-            transition: .5s;
-            background: #43e33b;
-        }
-        .site-pre-assigned{
-            background: #43e33b;
-        }
-    </style>
+    <label>Cantidad de Asientos</label><br>
+    <input type="text" name="" value="1" id="limitsite" placeholder="Ej: 1">
 
     <section class="bus">
         <div class="site" id="1" data-numsite="1">No. 1</div>
@@ -59,35 +27,21 @@
         <div class="site" id="18" data-numsite="18">No. 18</div>
     </section>
 
+    <section>
+        <form>
+            <label>Nombre completo</label><br>
+            <input type="text" name="" value="" id="" placeholder="Nombre y apellidos"><br>
+
+            <label>Número de tarjeta</label><br>
+            <input type="text" name="" value="" id="" placeholder="4242424242424242"><br>
+
+            <label>Correo Electrónico</label><br>
+            <input type="email" name="" value="" id="" placeholder="alguien@email.com"><br>
+        </form>
+    </section>
+
     <script src="websocket-client.js" charset="utf-8"></script>
     <script src="/assets/jquery-3.2.1.slim.min.js" charset="utf-8"></script>
-    <script type="text/javascript">
-
-        $(function(){
-
-            const io = ws('');
-            const client = io.channel('assign_ticket').connect(console.log);
-
-            var sites_limit = 1;
-
-            $(".site").click(function(event) {
-                if ($(".site-sess").length < sites_limit || $(this).hasClass('site-sess')){
-                    $(this).toggleClass('site-pre-assigned site-sess');
-                    client.emit('message', $(this).data('numsite'));
-                }
-                else{
-                    alert("Has alcanzado el limite de asientos seleccionados");
-                }
-            });
-
-            function selectSite(message){
-                console.log(message);
-            }
-
-            client.on('message', selectSite);
-
-        });
-
-    </script>
+    <script src="/assets/js/app.js" charset="utf-8"></script>
 
 {% endblock %}
