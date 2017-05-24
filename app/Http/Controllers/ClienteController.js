@@ -14,8 +14,25 @@ class ClienteController {
 
     }
 
-    * register () {
+    * register (request, response) {
+        const data = request.only('fecha','nombre','asiento','destino')
+        const rules = {
+            fecha: 'required',
+            nombre: 'required',
+            asiento: 'required',
+            destino: 'required'
+        }
+        const messages = {
+            required: 'No seas gacho llena todos los campos'
+        }
+        const validation = yield Validator.validate(data,rules,messages)
 
+        if (validation.fails()) {
+            let res = validation.messages()[0].message
+            return response.json(res) // verificar la respuesta para mostrarla en una alerta y no en vista
+        } else {
+
+        }
     }
 
 }
