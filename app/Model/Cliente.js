@@ -7,6 +7,6 @@ let ClienteSchema = Mongo.Schema({
     destino:{type:String, required: true},
     asiento:{type:Number, required: true},
     fecha:{type:String,required:true}
-}),{collection:'clientes'}
+},{collection:'clientes'})
 
 module.exports = Mongo.model('ClienteSchema',ClienteSchema)

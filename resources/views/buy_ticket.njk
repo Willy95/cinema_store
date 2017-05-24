@@ -2,14 +2,16 @@
 
 {% block content %}
     <link rel="stylesheet" href="/assets/css/app.css">
-
+    <style media="screen">
+        #reservar{
+            padding: 5px;
+        }
+    </style>
     {# Modificar para poder guardar un arreglo de asientos por cliente #}
 
     <h2>Solo se puede reservar un lugar por persona.</h2>
-    <hr><br>
-    <label>Fecha de reservación</label><br>
-    <input disabled type="text" name="fecha" value="{{ fecha() }}" id="fecha" placeholder="{{ fecha() }}">
-
+    <hr>
+    <br>
     <section class="bus">
         <div class="site" id="1" data-numsite="1">No. 1</div>
         <div class="site" id="2" data-numsite="2">No. 2</div>
@@ -32,16 +34,21 @@
     </section>
 
     <section>
-        <form>
+        <form action="/guardar" method="post">
+            {{csrfField}}
+            <label>Fecha de reservación</label><br>
+            <input readonly type="text" name="fecha" value="{{ fecha() }}" id="fecha" placeholder="{{ fecha() }}">
             <label>Nombre completo</label><br>
             <input type="text" name="nombre" value="" id="nombre" placeholder="Nombre y apellidos"><br>
 
             <label>Asiento</label><br>
-            <input disabled type="number" name="asiento" value="" id="asiento" placeholder="No asignado"><br>
+            <input readonly type="number" name="asiento" value="" id="asiento" placeholder="No asignado"><br>
 
             <label>Destino</label><br>
             <input type="text" name="destino" value="" id="destino" placeholder="Eje: Guadalajara"><br>
-        </form>
+
+            <button type="submit" name="button" id="reservar">Reservar</button>
+        </form><br><br>
     </section>
 
     <script src="websocket-client.js" charset="utf-8"></script>

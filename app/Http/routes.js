@@ -19,3 +19,4 @@ const Route = use('Route')
 
 //Route.on('/').render('buy_ticket')
 Route.get('/','ClienteController.getDate')
+Route.post('/guardar','ClienteController.register')

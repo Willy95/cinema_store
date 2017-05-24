@@ -1,6 +1,6 @@
 'use strict'
 const Validator = use('Validator')
-//const Cliente = use('App/Model/Cliente')
+const Cliente = use('App/Model/Cliente')
 const View = use('Adonis/Src/View')
 
 class ClienteController {
@@ -31,7 +31,8 @@ class ClienteController {
             let res = validation.messages()[0].message
             return response.json(res) // verificar la respuesta para mostrarla en una alerta y no en vista
         } else {
-
+            Cliente.create(data)
+            return response.redirect('/')
         }
     }
 

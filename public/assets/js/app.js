@@ -39,11 +39,30 @@ $(function(){
                 case "unassigned":
                     site.removeClass('site-pre-assigned');
                     site.addClass('site');
+                    $('#asiento').val('No asignado')
+                    $('#reservar').attr("disabled",true)
                 break;
             }
         }
     }
 
     client.on('message', selectSite);
+
+    /*-------------------------------------------------------------------------*/
+
+    $('#reservar').attr("disabled",true)
+
+    $('div').click(function(){
+        $.each($("body").find('.site-pre-assigned-sess'), function(){
+            console.log($(this).data('numsite'));
+            $('#asiento').val($(this).data('numsite'))
+            $('#reservar').attr("disabled",false)
+        })
+    })
+
+    // $('#reservar').click(function(){
+    //
+    // })
+
 
 });
