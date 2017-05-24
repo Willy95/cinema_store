@@ -30,15 +30,15 @@
     <section>
         <form action="/guardar" method="post" id="form">
             {{ csrfField }}
-            <label>Fecha de reservación</label><br>
+            <label>(*) Fecha de reservación</label><br>
             <input readonly type="text" name="fecha" value="{{ fecha() }}" id="fecha" placeholder="{{ fecha() }}">
-            <label>Nombre completo</label><br>
+            <label>(*) Nombre completo</label><br>
             <input type="text" name="nombre" value="" id="nombre" placeholder="Nombre y apellidos"><br>
 
-            <label>Asiento</label><br>
-            <input readonly type="number" name="asiento" value="" id="asiento" placeholder="No asignado"><br>
+            <label>(*) Asiento</label><br>
+            <input readonly type="number" name="asiento" value="" id="asiento" placeholder="Selecciona uno de arriba"><br>
 
-            <label>Destino</label><br>
+            <label>(*) Destino</label><br>
             <input type="text" name="destino" value="" id="destino" placeholder="Eje: Guadalajara"><br>
 
             <button type="submit" name="button" id="reservar">Reservar</button>

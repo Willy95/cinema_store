@@ -23,7 +23,7 @@ class ClienteController {
             destino: 'required'
         }
         const messages = {
-            required: 'No seas gacho llena todos los campos'
+            required: 'Por favor ingresa todos los datos requeridos'
         }
         const validation = yield Validator.validate(data,rules,messages)
 
