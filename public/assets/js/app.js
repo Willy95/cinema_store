@@ -3,7 +3,7 @@ $(function(){
     const io = ws('');
     const client = io.channel('assign_ticket').connect(console.log);
 
-    var sites_limit = 1;
+    var sites_limit = 2;
     var siteMsg = { site: null, type: null };
 
     $(".site").click(function(event) {
