@@ -40,6 +40,14 @@ class ClienteController {
         }
     }
 
+
+    * assigned(req, res){
+        return res.send({
+            status: "200",
+            data: []
+        });
+    }
+
 }
 
 module.exports = ClienteController
