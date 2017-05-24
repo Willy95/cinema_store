@@ -7,23 +7,24 @@ $(function(){
     var siteMsg = { site: null, type: null };
 
     $(".site").click(function(event) {
-        if ($(this).hasClass('site-pre-assigned-sess') ||
-        $(this).hasClass('site-pre-assigned') ||
-        $(this).hasClass('site-assigned')) {
-            siteMsg.site = $(this).data('numsite');
-            siteMsg.type = "unassigned";
-            client.emit('message', siteMsg);
-            $(this).removeClass('site-pre-assigned-sess');
-        }
+        if ( $(this).hasClass('site-pre-assigned') || $(this).hasClass('site-assigned') ){ return; }
         else {
-            if ( $(".site-pre-assigned-sess").length < sites_limit ){
+            if ($(this).hasClass('site-pre-assigned-sess')) {
                 siteMsg.site = $(this).data('numsite');
-                siteMsg.type = "pre-assigned";
+                siteMsg.type = "unassigned";
                 client.emit('message', siteMsg);
-                $(this).addClass('site-pre-assigned-sess');
+                $(this).removeClass('site-pre-assigned-sess');
             }
-            else{
-                alert("Has alcanzado el límite de asientos seleccionados");
+            else {
+                if ( $(".site-pre-assigned-sess").length < sites_limit ){
+                    siteMsg.site = $(this).data('numsite');
+                    siteMsg.type = "pre-assigned";
+                    client.emit('message', siteMsg);
+                    $(this).addClass('site-pre-assigned-sess');
+                }
+                else{
+                    alert("Has alcanzado el límite de asientos seleccionados");
+                }
             }
         }
     });
