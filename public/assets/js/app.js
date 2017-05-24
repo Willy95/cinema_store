@@ -1,5 +1,7 @@
 $(function(){
 
+    getTicketsAssigned();
+
     const io = ws('');
     const client = io.channel('assign_ticket').connect(console.log);
 
@@ -68,6 +70,35 @@ $(function(){
             destino: $("#destino").val()
         }
         return data;
+    }
+
+    function getTicketsAssigned(){
+        $.ajax({
+            url: '/assigned-tickets',
+            type: 'POST',
+            dataType: 'JSON'
+        })
+        .done(function(res){
+            if (res.data.length > 0){
+                assignTicketDefault(res.data);
+            }
+        })
+        .fail(function(res) {
+            alert("Error");
+            console.log(res);
+        });
+    }
+
+    function assignTicketDefault(res){
+        $.each(res, function(index, el) {
+            $.each($(".bus div"), function() {
+                if (el.asiento == $(this).data('numsite')){
+                    $(this).removeClass('site-pre-assigned');
+                    $(this).removeClass('site');
+                    $(this).addClass('assigned');
+                }
+            });
+        });
     }
 
 
