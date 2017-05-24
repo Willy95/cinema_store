@@ -7,7 +7,7 @@ $(function(){
     var siteMsg = { site: null, type: null };
 
     $(".site").click(function(event) {
-        if ( $(this).hasClass('site-pre-assigned') || $(this).hasClass('site-assigned') ){ return; }
+        if ( $(this).hasClass('site-pre-assigned') || $(this).hasClass('assigned') ){ return; }
         else {
             if ($(this).hasClass('site-pre-assigned-sess')) {
                 siteMsg.site = $(this).data('numsite');
@@ -26,6 +26,8 @@ $(function(){
                     alert("Has alcanzado el límite de asientos seleccionados");
                 }
             }
+            $('#asiento').val($(this).data('numsite'));
+            $('#reservar').attr("disabled",false);
         }
     });
 
@@ -43,6 +45,11 @@ $(function(){
                     $('#asiento').val('No asignado')
                     $('#reservar').attr("disabled",true)
                 break;
+                case "assigned":
+                    site.removeClass('site-pre-assigned');
+                    site.removeClass('site');
+                    site.addClass('assigned');
+                break;
             }
         }
     }
@@ -51,19 +58,55 @@ $(function(){
 
     /*-------------------------------------------------------------------------*/
 
-    $('#reservar').attr("disabled",true)
 
-    $('div').click(function(){
-        $.each($("body").find('.site-pre-assigned-sess'), function(){
-            console.log($(this).data('numsite'));
-            $('#asiento').val($(this).data('numsite'))
-            $('#reservar').attr("disabled",false)
+
+    function getDataDOM(){
+        var data = {
+            fecha: $("#fecha").val(),
+            nombre: $("#nombre").val(),
+            asiento: $("#asiento").val(),
+            destino: $("#destino").val()
+        }
+        return data;
+    }
+
+
+
+    /*-------------------------------------------------------------------------*/
+
+    $('#reservar').attr("disabled", true);
+    $('#asiento').val("");
+
+    $('#reservar').click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url: $("#form").attr('action'),
+            type: $("#form").attr('method'),
+            dataType: 'JSON',
+            data: getDataDOM()
         })
-    })
+        .done(function(r) {
+            if (r.status == "200"){
+                let site = $("#" + r.data.asiento);
+                site.removeClass('site-pre-assigned-sess');
+                site.removeClass('site-pre-assigned');
+                site.removeClass('site');
+                site.addClass('assigned');
 
-    // $('#reservar').click(function(){
-    //
-    // })
+                siteMsg.site = r.data.asiento;
+                siteMsg.type = "assigned";
+                client.emit('message', siteMsg);
+            }
+            else {
+                alert("Error inesperado");
+                console.log(r);
+            }
+        })
+        .fail(function(e) {
+            alert(e.responseText);
+            console.log(e);
+        });
+    });
 
 
 });

@@ -32,7 +32,11 @@ class ClienteController {
             return response.json(res) // verificar la respuesta para mostrarla en una alerta y no en vista
         } else {
             Cliente.create(data)
-            return response.redirect('/')
+            return response.json({
+                status: "200",
+                message: "Exito!",
+                data: data
+            })
         }
     }
 

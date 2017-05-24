@@ -34,8 +34,8 @@
     </section>
 
     <section>
-        <form action="/guardar" method="post">
-            {{csrfField}}
+        <form action="/guardar" method="post" id="form">
+            {{ csrfField }}
             <label>Fecha de reservación</label><br>
             <input readonly type="text" name="fecha" value="{{ fecha() }}" id="fecha" placeholder="{{ fecha() }}">
             <label>Nombre completo</label><br>
@@ -52,7 +52,7 @@
     </section>
 
     <script src="websocket-client.js" charset="utf-8"></script>
-    <script src="/assets/jquery-3.2.1.slim.min.js" charset="utf-8"></script>
+    <script src="/assets/jquery-3.2.1.min.js" charset="utf-8"></script>
     <script src="/assets/js/app.js" charset="utf-8"></script>
 
 {% endblock %}
