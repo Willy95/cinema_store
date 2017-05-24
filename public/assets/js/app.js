@@ -121,6 +121,10 @@ $(function(){
                 siteMsg.site = r.data.asiento;
                 siteMsg.type = "assigned";
                 client.emit('message', siteMsg);
+
+                $('#nombre').val('')
+                $('#asiento').val('')
+                $('#destino').val('')
             }
             else {
                 alert("Error inesperado");
