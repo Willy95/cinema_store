@@ -2,8 +2,8 @@
 
 const Lucid = use('Lucid')
 
-Class Cliente extends Lucid {
-    
+class Cliente extends Lucid {
+
 }
 
 module.exports = Cliente
