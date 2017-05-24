@@ -3,7 +3,10 @@
 const Lucid = use('Lucid')
 
 class Cliente extends Lucid {
-
+    static boot () {
+        super.boot()
+        this.addHook('beforeCreate','Cliente.generateCode')
+    }
 }
 
 module.exports = Cliente
