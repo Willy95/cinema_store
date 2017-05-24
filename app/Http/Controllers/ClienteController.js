@@ -41,7 +41,7 @@ class ClienteController {
             return response.json({
                 status: "200",
                 message: "Exito!",
-                data: data
+                data: cliente
             })
         }
     }

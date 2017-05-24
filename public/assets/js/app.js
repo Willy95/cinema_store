@@ -90,12 +90,14 @@ $(function(){
     }
 
     function assignTicketDefault(res){
+        console.log(res);
         $.each(res, function(index, el) {
             $.each($(".bus div"), function() {
                 if (el.asiento == $(this).data('numsite')){
                     $(this).removeClass('site-pre-assigned');
                     $(this).removeClass('site');
                     $(this).addClass('assigned');
+                    $(this).attr('title', "Código : " + el.codigo);
                 }
             });
         });
@@ -123,6 +125,7 @@ $(function(){
                 site.removeClass('site-pre-assigned');
                 site.removeClass('site');
                 site.addClass('assigned');
+                site.attr('title', "Código : " + r.data.codigo);
 
                 siteMsg.site = r.data.asiento;
                 siteMsg.type = "assigned";
