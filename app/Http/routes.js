@@ -22,3 +22,7 @@ Route.get('/','ClienteController.getDate')
 Route.post('/guardar','ClienteController.register')
 
 Route.post('/assigned-tickets','ClienteController.assigned')
+
+// Chat Room App
+Route.get('/registerChat','ChatController.viewChatRooms')
+Route.get('/registerUser','ChatController.viewRegisterUser')
