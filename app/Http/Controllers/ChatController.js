@@ -2,9 +2,7 @@
 const Validator = use('Validator')
 const Room = use('App/Model/Room')
 const Database = use('Database')
-
 const User = use('App/Model/User')
-const Database = use('Database')
 
 class ChatController {
 
