@@ -11,7 +11,8 @@ $(function(){
         return data;
     }
 
-    $('#save').click(function(){
+    $('#save').click(function(e){
+        e.preventDefault();
         $.ajax({
             url: $('#registerUserForm').attr('action'),
             type: $('#registerUserForm').attr('method'),
@@ -22,7 +23,12 @@ $(function(){
             $('#nicknameReg').val('')
             $('#passwordReg').val('')
         }).fail(function(){})
-    })
+    });
+
+    $("#registerUserForm").on('submit', function(event) {
+        event.preventDefault();
+        $('#save').trigger('click');
+    });
 
     //**************************************************************//
     // LOGIN
