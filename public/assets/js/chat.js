@@ -97,6 +97,7 @@ $(function(){
                 console.log(err);
             }
             if (join){
+                console.log("Conectado a room: " + join);
                 objMsg.type = "getFirstMessages";
                 objMsg.room = room;
                 client.emit('message', objMsg);
