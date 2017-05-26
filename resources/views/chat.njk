@@ -133,14 +133,14 @@
                   <ul class="users-list clearfix">
                       {% for room in roomers%}
                           {% if (room.room_name == 'general')%}
-                              <li style="cursor:pointer;" class="room" data-rm="{{room.code_access}}">
+                              <li style="cursor:pointer;" class="room" data-rm="{{room.room_name}}">
                                 <img src="/dist/img/boxed-bg.jpg" alt="User Image">
                                 <a class="users-list-name" href="#">{{room.room_name}}</a>
                                 <!-- <span class="users-list-date">Username</span> -->
                               </li>
                           {% else %}
-                              <li style="cursor:pointer;" class="room" data-rm="{{room.code_access}}">
-                                <img src="/dist/img/boxed-bg.jpg" alt="User Image">
+                              <li style="cursor:pointer;" class="room" data-rm="{{room.room_name}}">
+                                <img src="/dist/img/{{room.image}}" alt="User Image">
                                 <a class="users-list-name" href="#">{{room.room_name}}</a>
                                 {% if (room.user_id == currentUser.id) %}
                                     <span class="users-list-date">Admin</span>
