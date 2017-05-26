@@ -83,6 +83,7 @@
                 <p>Registra un nuevo grupo de chat en cual tú eres el administrador.</p>
                 <hr>
                 <form class="" action="/createRoom" method="post" id="addRoomForm">
+                    {{csrfField}}
                     <div class="form-group has-feedback">
                       <input readonly type="text" class="form-control" name="admin" id="admin" data-idadmin="{{currentUser.id}}" value="" placeholder="Administrador: {{currentUser.nickname}}">
                       <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -114,7 +115,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding" style="height: 45.35rem;">
-                  <ul class="users-list clearfix" id="">
+                  <ul class="users-list clearfix">
                     {% for room in rooms %}
                         <li style="cursor:pointer;" class="room" data-rm="gp2">
                           <img src="dist/img/{{room.image}}" alt="User Image">

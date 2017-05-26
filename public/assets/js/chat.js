@@ -115,8 +115,7 @@ $(function(){
         var data = {
             admin: $('#admin').data('idadmin'),
             nameRoom: $('#nameRoom').val()
-        }
-
+        };
         $.ajax({
             url: $('#addRoomForm').attr('action'),
             type: $('#addRoomForm').attr('method'),

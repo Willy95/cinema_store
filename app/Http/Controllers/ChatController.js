@@ -14,9 +14,9 @@ class ChatController {
     }
 
     * viewChat(req, res){
-        const rooms = Room.find({})
-        console.log(rooms);
-        return yield res.sendView('chat',{rooms: rooms});
+        const rooms = yield Room.all()
+        console.log(rooms.toJSON());
+        return yield res.sendView('chat',{rooms: rooms.toJSON()})
     }
 
     * createRoom(req, res) {
