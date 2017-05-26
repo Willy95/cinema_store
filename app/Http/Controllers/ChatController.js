@@ -23,8 +23,8 @@ class ChatController {
     }
 
     * createRoom(req, res) {
-        const data = request.only('admin','nameRoom')
-        const rule = {
+        const data = req.only('admin','nameRoom')
+        const rules = {
             admin: 'required',
             nameRoom: 'required'
         }
@@ -34,7 +34,7 @@ class ChatController {
         const validation = yield Validator.validate(data,rules,messages)
         if(validation.fails()){
             let res = validation.messages()[0].message
-            return response.json({
+            return res.json({
                 status: 0,
                 res: res
             })
@@ -46,7 +46,7 @@ class ChatController {
             room.admin_id  = data.admin
             room.image    = "avatar" + Math.floor((Math.random() * 5) + 1) + ext[Math.floor((Math.random() * 2) + 1) - 1]
             yield room.save()
-            return response.json({
+            return res.json({
                 status: 1,
                 res: 'Guardado exitosamente'
             })
