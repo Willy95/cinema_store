@@ -3,6 +3,9 @@ const Validator = use('Validator')
 const Room = use('App/Model/Room')
 const Database = use('Database')
 
+const User = use('App/Model/User')
+const Database = use('Database')
+
 class ChatController {
 
     * viewChatRooms(req, res) {
@@ -48,6 +51,12 @@ class ChatController {
                 res: 'Guardado exitosamente'
             })
         }
+    }
+
+    * findUsersToRoom (req, res){
+        let params = req.params();
+        const users = yield Database.from('users').where({ active: 1, nickname: params.user })
+        res.json(users)
     }
 
 }
