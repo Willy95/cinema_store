@@ -16,5 +16,6 @@
 
 const Ws = use('Ws');
 
-Ws.channel('assign_ticket', 'BusTicketController');
-Ws.channel('online','ChatController')/*.middleware('auth')*/
+// Ws.channel('assign_ticket', 'BusTicketController');
+// CHAT
+Ws.channel('online','ChatController').middleware('auth')

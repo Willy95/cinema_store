@@ -42,12 +42,14 @@ $(function(){
         let code =
             `<div class="direct-chat-msg"><br>
               <div class="direct-chat-info clearfix">
-                <span class="direct-chat-name pull-left" style="margin-left: 5rem;">Alexander Pierce</span>
+                <span class="direct-chat-name pull-left" style="margin-left: 5rem;">
+                    ${ message.user.nickname }
+                </span>
                 <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
               </div>
-              <img class="direct-chat-img" src="/dist/img/user2-160x160.jpg" alt="message user image">
+              <img class="direct-chat-img" src="/dist/img/${ message.user.image }" alt="message user image">
               <div class="direct-chat-text">
-                ${ message.message }
+                ${ message.message.message }
               </div>
             </div>`;
         $("#bodyMessage").append(code);
@@ -58,12 +60,14 @@ $(function(){
         let code =
             `<div class="direct-chat-msg right"><br>
               <div class="direct-chat-info clearfix">
-                <span class="direct-chat-name pull-right" style="margin-right: 5rem;">Sarah Bullock</span>
+                <span class="direct-chat-name pull-right" style="margin-right: 5rem;">
+                    ${ message.user.nickname }
+                </span>
                 <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
               </div>
-              <img class="direct-chat-img" src="/dist/img/user3-128x128.jpg" alt="message user image">
+              <img class="direct-chat-img" src="/dist/img/${ message.user.image }" alt="message user image">
               <div class="direct-chat-text">
-                  ${ message.message }
+                  ${ message.message.message }
               </div>
             </div>`;
         $("#bodyMessage").append(code);
@@ -97,6 +101,7 @@ $(function(){
                 console.log(err);
             }
             if (join){
+                console.log("Conectado a room: " + join);
                 objMsg.type = "getFirstMessages";
                 objMsg.room = room;
                 client.emit('message', objMsg);
