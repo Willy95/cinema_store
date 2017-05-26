@@ -2,7 +2,7 @@
 const Validator = use('Validator')
 const User = use('App/Model/User')
 const Hash = use('Hash')
-const Database = ('Database')
+const Database = use('Database')
 
 class UserController {
 
@@ -37,8 +37,8 @@ class UserController {
                 user.nickname = data.nicknameReg
                 user.password = yield Hash.make(data.passwordReg)
                 user.active   = 1
-                console.log(ext);
-                console.log(Math.floor((Math.random() * 2) + 1));
+                // console.log(ext);
+                // console.log(Math.floor((Math.random() * 2) + 1));
                 user.image    = "avatar" + Math.floor((Math.random() * 5) + 1) + ext[Math.floor((Math.random() * 2) + 1) - 1]
                 yield user.save()
                 return response.json({
