@@ -23,6 +23,8 @@ const Route = use('Route')
 //
 // Route.post('/assigned-tickets','ClienteController.assigned')
 
+Route.post('/assigned-tickets','ClienteController.assigned')
+
 //************************************************************************//
 // RUTAS DE CHAT
 
@@ -31,3 +33,4 @@ Route.post('/register', 'UserController.register')
 Route.get('/login', 'UserController.loginView')
 Route.post('/auth', 'UserController.auth')
 Route.get('/logout', 'UserController.logOut')
+Route.get('/chat/:room?','ChatController.viewChat')
