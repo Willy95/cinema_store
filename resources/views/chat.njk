@@ -1,5 +1,9 @@
 {% extends 'templates.chatRooms-master' %}
 
+{% block css %}
+    <link rel="stylesheet" href="/libs/selectize.js/dist/css/selectize.css">
+{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-8">
@@ -34,8 +38,19 @@
 
                 <!-- Contacts are loaded here -->
                 <div class="direct-chat-contacts" style="height:40rem;">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h6>Agregar Integrantes al grupo</h6>
+                                <div id="searchuser"></div>
+                            </div>
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-primary btn-block" style="margin-top:-2rem;">Agregar</button>
+                            </div>
+                        </div>
+                    </div>
                   <ul class="contacts-list">
-
                     <li>
                       <a href="javascript:void(0)">
                           <img class="contacts-list-img" src="dist/img/user1-128x128.jpg" alt="User Image">
@@ -116,12 +131,15 @@
                 <!-- /.box-header -->
                 <div class="box-body no-padding" style="height: 45.35rem;">
                   <ul class="users-list clearfix">
-                    {% for room in rooms %}
-                        <li style="cursor:pointer;" class="room" data-rm="gp2">
-                          <img src="dist/img/{{room.image}}" alt="User Image">
-                          <a class="users-list-name" href="#">{{ room.room_name }}</a>
-                        </li>
-                    {% endfor %}
+                      {% for room in roomers%}
+                          {% if (room.room_name == 'general')%}
+                              <li style="cursor:pointer;" class="room" data-rm="{{room.code_access}}">
+                                <img src="/dist/img/boxed-bg.jpg" alt="User Image">
+                                <a class="users-list-name" href="#">{{room.room_name}}</a>
+                                <!-- <span class="users-list-date">Username</span> -->
+                              </li>
+                          {% endif %}
+                      {% endfor %}
                   </ul>
                   <!-- /.users-list -->
                 </div>
@@ -136,5 +154,6 @@
 {% endblock %}
 
 {% block js%}
+    <script src="/libs/selectize.js/dist/js/standalone/selectize.min.js" charset="utf-8"></script>
     <script src="/assets/js/chat.js" charset="utf-8"></script>
 {% endblock %}
