@@ -70,29 +70,57 @@
               <!-- /.box-footer-->
             </div>
         </div>
+
+        <!-- Modal para agregar al grupo -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="addRoom">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><i class="fa fa-plus"></i>&nbsp Agregar un nuevo Room</h4>
+              </div>
+              <div class="modal-body">
+                <p>Registra un nuevo grupo de chat en cual tú eres el administrador.</p>
+                <hr>
+                <form class="" action="/createRoom" method="post" id="addRoomForm">
+                    <div class="form-group has-feedback">
+                      <input readonly type="text" class="form-control" name="admin" id="admin" data-idadmin="{{currentUser.id}}" value="" placeholder="Administrador: {{currentUser.nickname}}">
+                      <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                      <input type="text" class="form-control" name="nameRoom" id="nameRoom" value="" placeholder="Nombre del room">
+                      <span class="fa fa-comments-o form-control-feedback"></span>
+                    </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="addRoombtn">Crear room</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- /. Modal para agregar al grupo -->
+
         <div class="col-md-4">
             <div class="box box-success" >
                 <div class="box-header with-border">
                   <h3 class="box-title">Grupos</h3>
                   <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Nuevo" id="showModalBtn">
+                    <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#addRoom" id="showModalBtn">
                         <i class="fa fa-plus"></i>
                     </button>
                   </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding" style="height: 45.35rem;">
-                  <ul class="users-list clearfix">
-                    <li style="cursor:pointer;" class="room" data-rm="gp1">
-                      <img src="dist/img/user1-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Room Name</a>
-                      <span class="users-list-date">Username</span>
-                    </li>
-                    <li style="cursor:pointer;" class="room" data-rm="gp2">
-                      <img src="dist/img/user8-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Norman</a>
-                      <span class="users-list-date">Yesterday</span>
-                    </li>
+                  <ul class="users-list clearfix" id="">
+                    {% for room in rooms %}
+                        <li style="cursor:pointer;" class="room" data-rm="gp2">
+                          <img src="dist/img/{{room.image}}" alt="User Image">
+                          <a class="users-list-name" href="#">{{ room.room_name }}</a>
+                        </li>
+                    {% endfor %}
                   </ul>
                   <!-- /.users-list -->
                 </div>

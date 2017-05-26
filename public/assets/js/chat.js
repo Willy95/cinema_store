@@ -111,4 +111,26 @@ $(function(){
 
     // ======================================================================
 
+    $('#addRoombtn').click(function(e){
+        var data = {
+            admin: $('#admin').data('idadmin'),
+            nameRoom: $('#nameRoom').val()
+        }
+
+        $.ajax({
+            url: $('#addRoomForm').attr('action'),
+            type: $('#addRoomForm').attr('method'),
+            dataType: 'JSON',
+            data: data
+        }).done(function(response){
+            if (response.status == 1) {
+                alert(response.res);
+                document.location = '/chat';
+            } else {
+                alert(response.res);
+            }
+        }).fail(function(){})
+
+    })
+
 });
