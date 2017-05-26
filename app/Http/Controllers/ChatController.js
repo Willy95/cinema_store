@@ -10,6 +10,10 @@ class ChatController {
         return yield res.sendView('registerUser');
     }
 
+    * viewChat(req, res){
+        return yield res.sendView('chat');
+    }
+
 }
 
 module.exports = ChatController

@@ -26,3 +26,4 @@ Route.post('/assigned-tickets','ClienteController.assigned')
 // Chat Room App
 Route.get('/registerChat','ChatController.viewChatRooms')
 Route.get('/registerUser','ChatController.viewRegisterUser')
+Route.get('/chat/:room?','ChatController.viewChat')
