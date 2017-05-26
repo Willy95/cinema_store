@@ -11,10 +11,10 @@ class UserController {
     }
 
     * register (request, response) {
-        const data = request.only('nickname','password')
+        const data = request.only('nicknameReg','passwordReg')
         const rules = {
-            nickname: 'required',
-            password: 'required'
+            nicknameReg: 'required',
+            passwordReg: 'required'
         }
         const messages = {
             required: 'Llena todos los campos'
@@ -22,11 +22,13 @@ class UserController {
         const validation = yield Validator.validate(data,rules,messages)
         if (validation.fails()) {
             let res = validation.messages()[0].message
-            return response.json(res)
+            return response.json({
+                res: res
+            })
         } else {
             let user = new User()
-            user.nickname = data.nickname
-            user.password = yield Hash.make(data.password)
+            user.nickname = data.nicknameReg
+            user.password = yield Hash.make(data.passwordReg)
             user.active   = 1
             yield user.save()
             return response.json({
@@ -40,7 +42,41 @@ class UserController {
     }
 
     * auth (request, response) {
+        const data = request.only('nickname','password')
+        const rules = {
+            nickname: 'required',
+            password: 'required'
+        }
+        const messages = {
+            required: 'Llena todos los campos'
+        }
+        const validation = yield Validator.validate(data,rules,messages)
+        if (validation.fails()) {
+            let res = validation.messages()[0].message
+            return response.json({
+                res: res
+            })
+        } else {
+            try {
+                const login = yield request.auth.attempt(data.nickname,data.password)
+                if (login) {
+                    // return response.redirect('/')
+                     return yield response.sendView('chat')
+                    // return yield response.json({
+                    //     res: 'logeado'
+                    // })
+                }
+            } catch (err) {
+                return yield response.json({
+                    res: 'Credenciales no validas'
+                })
+            }
+        }
+    }
 
+    * logOut (request, response) {
+        yield request.auth.logout()
+        return response.redirect('/')
     }
 
 }
