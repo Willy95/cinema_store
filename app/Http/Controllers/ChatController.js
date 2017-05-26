@@ -2,9 +2,7 @@
 const Validator = use('Validator')
 const Room = use('App/Model/Room')
 const Database = use('Database')
-
 const User = use('App/Model/User')
-const Database = use('Database')
 
 class ChatController {
 
@@ -17,9 +15,11 @@ class ChatController {
     }
 
     * viewChat(req, res){
-        const rooms = yield Room.all()
-        console.log(rooms.toJSON());
-        return yield res.sendView('chat',{rooms: rooms.toJSON()})
+        const rooms = yield Database.from('users_rooms')
+        .innerJoin('rooms', 'users_rooms.room_id', 'rooms.id')
+        .where({ 'users_rooms.user_id': req.auth.user.attributes.id })
+        console.log(rooms);
+        return yield res.sendView('chat', {roomers: rooms});
     }
 
     * createRoom(req, res) {
