@@ -50,9 +50,17 @@ $(function(){
             dataType: 'JSON',
             data: getFormLogin()
         }).done(function(response){
-            alert(response.res)
-            $('#nickname').val('')
-            $('#password').val('')
-        }).fail(function(){})
+            if (response.res == "success"){
+                document.location.href = "/chat";
+            }
+            else{
+                alert(response.res);
+                $('#nickname').val('');
+                $('#password').val('');
+            }
+        }).fail(function(e){
+            alert("Error inesperado");
+            console.log(e);
+        })
     })
 })
