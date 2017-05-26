@@ -60,10 +60,12 @@ class UserController {
             try {
                 const login = yield request.auth.attempt(data.nickname,data.password)
                 if (login) {
-                    yield response.sendView('chatRooms')
+                    return yield response.json({
+                        res: 'success'
+                    })
                 }
             } catch (err) {
-                return yield response.json({
+                return response.json({
                     res: 'Credenciales no validas'
                 })
             }
