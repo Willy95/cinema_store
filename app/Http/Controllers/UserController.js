@@ -60,11 +60,7 @@ class UserController {
             try {
                 const login = yield request.auth.attempt(data.nickname,data.password)
                 if (login) {
-                    // return response.redirect('/')
-                     return yield response.sendView('chat')
-                    // return yield response.json({
-                    //     res: 'logeado'
-                    // })
+                    yield response.sendView('chatRooms')
                 }
             } catch (err) {
                 return yield response.json({
