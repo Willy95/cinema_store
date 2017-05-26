@@ -16,6 +16,15 @@
 
 const Ws = use('Ws')
 
-Ws.channel('assign_ticket', function(socket){
-    console.log('socket connected', socket.id);
-})
+Ws.channel('assign_ticket', 'BusTicketController');
+Ws.channel('chat_room','ChatController').middleware('auth')
+
+// Ws.channel('assign_ticket', function(socket){
+//     console.log('socket connected', socket.id);
+//     socket.on('message', function(message){
+//         socket.toEveryone().emit('message', message);
+//         console.log('received message: ', message);
+//     });
+// }).disconnected(function (socket){
+//     console.log('socket disconnected', socket.id);
+// });

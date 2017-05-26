@@ -38,4 +38,21 @@ Http.handleError = function * (error, request, response) {
  * starting http server.
  */
 Http.onStart = function () {
+
+    const View = use('View');
+    View.global('time', function () {
+        return new Date().getTime()
+    });
+
+    // View.global('assigned_tickets', function(){
+    //     const mongoose = use('Mongoose');
+    //     const ClienteSchema = use('App/Model/Cliente');
+    //     var tickets = [];
+    //     ClienteSchema.find({}, function(err, resp){
+    //         console.log(resp);
+    //         tickets = resp;
+    //     });
+    //     return tickets;
+    // });
+
 }

@@ -1,6 +1,6 @@
 'use strict'
 
-class BusTicketController {
+class ChatController {
 
     constructor(socket, request) {
         this.socket = socket
@@ -16,6 +16,7 @@ class BusTicketController {
         console.log('socket disconnected', socket.id);
     }
 
+
 }
 
-module.exports = BusTicketController
+module.exports = ChatController
