@@ -16,9 +16,6 @@ class ChatController {
         console.log('socket disconnected', socket.id);
     }
 
-    * joinRoom (room) {
-        const user = 
-    }
 
 }
 
