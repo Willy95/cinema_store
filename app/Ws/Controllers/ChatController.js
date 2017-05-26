@@ -9,10 +9,13 @@ class ChatController {
     }
 
     onMessage(object) {
+        let msg = {user:null, message:null};
+        msg.user = this.socket.currentUser.attributes
+        msg.message = object
         switch (object.type) {
             case "message":
-                this.socket.toMe().emit('messageToMe', object);
-                this.socket.exceptMe().emit('message', object);
+                this.socket.toMe().emit('messageToMe', msg);
+                this.socket.exceptMe().emit('message', msg);
             break;
             case "getFirstMessages":
                 let messages = [{ room: object.room, message: "Bienvenido"}];
@@ -26,7 +29,7 @@ class ChatController {
     }
 
     * joinRoom (room) {
-        
+
     }
 
 }
