@@ -1,0 +1,109 @@
+{% extends 'templates.chatRooms-master' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box box-primary direct-chat direct-chat-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Nombre del Grupo</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Miembros" data-widget="chat-pane-toggle">
+                      <i class="fa fa-group"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div class="direct-chat-messages" style="height:40rem;">
+
+                  <div class="container-fluid">
+                      <div class="row">
+                          <div class="col-xs-12" id="bodyMessage">
+                              <div class="" style=" background: #dedede;padding: 2rem;text-align: center;padding-top: 3rem;margin-top: 3rem;color: #888888;border-radius: .5rem;">
+                                  <p>
+                                      Sin mensages
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                </div>
+                <!--/.chat-messages-->
+
+                <!-- Contacts are loaded here -->
+                <div class="direct-chat-contacts" style="height:40rem;">
+                  <ul class="contacts-list">
+
+                    <li>
+                      <a href="javascript:void(0)">
+                          <img class="contacts-list-img" src="dist/img/user1-128x128.jpg" alt="User Image">
+                          <div class="contacts-list-info">
+                                <span class="contacts-list-name" style="margin-top: 1rem;margin-left: 1rem;">
+                                  Nombre de usuario
+                                </span>
+                          </div>
+                          <!-- /.contacts-list-info -->
+                      </a>
+                    </li>
+                    <!-- End Contact Item -->
+
+                  </ul>
+                  <!-- /.contatcts-list -->
+                </div>
+                <!-- /.direct-chat-pane -->
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <form id="formMessage">
+                  <div class="input-group">
+                    <input type="text" name="message" placeholder="Escribir mensaje ..." class="form-control" id="message">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary btn-flat" id="sendMsg">Enviar</button>
+                    </span>
+                  </div>
+                </form>
+              </div>
+              <!-- /.box-footer-->
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box box-success" >
+                <div class="box-header with-border">
+                  <h3 class="box-title">Grupos</h3>
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Nuevo" id="showModalBtn">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding" style="height: 45.35rem;">
+                  <ul class="users-list clearfix">
+                    <li style="cursor:pointer;" class="room" data-rm="gp1">
+                      <img src="dist/img/user1-128x128.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Room Name</a>
+                      <span class="users-list-date">Username</span>
+                    </li>
+                    <li style="cursor:pointer;" class="room" data-rm="gp2">
+                      <img src="dist/img/user8-128x128.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Norman</a>
+                      <span class="users-list-date">Yesterday</span>
+                    </li>
+                  </ul>
+                  <!-- /.users-list -->
+                </div>
+                <!-- /.box-body -->
+                <!-- <div class="box-footer text-center">
+                  <a href="javascript:void(0)" class="uppercase">View All Users</a>
+                </div> -->
+                <!-- /.box-footer -->
+              </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js%}
+    <script src="/assets/js/chat.js" charset="utf-8"></script>
+{% endblock %}
