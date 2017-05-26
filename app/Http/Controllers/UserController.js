@@ -11,10 +11,11 @@ class UserController {
     }
 
     * register (request, response) {
-        const data = request.only('nicknameReg','passwordReg')
+        const data = request.only('nicknameReg','passwordReg','cpasswordReg')
         const rules = {
-            nicknameReg: 'required',
-            passwordReg: 'required'
+            nicknameReg:  'required',
+            passwordReg:  'required',
+            cpasswordReg: 'required'
         }
         const messages = {
             required: 'Llena todos los campos'
@@ -26,14 +27,20 @@ class UserController {
                 res: res
             })
         } else {
-            let user = new User()
-            user.nickname = data.nicknameReg
-            user.password = yield Hash.make(data.passwordReg)
-            user.active   = 1
-            yield user.save()
-            return response.json({
-                res: 'Guardado exitosamente'
-            })
+            if (data.passwordReg != data.cpasswordReg) {
+                return response.json({
+                    res: 'Las passwords no coinciden'
+                })
+            }else {
+                let user = new User()
+                user.nickname = data.nicknameReg
+                user.password = yield Hash.make(data.passwordReg)
+                user.active   = 1
+                yield user.save()
+                return response.json({
+                    res: 'Guardado exitosamente'
+                })
+            }
         }
     }
 
