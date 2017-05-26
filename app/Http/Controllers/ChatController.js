@@ -38,6 +38,7 @@ class ChatController {
                 status: 0,
                 res: res
             })
+            console.log(res);
         }else {
             let ext = ['.jpg','.png']
             let room = new Room()
