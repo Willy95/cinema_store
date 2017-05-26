@@ -3,6 +3,7 @@ const Validator = use('Validator')
 const Room = use('App/Model/Room')
 const Database = use('Database')
 const User = use('App/Model/User')
+const Users_room = use('App/Model/Users_room')
 
 class ChatController {
 
@@ -46,6 +47,10 @@ class ChatController {
             room.admin_id  = data.admin
             room.image    = "avatar" + Math.floor((Math.random() * 5) + 1) + ext[Math.floor((Math.random() * 2) + 1) - 1]
             yield room.save()
+            let room_rel = new Users_room();
+            room_rel.user_id = data.admin
+            room_rel.room_id = room.id
+            yield room_rel.save();
             return res.json({
                 status: 1,
                 res: 'Guardado exitosamente'
