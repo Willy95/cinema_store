@@ -5,11 +5,12 @@ $(function(){
     function getFormRegister(){
         var data = {
             nicknameReg: $('#nicknameReg').val(),
-            passwordReg: $('#passwordReg').val()
+            passwordReg: $('#passwordReg').val(),
+            cpasswordReg: $('#cpasswordReg').val()
         }
 
         return data;
-    }
+    };
 
     $('#save').click(function(e){
         e.preventDefault();
@@ -22,6 +23,7 @@ $(function(){
             alert(response.res)
             $('#nicknameReg').val('')
             $('#passwordReg').val('')
+            $('#cpasswordReg').val('')
         }).fail(function(){})
     });
 
@@ -39,7 +41,7 @@ $(function(){
         }
 
         return data;
-    }
+    };
 
     $('#logIn').click(function(){
         $.ajax({
