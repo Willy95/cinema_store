@@ -11,7 +11,7 @@ class ChatController {
     onMessage(object) {
         let msg = {user:null, time:null, message:null};
         msg.user = this.socket.currentUser.attributes
-        msg.time = new Date().getTime()
+        msg.time = new Date(new Date().getTime()).toLocaleString()
         msg.message = object
         switch (object.type) {
             case "message":
