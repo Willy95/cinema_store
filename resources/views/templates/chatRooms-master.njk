@@ -244,8 +244,8 @@ desired effect
           <h3 class="control-sidebar-heading" hidden="hidden">General Settings</h3>
 
           <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Report panel usage &nbsp
+            <label class="control-sidebar-subheading" id="online-container">
+              <span id="user-online"></span> &nbsp
               <i class="fa fa-circle text-success"></i>
             </label>
 
@@ -273,13 +273,15 @@ desired effect
     <!-- Bootstrap 3.3.6 -->
     <script src="/libs/bootstrap/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="/dist/js/chat.js"></script>
+    <script src="/dist/js/app.js"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
      fixed layout. -->
      <script src="/websocket-client.js" charset="utf-8"></script>
+     <!-- Script de la vista de chat -->
+     <script src="/assets/js/chat.js"></script>
      {% block js %}{% endblock %}
 </body>
 </html>
