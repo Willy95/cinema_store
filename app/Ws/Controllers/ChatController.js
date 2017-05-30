@@ -2,10 +2,13 @@
 
 class ChatController {
 
-    constructor(socket, request) {
+    constructor(socket, request, presence) {
         this.socket = socket
         this.request = request
         console.log('socket connected', socket.id);
+        presence.track(socket, socket.currentUser.id,{
+            nickname: socket.currentUser.nickname
+        })
     }
 
     onMessage(object) {

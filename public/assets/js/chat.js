@@ -13,6 +13,16 @@ $(function(){
     var dato;
 
     // ======================================================================
+    // Funcionamiento de online
+
+    client.on('prensece:state', function(state){
+        const users = state.map(function (user){
+            
+        })
+    })
+
+
+    // ======================================================================
 
     initFinder();
 

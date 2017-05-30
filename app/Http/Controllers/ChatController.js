@@ -65,6 +65,10 @@ class ChatController {
         res.json(users)
     }
 
+    * getPublicRoom (req, res){
+
+    }
+
 }
 
 module.exports = ChatController
