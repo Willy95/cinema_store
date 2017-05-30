@@ -29,25 +29,6 @@ class RoomController {
                 console.log("Error 500: ", e);
             }
         }
-        console.log();
-    }
-
-    * onGetnewroomers(object){
-        let users = object.users
-        let room  = object.room
-        console.log(object);
-        for (var i = 0; i < users.length; i++) {
-            // try {
-            //     let room_rel = new Users_room()
-            //     let user = yield Database.from('users').where({ 'nickname': users[i] }).limit(1)
-            //     room_rel.user_id = user.id
-            //     room_rel.room_id = room
-            //     yield room_rel.save()
-            // } catch (e) {
-            //     console.log("Error 500: ", e);
-            // }
-        }
-        this.socket.inRoom(room).emit('ongetnewroomers', 'Hello world new addeds')
     }
 
     * leftRoomUser(user, room){
@@ -58,21 +39,9 @@ class RoomController {
         }
     }
 
-    // * joinRoom (room, object) {
-    //     for (var i = 0; i < object.users.length; i++) {
-    //         // try {
-    //         //     let room_rel = new Users_room()
-    //         //     let user = yield Database.from('users').where({ 'nickname': object.users[i] }).limit(1)
-    //         //     room_rel.user_id = user.id
-    //         //     room_rel.room_id = room
-    //         //     yield room_rel.save()
-    //         // } catch (e) {
-    //         //     console.log("Error 500: ", e);
-    //         // }
-    //         const user = yield Database.from('users').where({ 'nickname': object.users[i] }).limit(1)
-    //         console.log(user);
-    //     }
-    // }
+    * joinRoom (room) {
+        
+    }
 
 }
 
