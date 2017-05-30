@@ -25,6 +25,10 @@ class ChatController {
         }
     }
 
+    * onGetmyinfo(obj){
+        this.socket.toMe().emit('onGetmyinfo', this.socket.currentUser.attributes);
+    }
+
     disconnected(socket){
         console.log('socket disconnected', socket.id);
     }

@@ -12,14 +12,17 @@ $(function(){
     var room = "miroom";
     var objMsg = { room: null, message: null, type: null };
     var datoFinded;
+    var myinfo;
 
     // ======================================================================
 
     datoFinded = initFinder();
 
+    client.emit('getmyinfo', {});
     client.on('messageToMe', drawMessagesToMe);
     client.on('message', drawMessages);
     client.on('firtMessages', drawFirstMessages);
+    client.on('onGetmyinfo', function(res){ myinfo = res; });
     Room.on('onMakeusersroom', addedPartnersRoom);
 
     // ======================================================================
@@ -110,25 +113,42 @@ $(function(){
         return dato[0].selectize;
     }
 
-    function addedPartnersRoom(response){
-        let contact = `<li style="border: solid .1rem rgba(0, 0, 0, 0.1);
-                    margin-left: 1rem;
-                    margin-right: 1rem;
-                    border-radius: .25rem;
-                    margin-top: 1rem;
-                    margin-bottom: 1rem;">
-          <a href="javascript:void(0)">
-              <img class="contacts-list-img" src="/dist/img/${response.user.image}" alt="User Image">
-              <div class="contacts-list-info">
-                    <span class="contacts-list-name" style="margin-top: 1rem;margin-left: 1rem;color:#000;">
-                        ${response.user.nickname}
-                    </span>
-              </div>
-          </a>
+    function makeAddedRoom(room){
+        let code = `<li style="cursor:pointer;" class="room" data-rm="${room.room_name}">
+          <img src="/dist/img/${room.image}">
+          <a class="users-list-name" href="#">${room.room_name}</a>
         </li>`;
-        $(".contacts-list").prepend(contact)
-        $("#members").trigger('click');
-        console.log(response);
+        $("#roombox").append(code);
+    }
+
+    function addedPartnersRoom(response){
+        if (myinfo.nickname == response.user.nickname){
+            makeAddedRoom(response.room);
+            Room.joinRoom(response.room.room_name, {}, function(err, join){
+                if (err){
+                    console.log(err);
+                }
+                if (join){
+                    console.log("Conectado a room: " + join);
+                }
+            });
+            // let contact = `<li style="border: solid .1rem rgba(0, 0, 0, 0.1);
+            //             margin-left: 1rem;
+            //             margin-right: 1rem;
+            //             border-radius: .25rem;
+            //             margin-top: 1rem;
+            //             margin-bottom: 1rem;">
+            //   <a href="javascript:void(0)">
+            //       <img class="contacts-list-img" src="/dist/img/${response.user.image}" alt="User Image">
+            //       <div class="contacts-list-info">
+            //             <span class="contacts-list-name" style="margin-top: 1rem;margin-left: 1rem;color:#000;">
+            //                 ${response.user.nickname}
+            //             </span>
+            //       </div>
+            //   </a>
+            // </li>`;
+            // $(".contacts-list").prepend(contact);
+        }
     }
 
     // ======================================================================
@@ -152,20 +172,17 @@ $(function(){
         document.location.href = "#";
     });
 
-    // $("body").on('click', '.room', function(event) {
-    //     room = $(this).data('rm');
-    //     Room.joinRoom(room, {}, function(err, join){
-    //         if (err){
-    //             console.log(err);
-    //         }
-    //         if (join){
-    //             console.log("Conectado a room: " + join);
-    //             objMsg.type = "getFirstMessages";
-    //             objMsg.room = room;
-    //             client.emit('message', objMsg);
-    //         }
-    //     });
-    // });
+    $("body").on('click', '.room', function(event) {
+        room = $(this).data('rm');
+        Room.joinRoom(room, {}, function(err, join){
+            if (err){
+                console.log(err);
+            }
+            if (join){
+                console.log("Conectado a room: " + join);
+            }
+        });
+    });
 
     $("#leftGroupBtn").click(function(event) {
         alert("¿Estas seguro que deseas dejar el grupo?");
