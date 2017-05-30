@@ -19,7 +19,6 @@ class ChatController {
         const rooms = yield Database.from('users_rooms')
         .innerJoin('rooms', 'users_rooms.room_id', 'rooms.id')
         .where({ 'users_rooms.user_id': req.auth.user.attributes.id })
-        console.log(rooms);
         return yield res.sendView('chat', {roomers: rooms});
     }
 
