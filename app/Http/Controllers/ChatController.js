@@ -38,6 +38,7 @@ class ChatController {
                 status: 0,
                 res: res
             })
+            console.log(res);
         }else {
             let ext = ['.jpg','.png']
             let room = new Room()
@@ -61,6 +62,10 @@ class ChatController {
         let params = req.params();
         const users = yield Database.from('users').where({ active: 1, nickname: params.user })
         res.json(users)
+    }
+
+    * getPublicRoom (req, res){
+
     }
 
 }

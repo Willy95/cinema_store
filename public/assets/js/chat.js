@@ -8,11 +8,26 @@ $(function(){
     const client = io.channel('online').connect(console.log);
     const Room = io.channel('online_room').connect(console.log);
     const impMessage = $("#message");
+    const onlineContainer = $("#online-container");
 
     var room = "miroom";
     var objMsg = { room: null, message: null, type: null };
     var datoFinded;
     var myinfo;
+
+    // ======================================================================
+    // Funcionamiento de online
+
+    client.on('presence:state', function(state){
+        const users = state.map(function (user){
+            // return `<span>${user.payload[0].meta.nickname}</span><i class='fa fa-circle text-success'></i>`;
+            console.log(user.payload[0].meta.nickname);
+        })
+
+        // onlineContainer.innerHTML = users.join('');
+
+    })
+
 
     // ======================================================================
 
