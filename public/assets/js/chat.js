@@ -6,11 +6,12 @@ $(function(){
 
     const io = ws('');
     const client = io.channel('online').connect(console.log);
+    const Room = io.channel('online_room').connect(console.log);
     const impMessage = $("#message");
 
-    var room;
+    var room = "miroom";
     var objMsg = { room: null, message: null, type: null };
-    var dato;
+    var datoFinded;
 
     // ======================================================================
     // Funcionamiento de online
@@ -24,11 +25,12 @@ $(function(){
 
     // ======================================================================
 
-    initFinder();
+    datoFinded = initFinder();
 
     client.on('messageToMe', drawMessagesToMe);
     client.on('message', drawMessages);
     client.on('firtMessages', drawFirstMessages);
+    Room.on('onMakeusersroom', addedPartnersRoom);
 
     // ======================================================================
 
@@ -87,7 +89,7 @@ $(function(){
     }
 
     function initFinder(){
-        dato = $('body').find("#searchuser").selectize({
+        var dato = $('body').find("#searchuser").selectize({
             valueField: 'nickname',
             labelField: 'nickname',
             searchField: 'nickname',
@@ -115,7 +117,28 @@ $(function(){
                 });
             }
         });
-        dato[0].selectize;
+        return dato[0].selectize;
+    }
+
+    function addedPartnersRoom(response){
+        let contact = `<li style="border: solid .1rem rgba(0, 0, 0, 0.1);
+                    margin-left: 1rem;
+                    margin-right: 1rem;
+                    border-radius: .25rem;
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;">
+          <a href="javascript:void(0)">
+              <img class="contacts-list-img" src="/dist/img/${response.user.image}" alt="User Image">
+              <div class="contacts-list-info">
+                    <span class="contacts-list-name" style="margin-top: 1rem;margin-left: 1rem;color:#000;">
+                        ${response.user.nickname}
+                    </span>
+              </div>
+          </a>
+        </li>`;
+        $(".contacts-list").prepend(contact)
+        $("#members").trigger('click');
+        console.log(response);
     }
 
     // ======================================================================
@@ -139,19 +162,27 @@ $(function(){
         document.location.href = "#";
     });
 
-    $("body").on('click', '.room', function(event) {
-        room = $(this).data('rm');
-        client.joinRoom(room, {}, function(err, join){
-            if (err){
-                console.log(err);
-            }
-            if (join){
-                console.log("Conectado a room: " + join);
-                objMsg.type = "getFirstMessages";
-                objMsg.room = room;
-                client.emit('message', objMsg);
-            }
-        });
+    // $("body").on('click', '.room', function(event) {
+    //     room = $(this).data('rm');
+    //     Room.joinRoom(room, {}, function(err, join){
+    //         if (err){
+    //             console.log(err);
+    //         }
+    //         if (join){
+    //             console.log("Conectado a room: " + join);
+    //             objMsg.type = "getFirstMessages";
+    //             objMsg.room = room;
+    //             client.emit('message', objMsg);
+    //         }
+    //     });
+    // });
+
+    $("#leftGroupBtn").click(function(event) {
+        alert("¿Estas seguro que deseas dejar el grupo?");
+    });
+
+    $("#btnAddParticipants").click(function(event) {
+        Room.emit('makeusersroom', {users: datoFinded.items, room: room});
     });
 
     // ======================================================================
@@ -174,7 +205,6 @@ $(function(){
                 alert(response.res);
             }
         }).fail(function(){})
-
     })
 
 });
