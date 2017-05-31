@@ -177,7 +177,6 @@ $(function(){
 
     function makeMessagesRoomList(res){
         $.each(res, function(index, el) {
-            // console.log(el);
             var code = (el.user.id == myinfo.id) ?
                 getCodeMessageByMe(el.message.message, el.user.nickname, el.user.image, el.time) :
                     getCodeMessage(el.message.message, el.user.nickname, el.user.image, el.time)
@@ -290,7 +289,9 @@ $(function(){
             } else {
                 toastr.error(response.res);
             }
-        }).fail(function(){})
+        }).fail(function(e){
+            toastr.warning("El grupo no pudo ser creado, intenta con otro nombre");
+        })
     })
 
     // ======================================================================
