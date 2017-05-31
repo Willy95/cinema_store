@@ -134,6 +134,7 @@ $(function(){
             $.each($("body").find(".room-asidebox"), function(index, el) {
                 if ($(this).data('rm') === "general"){
                     room = $(this).data('rm');
+                    client.emit('getcontactsroom', room);
                 }
                 client.joinRoom($(this).data('rm'), {}, function(err, join){
                     if (err){ console.log(err); }
