@@ -54,9 +54,9 @@ $(function(){
     }
 
     function autoScroll(){
-        $('#messages-container').animate({
-            scrollTop: $('#messages-container').get(0).scrollHeight
-        }, 2000);
+        // $('#messages-container').animate({
+        //     scrollTop: $('#messages-container').get(0).scrollHeight
+        // }, 2000);
     }
 
     function drawMessages(getroom, message){
@@ -68,7 +68,7 @@ $(function(){
             $("#bodyMessage").append(code);
         }
         else { toastr.success("Nuevo mensaje en " + getroom); }
-        autoScroll();
+        // autoScroll();
     }
 
     function getCodeMessage(message, nickname, image, time){
@@ -171,6 +171,7 @@ $(function(){
     }
 
     function addedPartnersRoom(response){
+        if (myinfo.id == response.me){ window.location.reload(); }
         if (myinfo.nickname == response.user.nickname){
             makeAddedRoom(response.room);
             toastr.success('Se te ha agregado al grupo: ' + response.room.room_name);
@@ -200,7 +201,7 @@ $(function(){
         if (res.room.admin_id === myinfo.id) { $("#boxtoadd").show(); $("#leftGroupBtn").hide(); $("#deleteRoom").show();}
         else { $("#boxtoadd").hide(); $("#deleteRoom").hide();}
         $(".contacts-list").empty();
-        $.each(res.contacts, function(index, el) {
+            $.each(res.contacts, function(index, el) {
             let contact = `<li style="border: solid .1rem rgba(0, 0, 0, 0.1);
                         margin-left: 1rem;
                         margin-right: 1rem;
@@ -338,6 +339,6 @@ $(function(){
 
     datoFinded = initFinder();
     selecGeneralRoom();
-    autoScroll();
+    // autoScroll();
 
 });

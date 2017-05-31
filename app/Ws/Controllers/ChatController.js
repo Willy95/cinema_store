@@ -48,11 +48,14 @@ class ChatController {
                 let room_rel = new Users_room()
                 room_rel.user_id = myuser[0].id
                 room_rel.room_id = room_obj[0].id
-                var relaton = yield room_rel.save()
-                this.socket.toEveryone().emit('onMakeusersroom', {
-                    'user': myuser[0],
-                    'room': room_obj[0]
-                })
+                var relation = yield room_rel.save()
+                if (relation){
+                    this.socket.toEveryone().emit('onMakeusersroom', {
+                        'user': myuser[0],
+                        'room': room_obj[0],
+                        'me'  : this.socket.currentUser.attributes.id
+                    })
+                }
             } catch (e) {
                 console.log("Error 500: ", e);
             }
