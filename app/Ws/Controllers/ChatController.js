@@ -2,6 +2,7 @@
 
 const Database = use('Database')
 const Users_room = use('App/Model/Users_room')
+const mongoose = use('Mongoose')
 const MessageMongo = use('App/Model/mongo/MessageMongo')
 
 class ChatController {
@@ -16,15 +17,26 @@ class ChatController {
     }
 
     * onMessage(object) {
-        let msg = {user:null, time:null, message:null};
-        msg.user = this.socket.currentUser.attributes
-        msg.time = new Date(new Date().getTime()).toLocaleString()
-        msg.message = object
+        try {
+            let msg = {user:null, time:null, message:null};
+            msg.user = this.socket.currentUser.attributes
+            msg.time = new Date(new Date().getTime()).toLocaleString()
+            msg.message = object
 
-        // let new_message = new MessageMongo(msg);
-        // new_message.save();
+            // MessageMongo.create(msg)
 
-        this.socket.toEveryone().inRoom(object.room).emit('onMessage', msg)
+            let new_message = new MessageMongo(msg)
+            // new_message.user = "yo"//msg.user
+            // new_message.time = "hoy"//msg.time
+            // new_message.message = "hola"//msg.message
+            new_message.save()
+
+            this.socket.toEveryone().inRoom(object.room).emit('onMessage', msg)
+        } catch (e) {
+            console.log("======== ERROR 500 ========");
+            console.log("Message Error : ", e);
+            console.log("===========================");
+        }
     }
 
     * onGetmyinfo(obj){

@@ -4,12 +4,9 @@ const mongoose = use('mongoose');
 const schema = mongoose.Schema;
 
 const MessageMongo = schema({
-    name: {type: String, required: true},
-    surname: {type: String, required: true},
-    email: {type: String, required: true},
-    genre: {type: String, required: true},
-    image: {type: String, default: "null"},
-    birthday: { type: Date, required: true }
+    user: { type: Object, required: true },
+    time: { type: String, required: true },
+    message: { type: Object, required: true }
 },
 {
     timestamps: {
