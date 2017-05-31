@@ -1,22 +1,25 @@
 'use strict';
 
+const io = ws('');
+const client = io.channel('online').connect(console.log);
+const Room = io.channel('online_room').connect(console.log);
+
+var myinfo;
+client.on('onGetmyinfo', function(res){ myinfo = res; });
+client.emit('getmyinfo', {});
+
 $(function(){
 
     // $('#messages-container').animate({
     //     scrollTop: $('#messages-container').get(0).scrollHeight}, 2000);
 
     // ======================================================================
-
-    const io = ws('');
-    const client = io.channel('online').connect(console.log);
-    const Room = io.channel('online_room').connect(console.log);
     const impMessage = $("#message");
     const onlineContainer = $("#roombox");
 
     var room;
     var objMsg = { room: null, message: null, type: null };
     var datoFinded;
-    var myinfo;
 
     // ======================================================================
     // Funcionamiento de online
@@ -39,11 +42,12 @@ $(function(){
     datoFinded = initFinder();
     selecGeneralRoom();
 
-    client.emit('getmyinfo', {});
+    // client.emit('getmyinfo', {});
 
     client.on('onMessage', drawMessages);
-    client.on('onGetmyinfo', function(res){ myinfo = res; });
+    // client.on('onGetmyinfo', function(res){ myinfo = res; });
     client.on('onMakeusersroom', addedPartnersRoom);
+    client.on('onGetmessagesroom', makeMessagesRoomList);
     client.on('onGetcontactsroom', makeContactsRoomList);
 
     // ======================================================================
@@ -139,6 +143,7 @@ $(function(){
             $.each($("body").find(".room-asidebox"), function(index, el) {
                 if ($(this).data('rm') === "general"){
                     room = $(this).data('rm');
+                    client.emit('getmessagesroom', room);
                     client.emit('getcontactsroom', room);
                 }
                 client.joinRoom($(this).data('rm'), {}, function(err, join){
@@ -166,6 +171,19 @@ $(function(){
                 }
             });
         }
+    }
+
+    function makeMessagesRoomList(res){
+        $.each(res, function(index, el) {
+            console.log(el);
+            var code = (el.user.id == myinfo.id) ?
+                getCodeMessageByMe(el.message.message, el.user.nickname, el.user.image, el.time) :
+                    getCodeMessage(el.message.message, el.user.nickname, el.user.image, el.time)
+            if ( el.message.room == room ) {
+                if ($("body").find('.direct-chat-msg').length == 0){ $("#bodyMessage").empty(); }
+                $("#bodyMessage").append(code);
+            }
+        });
     }
 
     function makeContactsRoomList(res){
@@ -219,6 +237,7 @@ $(function(){
             if (err){ console.log(err); }
             if (join){
                 console.log("Conectado a room: " + join);
+                client.emit('getmessagesroom', room);
                 client.emit('getcontactsroom', room);
             }
         });
