@@ -20,11 +20,19 @@ $(function(){
             dataType: 'JSON',
             data: getFormRegister()
         }).done(function(response){
-            alert(response.res)
-            $('#nicknameReg').val('')
-            $('#passwordReg').val('')
-            $('#cpasswordReg').val('')
-        }).fail(function(){})
+            if (response.status == 200){
+                toastr.success(response.res);
+                $('#nicknameReg').val('');
+                $('#passwordReg').val('');
+                $('#cpasswordReg').val('');
+            }
+            else {
+                toastr.warning(response.res);
+            }
+        }).fail(function(e){
+            toastr.error("Error inesperado");
+            console.log(e);
+        })
     });
 
     $("#registerUserForm").on('submit', function(event) {
@@ -54,12 +62,12 @@ $(function(){
                 document.location.href = "/chat";
             }
             else{
-                alert(response.res);
+                toastr.success(response.res);
                 $('#nickname').val('');
                 $('#password').val('');
             }
         }).fail(function(e){
-            alert("Error inesperado");
+            toastr.error("Error inesperado");
             console.log(e);
         })
     })
