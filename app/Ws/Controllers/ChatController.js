@@ -11,7 +11,8 @@ class ChatController {
         this.request = request
         console.log('socket connected', socket.id);
         presence.track(socket, socket.currentUser.id,{
-            nickname: socket.currentUser.nickname
+            nickname: socket.currentUser.nickname,
+            image: socket.currentUser.image
         })
     }
 
