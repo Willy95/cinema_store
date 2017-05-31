@@ -191,7 +191,7 @@ $(function(){
     }
 
     function makeContactsRoomList(res){
-        if (res.room.admin_id === myinfo.id) { $("#boxtoadd").show(); }
+        if (res.room.admin_id === myinfo.id) { $("#boxtoadd").show(); $("#leftGroupBtn").hide(); }
         else { $("#boxtoadd").hide(); }
         $(".contacts-list").empty();
         $.each(res.contacts, function(index, el) {
@@ -262,20 +262,27 @@ $(function(){
     });
 
     $("#leftGroupBtn").click(function(event) {
-        client.emit('leftRoom',{user:'fer', room:'kghfgj'})
-        console.log('click para salirr');
-        // swal({
-        //     title: "¿Estas seguro que deseas dejar el grupo?",
-        //     text: "You will not be able to recover this imaginary file!",
-        //     type: "warning",
-        //     showCancelButton: true,
-        //     confirmButtonColor: "#DD6B55",
-        //     confirmButtonText: "Yes, delete it!",
-        //     closeOnConfirm: false
-        // },
-        // function(){
-        //     swal("Deleted!", "Your imaginary file has been deleted.", "success");
-        // });
+        swal({
+            title: "¿Estas seguro que deseas dejar el grupo?",
+            text: "En caso de ser el admin se eliminará el grupo",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: true
+        },
+        function(){
+            client.leaveRoom(room, myinfo, function(error, left){
+                if (error){
+                    console.log(error);
+                    toastr.error("Error al dejar el grupo");
+                }
+                if (left){
+                    toastr.success(`Has dejado el grupo ${room} correctamente`);
+                    window.location.reload();
+                }
+            });
+        });
     });
 
     $("#btnAddParticipants").click(function(event) {
