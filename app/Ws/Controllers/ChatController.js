@@ -22,15 +22,8 @@ class ChatController {
             msg.user = this.socket.currentUser.attributes
             msg.time = new Date(new Date().getTime()).toLocaleString()
             msg.message = object
-
-            // MessageMongo.create(msg)
-
             let new_message = new MessageMongo(msg)
-            // new_message.user = "yo"//msg.user
-            // new_message.time = "hoy"//msg.time
-            // new_message.message = "hola"//msg.message
             new_message.save()
-
             this.socket.toEveryone().inRoom(object.room).emit('onMessage', msg)
         } catch (e) {
             console.log("======== ERROR 500 ========");
@@ -68,7 +61,20 @@ class ChatController {
         try {
             let the_room  = yield Database.from('rooms').where({ 'room_name': room }).limit(1)
             let contacts = yield Database.from('users_rooms').innerJoin('users', 'users_rooms.user_id', 'users.id').where({ 'users_rooms.room_id': the_room[0].id})
-            this.socket.toMe().emit('onGetcontactsroom', contacts);
+            this.socket.toMe().emit('onGetcontactsroom', contacts)
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    * onGetmessagesroom(room){
+        try {
+            MessageMongo.find({'message.room': room}, (error, response) => {
+                if (error){ console.log(error) }
+                else {
+                    this.socket.toMe().emit('onGetmessagesroom', response)
+                }
+            })
         } catch (e) {
             console.log(e);
         }
