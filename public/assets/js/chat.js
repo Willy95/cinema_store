@@ -44,8 +44,14 @@ $(function(){
     client.on('onGetmessagesroom', makeMessagesRoomList);
     client.on('onGetcontactsroom', makeContactsRoomList);
     client.on('onLeftRoom', leftRoom)
+    client.on('onDeleteroom', deleteRoom)
+
 
     // ======================================================================
+
+    function deleteRoom(res){
+        toastr.success(res);
+    }
 
     function autoScroll(){
         $('#messages-container').animate({
@@ -191,8 +197,8 @@ $(function(){
     }
 
     function makeContactsRoomList(res){
-        if (res.room.admin_id === myinfo.id) { $("#boxtoadd").show(); $("#leftGroupBtn").hide(); }
-        else { $("#boxtoadd").hide(); }
+        if (res.room.admin_id === myinfo.id) { $("#boxtoadd").show(); $("#leftGroupBtn").hide(); $("#deleteRoom").show();}
+        else { $("#boxtoadd").hide(); $("#deleteRoom").hide();}
         $(".contacts-list").empty();
         $.each(res.contacts, function(index, el) {
             let contact = `<li style="border: solid .1rem rgba(0, 0, 0, 0.1);
@@ -284,6 +290,21 @@ $(function(){
             });
         });
     });
+
+    $("#deleteRoom").click(function(event){
+        swal({
+            title: "Atencion !",
+            text: "¿Estas seguro que deseas eliminar el grupo?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: true
+        },
+        function(){
+            client.emit('deleteroom',{room: room })
+        });
+    })
 
     $("#btnAddParticipants").click(function(event) {
         client.emit('makeusersroom', {users: datoFinded.items, room: room});

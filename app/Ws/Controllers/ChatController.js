@@ -108,13 +108,16 @@ class ChatController {
     //     }
     // }
 
-    * onLeftRoom(object) {
+    * onDeleteroom(object) {
         try {
-            const res = `responsiendo ${object.user}`
-            this.socket.toMe().emit('onLeftRoom', res)
+            let the_room  = yield Database.from('rooms').where({ 'room_name': object.room }).limit(1)
+
+            let myroom = yield Database.from('rooms').innerJoin('users_rooms','rooms.id','users_rooms.room_id').where({'room_name': object.room}).where({'admin_id':this.socket.currentUser.attributes.id}).where({'users_rooms.room_id':the_room[0].id}).delete()
+
+            this.socket.toMe().emit('onDeleteroom', 'Tu grupo fue borrado correctamente')
 
         } catch (err) {
-            console.log(error);
+            console.log(err);
         }
     }
 
