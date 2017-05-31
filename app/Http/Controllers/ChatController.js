@@ -60,7 +60,13 @@ class ChatController {
 
     * findUsersToRoom (req, res){
         let params = req.params();
-        const users = yield Database.from('users').where({ active: 1, nickname: params.user })
+        let room = yield Database.from('rooms').where({ 'room_name': params.room }).limit(1)
+        const users = yield Database.from('users')
+        .innerJoin('users_rooms', 'users.id', 'users_rooms.user_id')
+        .where({ active: 1, nickname: params.user })
+        .where('users.id', '!=', req.auth.user.attributes.id)
+        .where('users_rooms.room_id', '!=', room[0].id)
+        console.log(users);
         res.json(users)
     }
 
