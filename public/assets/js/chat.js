@@ -43,6 +43,7 @@ $(function(){
     client.on('onMakeusersroom', addedPartnersRoom);
     client.on('onGetmessagesroom', makeMessagesRoomList);
     client.on('onGetcontactsroom', makeContactsRoomList);
+    client.on('onLeftRoom', leftRoom)
 
     // ======================================================================
 
@@ -213,6 +214,10 @@ $(function(){
         });
     }
 
+    function leftRoom(res){
+        console.log(res);
+    }
+
     // ======================================================================
 
     $("#sendMsg").click(function(event) {
@@ -257,18 +262,20 @@ $(function(){
     });
 
     $("#leftGroupBtn").click(function(event) {
-        swal({
-            title: "¿Estas seguro que deseas dejar el grupo?",
-            text: "You will not be able to recover this imaginary file!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
-        },
-        function(){
-            swal("Deleted!", "Your imaginary file has been deleted.", "success");
-        });
+        client.emit('leftRoom',{user:'fer', room:'kghfgj'})
+        console.log('click para salirr');
+        // swal({
+        //     title: "¿Estas seguro que deseas dejar el grupo?",
+        //     text: "You will not be able to recover this imaginary file!",
+        //     type: "warning",
+        //     showCancelButton: true,
+        //     confirmButtonColor: "#DD6B55",
+        //     confirmButtonText: "Yes, delete it!",
+        //     closeOnConfirm: false
+        // },
+        // function(){
+        //     swal("Deleted!", "Your imaginary file has been deleted.", "success");
+        // });
     });
 
     $("#btnAddParticipants").click(function(event) {

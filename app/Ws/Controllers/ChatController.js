@@ -90,11 +90,21 @@ class ChatController {
         console.log("se unió al room " + room);
     }
 
-    * leftRoomUser(user, room){
+    // * leftRoomUser(user, room){
+    //     try {
+    //         yield Database.table('users_rooms').where({ 'user_id': user, 'room_id': room }).delete()
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
+
+    * onLeftRoom(object) {
         try {
-            yield Database.table('users_rooms').where({ 'user_id': user, 'room_id': room }).delete()
-        } catch (e) {
-            console.log(e);
+            const res = `responsiendo ${object.user}`
+            this.socket.toMe().emit('onLeftRoom', res)
+
+        } catch (err) {
+            console.log(error);
         }
     }
 
