@@ -251,7 +251,7 @@ $(function(){
 
     $("#leftGroupBtn").click(function(event) {
         client.emit('leftRoom',{user:'fer', room:'kghfgj'})
-        console.log('click para salir');
+        console.log('click para salirr');
         // swal({
         //     title: "¿Estas seguro que deseas dejar el grupo?",
         //     text: "You will not be able to recover this imaginary file!",
