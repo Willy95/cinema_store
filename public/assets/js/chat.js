@@ -43,6 +43,7 @@ $(function(){
     client.on('onMakeusersroom', addedPartnersRoom);
     client.on('onGetmessagesroom', makeMessagesRoomList);
     client.on('onGetcontactsroom', makeContactsRoomList);
+    client.on('onLeftRoom', leftRoom)
 
     // ======================================================================
 
@@ -176,7 +177,7 @@ $(function(){
 
     function makeMessagesRoomList(res){
         $.each(res, function(index, el) {
-            console.log(el);
+            // console.log(el);
             var code = (el.user.id == myinfo.id) ?
                 getCodeMessageByMe(el.message.message, el.user.nickname, el.user.image, el.time) :
                     getCodeMessage(el.message.message, el.user.nickname, el.user.image, el.time)
@@ -208,6 +209,10 @@ $(function(){
             </li>`;
             $(".contacts-list").prepend(contact);
         });
+    }
+
+    function leftRoom(res){
+        console.log(res);
     }
 
     // ======================================================================
@@ -246,18 +251,20 @@ $(function(){
     });
 
     $("#leftGroupBtn").click(function(event) {
-        swal({
-            title: "¿Estas seguro que deseas dejar el grupo?",
-            text: "You will not be able to recover this imaginary file!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
-        },
-        function(){
-            swal("Deleted!", "Your imaginary file has been deleted.", "success");
-        });
+        client.emit('leftRoom',{user:'fer', room:'kghfgj'})
+        console.log('click para salir');
+        // swal({
+        //     title: "¿Estas seguro que deseas dejar el grupo?",
+        //     text: "You will not be able to recover this imaginary file!",
+        //     type: "warning",
+        //     showCancelButton: true,
+        //     confirmButtonColor: "#DD6B55",
+        //     confirmButtonText: "Yes, delete it!",
+        //     closeOnConfirm: false
+        // },
+        // function(){
+        //     swal("Deleted!", "Your imaginary file has been deleted.", "success");
+        // });
     });
 
     $("#btnAddParticipants").click(function(event) {
