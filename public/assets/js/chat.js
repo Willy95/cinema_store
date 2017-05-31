@@ -2,13 +2,16 @@
 
 $(function(){
 
+    // $('#messages-container').animate({
+    //     scrollTop: $('#messages-container').get(0).scrollHeight}, 2000);
+
     // ======================================================================
 
     const io = ws('');
     const client = io.channel('online').connect(console.log);
     const Room = io.channel('online_room').connect(console.log);
     const impMessage = $("#message");
-    const onlineContainer = $("#online-container");
+    const onlineContainer = $("#roombox");
 
     var room;
     var objMsg = { room: null, message: null, type: null };
@@ -19,11 +22,13 @@ $(function(){
     // Funcionamiento de online
 
     client.on('presence:state', function(state){
-        const users = state.map(function (user){
-            // return `<span>${user.payload[0].meta.nickname}</span><i class='fa fa-circle text-success'></i>`;
-            console.log(user.payload[0].meta.nickname);
+        onlineContainer.empty()
+        state.map(function (user){
+            let users = `<li style="cursor:pointer;" class="room">
+              <a class="users-list-name" href="#">${user.payload[0].meta.nickname}</a>
+            </li>`
+            onlineContainer.append(users)
         })
-
         // onlineContainer.innerHTML = users.join('');
 
     })

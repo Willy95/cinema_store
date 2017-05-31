@@ -22,7 +22,7 @@
               </div>
               <!-- /.box-header -->
               <div class="box-body">
-                <div class="direct-chat-messages" style="height:40rem;">
+                <div class="direct-chat-messages" style="height:40rem;" id="messages-container">
 
                   <div class="container-fluid">
                       <div class="row">
@@ -115,17 +115,17 @@
         <div class="col-md-4">
             <div class="box box-success" >
                 <div class="box-header with-border">
-                  <h3 class="box-title">Grupos</h3>
+                  <h3 class="box-title">online</h3>
                   <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#addRoom" id="showModalBtn">
+                    <!-- <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#addRoom" id="showModalBtn">
                         <i class="fa fa-plus"></i>
-                    </button>
+                    </button> -->
                   </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding" style="height: 45.35rem;">
                   <ul class="users-list clearfix" id="roombox">
-                      {% for room in roomers%}
+                      {# {% for room in roomers%}
                           {% if (room.room_name == 'general')%}
                               <li style="cursor:pointer;" class="room" data-rm="{{room.room_name}}">
                                 <img src="/dist/img/boxed-bg.jpg" alt="User Image">
@@ -142,7 +142,7 @@
                                 {% endif %}
                               </li>
                           {% endif %}
-                      {% endfor %}
+                      {% endfor %} #}
                   </ul>
                   <!-- /.users-list -->
                 </div>
