@@ -18,10 +18,12 @@ class ChatController {
 
     * onMessage(object) {
         try {
-            let msg = {user:null, time:null, message:null};
+            let msg = {user:null, time:null, message:null, room: null};
+            let theroom = yield Database.from('rooms').where({ 'room_name': object.room }).limit(1)
             msg.user = this.socket.currentUser.attributes
             msg.time = new Date(new Date().getTime()).toLocaleString()
             msg.message = object
+            msg.room = theroom[0]
             let new_message = new MessageMongo(msg)
             new_message.save()
             this.socket.toEveryone().inRoom(object.room).emit('onMessage', msg)
@@ -61,7 +63,7 @@ class ChatController {
         try {
             let the_room  = yield Database.from('rooms').where({ 'room_name': room }).limit(1)
             let contacts = yield Database.from('users_rooms').innerJoin('users', 'users_rooms.user_id', 'users.id').where({ 'users_rooms.room_id': the_room[0].id})
-            this.socket.toMe().emit('onGetcontactsroom', contacts)
+            this.socket.toMe().emit('onGetcontactsroom', {contacts: contacts, room: the_room[0] })
         } catch (e) {
             console.log(e);
         }
