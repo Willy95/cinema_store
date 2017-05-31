@@ -6,7 +6,6 @@ const mongoose = use('Mongoose')
 const MessageMongo = use('App/Model/mongo/MessageMongo')
 
 class ChatController {
-
     constructor(socket, request, presence) {
         this.socket = socket
         this.request = request
