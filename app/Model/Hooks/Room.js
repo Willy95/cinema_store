@@ -1,17 +1,20 @@
 'use strict'
 
 const Room = exports = module.exports = {}
+const Database = use('Database')
 
 Room.roomExist = function * (next) {
 
-    const room = this.room_name
-    const exist = yield this.query().where('room_name',room).fetch()
+    try {
+        const room = this.room_name
+        const exist = yield Database.from('rooms').where({ 'room_name': room }).limit(1)
 
-    if (exist) {
-        console.log("exist");
-    } else {
-        console.log("no exist");
+        if (exist.length == 0) {
+            yield next
+        }
+
+    } catch (e) {
+        console.log(e);
     }
 
-  yield next
 }

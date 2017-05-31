@@ -39,14 +39,20 @@ class UserController {
                 user.password = yield Hash.make(data.passwordReg)
                 user.active   = 1
                 user.image    = "avatar" + Math.floor((Math.random() * 5) + 1) + ext[Math.floor((Math.random() * 2) + 1) - 1]
-                yield user.save()
-                let room = yield Database.from('rooms').where({ 'room_name': 'general' }).limit(1)
-                let room_rel = new Users_room();
-                room_rel.user_id = user.id
-                room_rel.room_id = room[0].id
-                yield room_rel.save();
+                if (yield user.save()){
+                    let room = yield Database.from('rooms').where({ 'room_name': 'general' }).limit(1)
+                    let room_rel = new Users_room();
+                    room_rel.user_id = user.id
+                    room_rel.room_id = room[0].id
+                    yield room_rel.save();
+                    return response.json({
+                        status: 200,
+                        res: 'Guardado exitosamente'
+                    })
+                }
                 return response.json({
-                    res: 'Guardado exitosamente'
+                    status: 500,
+                    res: 'El usuario ingresado ya existe, intenta con otro'
                 })
             }
         }
