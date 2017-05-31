@@ -9,7 +9,7 @@
         <div class="col-md-8">
             <div class="box box-primary direct-chat direct-chat-primary">
               <div class="box-header with-border">
-                <h3 class="box-title">Grupo General</h3>
+                <h3 class="box-title" id="room-selected"></h3>
 
                 <div class="box-tools pull-right">
                   <button type="button" class="btn btn-box-tool" data-toggle="tooltip" id="members" title="Miembros" data-widget="chat-pane-toggle">
@@ -125,7 +125,24 @@
                 <!-- /.box-header -->
                 <div class="box-body no-padding" style="height: 45.35rem;">
                   <ul class="users-list clearfix" id="roombox">
-
+                      {# {% for room in roomers%}
+                          {% if (room.room_name == 'general')%}
+                              <li style="cursor:pointer;" class="room" data-rm="{{room.room_name}}">
+                                <img src="/dist/img/boxed-bg.jpg" alt="User Image">
+                                <a class="users-list-name" href="#">{{room.room_name}}</a>
+                              </li>
+                          {% else %}
+                              <li style="cursor:pointer;" class="room" data-rm="{{room.room_name}}">
+                                <img src="/dist/img/{{room.image}}" alt="User Image">
+                                <a class="users-list-name" href="#">{{room.room_name}}</a>
+                                {% if (room.user_id == currentUser.id) %}
+                                    <span class="users-list-date">Admin</span>
+                                {% else %}
+                                    <span class="users-list-date">Username</span>
+                                {% endif %}
+                              </li>
+                          {% endif %}
+                      {% endfor %} #}
                   </ul>
                   <!-- /.users-list -->
                 </div>

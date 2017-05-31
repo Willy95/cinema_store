@@ -13,7 +13,7 @@ $(function(){
     const impMessage = $("#message");
     const onlineContainer = $("#roombox");
 
-    var room = "miroom";
+    var room;
     var objMsg = { room: null, message: null, type: null };
     var datoFinded;
     var myinfo;
@@ -37,68 +37,60 @@ $(function(){
     // ======================================================================
 
     datoFinded = initFinder();
+    selecGeneralRoom();
 
     client.emit('getmyinfo', {});
-    client.on('messageToMe', drawMessagesToMe);
-    client.on('message', drawMessages);
-    client.on('firtMessages', drawFirstMessages);
+
+    client.on('onMessage', drawMessages);
     client.on('onGetmyinfo', function(res){ myinfo = res; });
-    Room.on('onMakeusersroom', addedPartnersRoom);
+    client.on('onMakeusersroom', addedPartnersRoom);
+    client.on('onGetcontactsroom', makeContactsRoomList);
 
     // ======================================================================
 
-    function drawFirstMessages(message){
-        $("#bodyMessage").empty();
-        $.each(message, function(index, msg) {
-            let code =
-                `<div class="direct-chat-msg"><br>
-                  <div class="direct-chat-info clearfix">
-                    <span class="direct-chat-name pull-left" style="margin-left: 5rem;">Alexander Pierce</span>
-                    <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                  </div>
-                  <img class="direct-chat-img" src="/dist/img/user2-160x160.jpg" alt="message user image">
-                  <div class="direct-chat-text">
-                    ${ msg.message }
-                  </div>
-                </div>`;
+    function drawMessages(getroom, message){
+        var code = (message.user.id == myinfo.id) ?
+            getCodeMessageByMe(message.message.message, message.user.nickname, message.user.image, message.time) :
+                getCodeMessage(message.message.message, message.user.nickname, message.user.image, message.time)
+        if ( getroom == room ) {
+            if ($("body").find('.direct-chat-msg').length == 0){ $("#bodyMessage").empty(); }
             $("#bodyMessage").append(code);
-        });
+        }
+        else { alert("Nuevo mensaje en " + getroom); }
     }
 
-    function drawMessages(message){
-        if ($("body").find('.direct-chat-msg').length == 0){ $("#bodyMessage").empty(); }
+    function getCodeMessage(message, nickname, image, time){
         let code =
             `<div class="direct-chat-msg"><br>
               <div class="direct-chat-info clearfix">
                 <span class="direct-chat-name pull-left" style="margin-left: 5rem;">
-                    ${ message.user.nickname }
+                    ${ nickname }
                 </span>
-                <span class="direct-chat-timestamp pull-right">${ message.time }</span>
+                <span class="direct-chat-timestamp pull-right">${ time }</span>
               </div>
-              <img class="direct-chat-img" src="/dist/img/${ message.user.image }" alt="message user image">
+              <img class="direct-chat-img" src="/dist/img/${ image }" alt="message user image">
               <div class="direct-chat-text">
-                ${ message.message.message }
+                ${ message }
               </div>
             </div>`;
-        $("#bodyMessage").append(code);
+        return code;
     }
 
-    function drawMessagesToMe(message){
-        if ($("body").find('.direct-chat-msg').length == 0){ $("#bodyMessage").empty(); }
+    function getCodeMessageByMe(message, nickname, image, time){
         let code =
             `<div class="direct-chat-msg right"><br>
               <div class="direct-chat-info clearfix">
                 <span class="direct-chat-name pull-right" style="margin-right: 5rem;">
-                    ${ message.user.nickname }
+                    ${ nickname }
                 </span>
-                <span class="direct-chat-timestamp pull-left">${ message.time }</span>
+                <span class="direct-chat-timestamp pull-left">${ time }</span>
               </div>
-              <img class="direct-chat-img" src="/dist/img/${ message.user.image }" alt="message user image">
+              <img class="direct-chat-img" src="/dist/img/${ image }" alt="message user image">
               <div class="direct-chat-text">
-                  ${ message.message.message }
+                  ${ message }
               </div>
             </div>`;
-        $("#bodyMessage").append(code);
+        return code;
     }
 
     function initFinder(){
@@ -134,41 +126,68 @@ $(function(){
     }
 
     function makeAddedRoom(room){
-        let code = `<li style="cursor:pointer;" class="room" data-rm="${room.room_name}">
+        let code = `<li style="cursor:pointer;" class="room room-asidebox" data-rm="${room.room_name}">
           <img src="/dist/img/${room.image}">
-          <a class="users-list-name" href="#">${room.room_name}</a>
+          <a class="users-list-name" href="#" style="color:#fff;">${room.room_name}</a>
         </li>`;
-        $("#roombox").append(code);
+        $("#myroombox").append(code);
+    }
+
+    function selecGeneralRoom(){
+        let limit = $("body").find(".room-asidebox").length;
+        if (limit > 0){
+            $.each($("body").find(".room-asidebox"), function(index, el) {
+                if ($(this).data('rm') === "general"){
+                    room = $(this).data('rm');
+                    client.emit('getcontactsroom', room);
+                }
+                client.joinRoom($(this).data('rm'), {}, function(err, join){
+                    if (err){ console.log(err); }
+                    if (join){
+                        console.log("Conectado a room: " + join);
+                        $("#room-selected").text("Grupo \"" + room + "\"" );
+                    }
+                });
+            });
+        }
+        else {
+            alert("Ha ocurrido un error para el grupo general");
+        }
     }
 
     function addedPartnersRoom(response){
         if (myinfo.nickname == response.user.nickname){
             makeAddedRoom(response.room);
-            Room.joinRoom(response.room.room_name, {}, function(err, join){
-                if (err){
-                    console.log(err);
-                }
+            alert('Se te ha agregado al grupo: ' + response.room.room_name);
+            client.joinRoom(response.room.room_name, {}, function(err, join){
+                if (err){ console.log(err); }
                 if (join){
                     console.log("Conectado a room: " + join);
                 }
             });
-            // let contact = `<li style="border: solid .1rem rgba(0, 0, 0, 0.1);
-            //             margin-left: 1rem;
-            //             margin-right: 1rem;
-            //             border-radius: .25rem;
-            //             margin-top: 1rem;
-            //             margin-bottom: 1rem;">
-            //   <a href="javascript:void(0)">
-            //       <img class="contacts-list-img" src="/dist/img/${response.user.image}" alt="User Image">
-            //       <div class="contacts-list-info">
-            //             <span class="contacts-list-name" style="margin-top: 1rem;margin-left: 1rem;color:#000;">
-            //                 ${response.user.nickname}
-            //             </span>
-            //       </div>
-            //   </a>
-            // </li>`;
-            // $(".contacts-list").prepend(contact);
         }
+    }
+
+    function makeContactsRoomList(res){
+        $(".contacts-list").empty();
+        $.each(res, function(index, el) {
+            let contact = `<li style="border: solid .1rem rgba(0, 0, 0, 0.1);
+                        margin-left: 1rem;
+                        margin-right: 1rem;
+                        border-radius: .25rem;
+                        margin-top: 1rem;
+                        margin-bottom: 1rem;">
+              <a href="javascript:void(0)">
+                  <img class="contacts-list-img" src="/dist/img/${el.image}" alt="User Image">
+                  <div class="contacts-list-info">
+                        <span class="contacts-list-name" style="margin-top: 1rem;margin-left: 1rem;color:#000;">
+                            ${el.nickname}
+                        </span>
+                  </div>
+              </a>
+            </li>`;
+            $(".contacts-list").prepend(contact);
+        });
     }
 
     // ======================================================================
@@ -192,14 +211,15 @@ $(function(){
         document.location.href = "#";
     });
 
-    $("body").on('click', '.room', function(event) {
+    $("body").on('click', '.room-asidebox', function(event) {
         room = $(this).data('rm');
-        Room.joinRoom(room, {}, function(err, join){
-            if (err){
-                console.log(err);
-            }
+        $("#room-selected").text("Grupo \"" + room + "\"" );
+        $("#bodyMessage").empty();
+        client.joinRoom(room, {}, function(err, join){
+            if (err){ console.log(err); }
             if (join){
                 console.log("Conectado a room: " + join);
+                client.emit('getcontactsroom', room);
             }
         });
     });
@@ -209,7 +229,7 @@ $(function(){
     });
 
     $("#btnAddParticipants").click(function(event) {
-        Room.emit('makeusersroom', {users: datoFinded.items, room: room});
+        client.emit('makeusersroom', {users: datoFinded.items, room: room});
     });
 
     // ======================================================================

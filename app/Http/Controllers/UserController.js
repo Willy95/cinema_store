@@ -3,6 +3,7 @@ const Validator = use('Validator')
 const User = use('App/Model/User')
 const Hash = use('Hash')
 const Database = use('Database')
+const Users_room = use('App/Model/Users_room')
 
 class UserController {
 
@@ -37,10 +38,13 @@ class UserController {
                 user.nickname = data.nicknameReg
                 user.password = yield Hash.make(data.passwordReg)
                 user.active   = 1
-                // console.log(ext);
-                // console.log(Math.floor((Math.random() * 2) + 1));
                 user.image    = "avatar" + Math.floor((Math.random() * 5) + 1) + ext[Math.floor((Math.random() * 2) + 1) - 1]
                 yield user.save()
+                let room = yield Database.from('rooms').where({ 'room_name': 'general' }).limit(1)
+                let room_rel = new Users_room();
+                room_rel.user_id = user.id
+                room_rel.room_id = room[0].id
+                yield room_rel.save();
                 return response.json({
                     res: 'Guardado exitosamente'
                 })
