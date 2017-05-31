@@ -10,9 +10,6 @@ client.emit('getmyinfo', {});
 
 $(function(){
 
-    // $('#messages-container').animate({
-    //     scrollTop: $('#messages-container').get(0).scrollHeight}, 2000);
-
     // ======================================================================
     const impMessage = $("#message");
     const onlineContainer = $("#roombox");
@@ -39,9 +36,6 @@ $(function(){
 
     // ======================================================================
 
-    datoFinded = initFinder();
-    selecGeneralRoom();
-
     // client.emit('getmyinfo', {});
 
     client.on('onMessage', drawMessages);
@@ -52,6 +46,12 @@ $(function(){
 
     // ======================================================================
 
+    function autoScroll(){
+        $('#messages-container').animate({
+            scrollTop: $('#messages-container').get(0).scrollHeight
+        }, 2000);
+    }
+
     function drawMessages(getroom, message){
         var code = (message.user.id == myinfo.id) ?
             getCodeMessageByMe(message.message.message, message.user.nickname, message.user.image, message.time) :
@@ -61,6 +61,7 @@ $(function(){
             $("#bodyMessage").append(code);
         }
         else { toastr.success("Nuevo mensaje en " + getroom); }
+        autoScroll();
     }
 
     function getCodeMessage(message, nickname, image, time){
@@ -183,6 +184,7 @@ $(function(){
                 if ($("body").find('.direct-chat-msg').length == 0){ $("#bodyMessage").empty(); }
                 $("#bodyMessage").append(code);
             }
+            autoScroll();
         });
     }
 
@@ -283,5 +285,11 @@ $(function(){
             }
         }).fail(function(){})
     })
+
+    // ======================================================================
+
+    datoFinded = initFinder();
+    selecGeneralRoom();
+    autoScroll();
 
 });
