@@ -146,6 +146,8 @@ $(function(){
                     room = $(this).data('rm');
                     client.emit('getmessagesroom', room);
                     client.emit('getcontactsroom', room);
+                    $("#boxtoadd").hide();
+                    $("#leftGroupBtn").hide();
                 }
                 client.joinRoom($(this).data('rm'), {}, function(err, join){
                     if (err){ console.log(err); }
@@ -188,8 +190,10 @@ $(function(){
     }
 
     function makeContactsRoomList(res){
+        if (res.room.id === myinfo.id) { $("#boxtoadd").show(); }
+        else { $("#boxtoadd").hide(); }
         $(".contacts-list").empty();
-        $.each(res, function(index, el) {
+        $.each(res.contacts, function(index, el) {
             let contact = `<li style="border: solid .1rem rgba(0, 0, 0, 0.1);
                         margin-left: 1rem;
                         margin-right: 1rem;
@@ -237,6 +241,14 @@ $(function(){
         client.joinRoom(room, {}, function(err, join){
             if (err){ console.log(err); }
             if (join){
+                if (room === "general"){
+                    $("#boxtoadd").hide();
+                    $("#leftGroupBtn").hide();
+                }
+                else{
+                    $("#boxtoadd").show();
+                    $("#leftGroupBtn").show();
+                }
                 console.log("Conectado a room: " + join);
                 client.emit('getmessagesroom', room);
                 client.emit('getcontactsroom', room);
