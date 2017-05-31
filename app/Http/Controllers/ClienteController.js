@@ -47,7 +47,7 @@ class ClienteController {
     }
 
 
-    * assigned(req, res){
+    * assigned(req, res) {
         return res.send({
             status: "200",
             data: yield Cliente.all()

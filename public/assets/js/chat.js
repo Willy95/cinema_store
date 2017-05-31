@@ -28,11 +28,11 @@ $(function(){
         onlineContainer.empty()
         state.map(function (user){
             let users = `<li style="cursor:pointer;" class="room">
+              <img src="/dist/img/${user.payload[0].meta.image}" alt="User Image">
               <a class="users-list-name" href="#">${user.payload[0].meta.nickname}</a>
             </li>`
             onlineContainer.append(users)
         })
-        // onlineContainer.innerHTML = users.join('');
 
     })
 
