@@ -117,7 +117,7 @@ $(function(){
             load: function(query, callback) {
                 if (!query.length) return callback();
                 $.ajax({
-                    url: '/find-users/' + encodeURIComponent(query),
+                    url: '/find-users/' + encodeURIComponent(query) + '/' + room,
                     type: 'GET',
                     error: function() {
                         callback();
@@ -191,7 +191,7 @@ $(function(){
     }
 
     function makeContactsRoomList(res){
-        if (res.room.id === myinfo.id) { $("#boxtoadd").show(); }
+        if (res.room.admin_id === myinfo.id) { $("#boxtoadd").show(); }
         else { $("#boxtoadd").hide(); }
         $(".contacts-list").empty();
         $.each(res.contacts, function(index, el) {
