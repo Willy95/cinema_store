@@ -60,7 +60,7 @@ $(function(){
             if ($("body").find('.direct-chat-msg').length == 0){ $("#bodyMessage").empty(); }
             $("#bodyMessage").append(code);
         }
-        else { alert("Nuevo mensaje en " + getroom); }
+        else { toastr.success("Nuevo mensaje en " + getroom); }
     }
 
     function getCodeMessage(message, nickname, image, time){
@@ -156,14 +156,14 @@ $(function(){
             });
         }
         else {
-            alert("Ha ocurrido un error para el grupo general");
+            toastr.error("Ha ocurrido un error para el grupo general");
         }
     }
 
     function addedPartnersRoom(response){
         if (myinfo.nickname == response.user.nickname){
             makeAddedRoom(response.room);
-            alert('Se te ha agregado al grupo: ' + response.room.room_name);
+            toastr.success('Se te ha agregado al grupo: ' + response.room.room_name);
             client.joinRoom(response.room.room_name, {}, function(err, join){
                 if (err){ console.log(err); }
                 if (join){
@@ -244,7 +244,18 @@ $(function(){
     });
 
     $("#leftGroupBtn").click(function(event) {
-        alert("¿Estas seguro que deseas dejar el grupo?");
+        swal({
+            title: "¿Estas seguro que deseas dejar el grupo?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function(){
+            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+        });
     });
 
     $("#btnAddParticipants").click(function(event) {
@@ -265,10 +276,10 @@ $(function(){
             data: data
         }).done(function(response){
             if (response.status == 1) {
-                alert(response.res);
+                toastr.success(response.res);
                 document.location = '/chat';
             } else {
-                alert(response.res);
+                toastr.error(response.res);
             }
         }).fail(function(){})
     })
