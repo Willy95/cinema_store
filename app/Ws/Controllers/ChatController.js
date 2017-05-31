@@ -90,6 +90,16 @@ class ChatController {
         console.log("se unió al room " + room);
     }
 
+    * leaveRoom (room, user){
+        console.log(user);
+        try {
+            let myroom = yield Database.from('rooms').where({ 'room_name': room }).limit(1)
+            yield Database.table('users_rooms').where({ 'user_id': user.id, 'room_id': myroom[0].id }).delete()
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     // * leftRoomUser(user, room){
     //     try {
     //         yield Database.table('users_rooms').where({ 'user_id': user, 'room_id': room }).delete()
