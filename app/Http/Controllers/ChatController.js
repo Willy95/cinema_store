@@ -88,25 +88,56 @@ class ChatController {
                     res: 'Falló al obtener los mensajes'
                 })
             }
-            else {
-                if (object){
-                    object.forEach(elem => {
+                else {
+                    if (object){
+                        var random = Math.floor((Math.random() * 100000) + 1)
+                        var name = random + param.room + ".txt"
+                        
+                        object.forEach(elem => {
                         file.appendFile(`public/assets/conversations/conversacion-room-${param.room}.txt`,
                             `${elem.user.nickname}: ${elem.message.message} \n`, function(err){
                                 if (err) throw err;
                                 console.log("archivo creado");
                             })
-                    });
-                    return res.attachment(Helpers.publicPath(`/assets/conversations/conversacion-room-${param.room}.txt`))
+                        });
+                        return res.attachment(Helpers.publicPath(`/assets/conversations/conversacion-room-${param.room}.txt`))
+
+                        object.forEach(elem => {
+                            file.appendFile(name,
+                                `${elem.user.nickname}: ${elem.message.message} \n`, function(err){
+                                    if (err) throw err;
+                                    console.log("archivo creado");
+                                })
+                        });
+
+                        res.download(__dirname + "/" + name, name, function(error){
+                            if (error){
+                                console.log("================ ERROR DE DESCARGA ===============");
+                                console.log(error);
+                                console.log("==================================================");
+                            }
+                            else {
+                                console.log(" >> DESCARGA COMPLETA <<");
+                            }
+                        });
+
+                        return res.json({
+                            status: 200,
+                            res: 'Archivo de conversación creado correctamente',
+                            data: object
+                        })
+                    }
+                    else {
+                        return res.json({
+                            status: 404,
+                            res: 'No hay mensajes'
+                        })
+                    }
                 }
-                else {
-                    return res.json({
-                        status: 404,
-                        res: 'No hay mensajes'
-                    })
-                }
-            }
-        });
+            })
+        } catch (e) {
+            console.log(e);
+        }
     }
 
 }
