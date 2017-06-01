@@ -6,6 +6,7 @@ const User = use('App/Model/User')
 const Users_room = use('App/Model/Users_room')
 var file = require("fs")
 const MessageMongo = use('App/Model/mongo/MessageMongo')
+const Helpers = use('Helpers')
 
 class ChatController {
 
@@ -90,17 +91,13 @@ class ChatController {
             else {
                 if (object){
                     object.forEach(elem => {
-                        file.appendFile(`conversacion-room-${elem.message.room}.txt`,
+                        file.appendFile(`public/assets/conversations/conversacion-room-${param.room}.txt`,
                             `${elem.user.nickname}: ${elem.message.message} \n`, function(err){
                                 if (err) throw err;
                                 console.log("archivo creado");
                             })
                     });
-                    return res.json({
-                        status: 200,
-                        res: 'Archivo de conversación creado correctamente',
-                        data: object
-                    })
+                    return res.attachment(Helpers.publicPath(`/assets/conversations/conversacion-room-${param.room}.txt`))
                 }
                 else {
                     return res.json({
