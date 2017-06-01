@@ -4,6 +4,8 @@ const Room = use('App/Model/Room')
 const Database = use('Database')
 const User = use('App/Model/User')
 const Users_room = use('App/Model/Users_room')
+var file = require("fs")
+const MessageMongo = use('App/Model/mongo/MessageMongo')
 
 class ChatController {
 
@@ -72,6 +74,15 @@ class ChatController {
 
     * getPublicRoom (req, res){
 
+    }
+
+    * createFile (req, res) {
+        const param = req.only('room')
+        const message = MessageMongo.find({'message.room': param.room})
+        console.log(message.toJSON());
+        return res.json({
+            res: 'Archivo de conversación creado correctamente'
+        })
     }
 
 }
