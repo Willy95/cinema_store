@@ -1,6 +1,6 @@
 admin: hola a todos 
+fercnls: hola 
+willy: hola fer 
 willy: hola gracias 
 admin: me da gusto que inicies en este grupo !! 
 willy: si si, no me importa 
-fercnls: hola 
-willy: hola fer 

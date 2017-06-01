@@ -78,7 +78,7 @@ class ChatController {
     }
 
     * createFile (req, res) {
-        const param = req.only('room')
+        const param = req.params()
         MessageMongo.find({'message.room': param.room}).select('time message.message user.nickname').exec(function(error, object){
             if (error){
                 console.log("================ ERROR 500 ===============");
