@@ -77,15 +77,37 @@ class ChatController {
     }
 
     * createFile (req, res) {
-        const param = req.all()
-        // const messagesDownload = MessageMongo.find({})
-        // console.log(messagesDownload.toJSON());
-        fs.appendFile('/assets/conversations/conversasion.txt',`probando que jale ${param.room}`, function(err){
-            if (err) throw err;
-            console.log('guardado');
-        })
-        return res.json({
-            res: 'Archivo de conversación creado correctamente'
+        const param = req.only('room')
+        const message = MessageMongo.find({'message.room': param.room}, function(error, object){
+            if (error){
+                console.log("================ ERROR 500 ===============");
+                console.log(error);
+                return res.json({
+                    status: 500,
+                    res: 'Falló al obtener los mensajes'
+                })
+            }
+            else {
+                if (object){
+                    object.forEach(elem => {
+                        file.appendFile(`conversacion-room-${elem.message.room}.txt`,
+                            `${elem.user.nickname}: ${elem.message.message} \n`, function(err){
+                                if (err) throw err;
+                                console.log("archivo creado");
+                            })
+                    });
+                    return res.json({
+                        status: 200,
+                        res: 'Archivo de conversación creado correctamente'
+                    })
+                }
+                else {
+                    return res.json({
+                        status: 404,
+                        res: 'No hay mensajes'
+                    })
+                }
+            }
         })
     }
 
