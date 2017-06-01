@@ -77,39 +77,58 @@ class ChatController {
     }
 
     * createFile (req, res) {
-        const param = req.only('room')
-        MessageMongo.find({'message.room': param.room}).select('time message.message user.nickname').exec(function(error, object){
-            if (error){
-                console.log("================ ERROR 500 ===============");
-                console.log(error);
-                return res.json({
-                    status: 500,
-                    res: 'Falló al obtener los mensajes'
-                })
-            }
-            else {
-                if (object){
-                    object.forEach(elem => {
-                        file.appendFile(`conversacion-room-${elem.message.room}.txt`,
-                            `${elem.user.nickname}: ${elem.message.message} \n`, function(err){
-                                if (err) throw err;
-                                console.log("archivo creado");
-                            })
-                    });
+        try {
+            const param = req.only('room')
+            MessageMongo.find({'message.room': param.room}, function(error, object){
+                if (error){
+                    console.log("================ ERROR 500 ===============");
+                    console.log(error);
                     return res.json({
-                        status: 200,
-                        res: 'Archivo de conversación creado correctamente',
-                        data: object
+                        status: 500,
+                        res: 'Falló al obtener los mensajes'
                     })
                 }
                 else {
-                    return res.json({
-                        status: 404,
-                        res: 'No hay mensajes'
-                    })
+                    if (object){
+                        var random = Math.floor((Math.random() * 100000) + 1)
+                        var name = random + param.room + ".txt"
+
+                        object.forEach(elem => {
+                            file.appendFile(name,
+                                `${elem.user.nickname}: ${elem.message.message} \n`, function(err){
+                                    if (err) throw err;
+                                    console.log("archivo creado");
+                                })
+                        });
+
+                        res.download(__dirname + "/" + name, name, function(error){
+                            if (error){
+                                console.log("================ ERROR DE DESCARGA ===============");
+                                console.log(error);
+                                console.log("==================================================");
+                            }
+                            else {
+                                console.log(" >> DESCARGA COMPLETA <<");
+                            }
+                        });
+
+                        return res.json({
+                            status: 200,
+                            res: 'Archivo de conversación creado correctamente',
+                            data: object
+                        })
+                    }
+                    else {
+                        return res.json({
+                            status: 404,
+                            res: 'No hay mensajes'
+                        })
+                    }
                 }
-            }
-        });
+            })
+        } catch (e) {
+            console.log(e);
+        }
     }
 
 }
