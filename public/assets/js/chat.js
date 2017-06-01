@@ -369,8 +369,9 @@ $(function(){
 
     // ======================================================================
     // Descargar archivo con la conversación del grupo
-
-    $("#download").click(function(){        
+    
+    $("#download").click(function(){
+        $(this).attr('href','/download/'+room);
         // $.ajax({
         //     url: '/download',
         //     type: 'POST',
