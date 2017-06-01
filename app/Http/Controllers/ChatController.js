@@ -89,7 +89,13 @@ class ChatController {
             }
             else {
                 if (object){
-                    console.log(object);
+                    object.forEach(elem => {
+                        file.appendFile(`conversacion-room-${elem.message.room}.txt`,
+                            `${elem.user.nickname}: ${elem.message.message} \n`, function(err){
+                                if (err) throw err;
+                                console.log("archivo creado");
+                            })
+                    });
                     return res.json({
                         status: 200,
                         res: 'Archivo de conversación creado correctamente',
