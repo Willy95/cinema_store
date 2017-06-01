@@ -6,6 +6,7 @@ const User = use('App/Model/User')
 const Users_room = use('App/Model/Users_room')
 var file = require("fs")
 const MessageMongo = use('App/Model/mongo/MessageMongo')
+const Helpers = use('Helpers')
 
 class ChatController {
 
@@ -77,21 +78,29 @@ class ChatController {
     }
 
     * createFile (req, res) {
-        try {
-            const param = req.only('room')
-            MessageMongo.find({'message.room': param.room}, function(error, object){
-                if (error){
-                    console.log("================ ERROR 500 ===============");
-                    console.log(error);
-                    return res.json({
-                        status: 500,
-                        res: 'Falló al obtener los mensajes'
-                    })
-                }
+        const param = req.only('room')
+        MessageMongo.find({'message.room': param.room}).select('time message.message user.nickname').exec(function(error, object){
+            if (error){
+                console.log("================ ERROR 500 ===============");
+                console.log(error);
+                return res.json({
+                    status: 500,
+                    res: 'Falló al obtener los mensajes'
+                })
+            }
                 else {
                     if (object){
                         var random = Math.floor((Math.random() * 100000) + 1)
                         var name = random + param.room + ".txt"
+                        
+                        object.forEach(elem => {
+                        file.appendFile(`public/assets/conversations/conversacion-room-${param.room}.txt`,
+                            `${elem.user.nickname}: ${elem.message.message} \n`, function(err){
+                                if (err) throw err;
+                                console.log("archivo creado");
+                            })
+                        });
+                        return res.attachment(Helpers.publicPath(`/assets/conversations/conversacion-room-${param.room}.txt`))
 
                         object.forEach(elem => {
                             file.appendFile(name,
