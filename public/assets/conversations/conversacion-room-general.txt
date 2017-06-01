@@ -1,6 +1,11 @@
-admin: hola a todos 
-fercnls: hola 
-willy: hola fer 
-willy: hola gracias 
-admin: me da gusto que inicies en este grupo !! 
-willy: si si, no me importa 
+roger: hola ( 31/5/2017 19:03:10 )
+
+roger: hola hoal ( 31/5/2017 19:03:23 )
+
+canales: mugre gerson ( 31/5/2017 19:06:36 )
+
+roger: caise weey ( 31/5/2017 19:07:05 )
+
+wilvardo: qa ( 1/6/2017 13:58:23 )
+
+wilvardo: descarganfo ( 1/6/2017 17:48:59 )

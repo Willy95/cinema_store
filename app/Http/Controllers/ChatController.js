@@ -78,46 +78,22 @@ class ChatController {
     }
 
     * createFile (req, res) {
-        const param = req.params()
-        MessageMongo.find({'message.room': param.room}).select('time message.message user.nickname').exec(function(error, object){
-            if (error){
-                console.log("================ ERROR 500 ===============");
-                console.log(error);
-                return res.json({
-                    status: 500,
-                    res: 'Falló al obtener los mensajes'
-                })
-            }
+        try {
+            const param = req.params()
+            MessageMongo.find({'message.room': param.room}, function(error, object){
+                if (error){
+                    console.log("================ ERROR 500 ===============");
+                    console.log(error);
+                    return res.json({
+                        status: 500,
+                        res: 'Falló al obtener los mensajes'
+                    })
+                }
                 else {
                     if (object){
-                        var random = Math.floor((Math.random() * 100000) + 1)
-                        var name = random + param.room + ".txt"
-
-                        object.forEach(elem => {
-                        file.appendFile(`public/assets/conversations/conversacion-room-${param.room}.txt`,
-                            `${elem.user.nickname}: ${elem.message.message} \n`, function(err){
-                                if (err) throw err;
-                                console.log("archivo creado");
-                            })
-                        });
+                        var obj = object.map((el, i) => `${el.user.nickname}: ${el.message.message} ( ${el.time} )`).join('\n\n')
+                        file.writeFileSync(`public/assets/conversations/conversacion-room-${param.room}.txt`, obj)
                         return res.attachment(Helpers.publicPath(`/assets/conversations/conversacion-room-${param.room}.txt`))
-
-                        // res.download(__dirname + "/" + name, name, function(error){
-                        //     if (error){
-                        //         console.log("================ ERROR DE DESCARGA ===============");
-                        //         console.log(error);
-                        //         console.log("==================================================");
-                        //     }
-                        //     else {
-                        //         console.log(" >> DESCARGA COMPLETA <<");
-                        //     }
-                        // });
-
-                        // return res.json({
-                        //     status: 200,
-                        //     res: 'Archivo de conversación creado correctamente',
-                        //     data: object
-                        // })
                     }
                     else {
                         return res.json({
