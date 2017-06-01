@@ -78,7 +78,7 @@ class ChatController {
 
     * createFile (req, res) {
         const param = req.only('room')
-        const message = MessageMongo.find({'message.room': param.room}, function(error, object){
+        MessageMongo.find({'message.room': param.room}).select('time message.message user.nickname').exec(function(error, object){
             if (error){
                 console.log("================ ERROR 500 ===============");
                 console.log(error);
@@ -98,7 +98,8 @@ class ChatController {
                     });
                     return res.json({
                         status: 200,
-                        res: 'Archivo de conversación creado correctamente'
+                        res: 'Archivo de conversación creado correctamente',
+                        data: object
                     })
                 }
                 else {
@@ -108,7 +109,7 @@ class ChatController {
                     })
                 }
             }
-        })
+        });
     }
 
 }
