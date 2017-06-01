@@ -377,8 +377,10 @@ $(function(){
             dataType: 'JSON',
             data: {room: room}
         }).done(function(response){
+            console.log(response);
             toastr.success(response.res)
         }).fail(function(e){
+            console.log(e);
             toastr.warning("Error al intentar crear archivo de conversación");
         })
     })
