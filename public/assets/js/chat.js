@@ -36,21 +36,40 @@ $(function(){
 
     // ======================================================================
 
-    // client.emit('getmyinfo', {});
-
     client.on('onMessage', drawMessages);
-    // client.on('onGetmyinfo', function(res){ myinfo = res; });
     client.on('onMakeusersroom', addedPartnersRoom);
     client.on('onGetmessagesroom', makeMessagesRoomList);
     client.on('onGetcontactsroom', makeContactsRoomList);
     client.on('onLeftRoom', leftRoom)
     client.on('onDeleteroom', deleteRoom)
+    client.on('onUpdatecontactsroom', updateContactsRoom)
 
 
     // ======================================================================
 
+    function updateContactsRoom(room, data){
+        console.log(data);
+        if (data.room == room){
+            $("body").find("#" + data.user.id + "" + data.user.nickname).remove();
+        }
+    }
+
     function deleteRoom(res){
-        toastr.success(res);
+        $("body").find("#" + res.room).remove();
+        if ( res.room == room ){ $("body").find('#general.room-asidebox').trigger('click'); }
+        toastr.success("El grupo " + res.room + " ha sido eliminado");
+        client.leaveRoom(res.room, myinfo, function(error, left){
+            if (error){
+                console.log(error);
+                toastr.error("Error al dejar el grupo " + res.room);
+            }
+            if (left){
+                console.log("Has dejado el grupo " + res.room);
+                if (res.me !== myinfo.id){
+                    toastr.success(`Has dejado el grupo ${res.room} automaticamente`);
+                }
+            }
+        });
     }
 
     function autoScroll(){
@@ -138,7 +157,7 @@ $(function(){
     }
 
     function makeAddedRoom(room){
-        let code = `<li style="cursor:pointer;" class="room room-asidebox" data-rm="${room.room_name}">
+        let code = `<li style="cursor:pointer;" class="room room-asidebox" id="${room.room_name}" data-rm="${room.room_name}">
           <img src="/dist/img/${room.image}">
           <a class="users-list-name" href="#" style="color:#fff;">${room.room_name}</a>
         </li>`;
@@ -153,8 +172,6 @@ $(function(){
                     room = $(this).data('rm');
                     client.emit('getmessagesroom', room);
                     client.emit('getcontactsroom', room);
-                    $("#boxtoadd").hide();
-                    $("#leftGroupBtn").hide();
                 }
                 client.joinRoom($(this).data('rm'), {}, function(err, join){
                     if (err){ console.log(err); }
@@ -171,7 +188,10 @@ $(function(){
     }
 
     function addedPartnersRoom(response){
-        if (myinfo.id == response.me){ window.location.reload(); }
+        if (myinfo.id == response.me){
+            toastr.success("Los participantes se han agregado correctamente");
+            $("body").find("#"+response.room.room_name+".room-asidebox").trigger('click');
+        }
         if (myinfo.nickname == response.user.nickname){
             makeAddedRoom(response.room);
             toastr.success('Se te ha agregado al grupo: ' + response.room.room_name);
@@ -198,8 +218,18 @@ $(function(){
     }
 
     function makeContactsRoomList(res){
-        if (res.room.admin_id === myinfo.id) { $("#boxtoadd").show(); $("#leftGroupBtn").hide(); $("#deleteRoom").show();}
-        else { $("#boxtoadd").hide(); $("#deleteRoom").hide();}
+        if (res.room.admin_id === myinfo.id) {
+            $("#boxtoadd").show(); $("#leftGroupBtn").hide(); $("#deleteRoom").show();
+        }
+        else {
+            $("#boxtoadd").hide(); $("#deleteRoom").hide();
+            if (res.room.room_name === 'general'){
+                $("#leftGroupBtn").hide();
+            }
+            else {
+                $("#leftGroupBtn").show();
+            }
+        }
         $(".contacts-list").empty();
             $.each(res.contacts, function(index, el) {
             let contact = `<li style="border: solid .1rem rgba(0, 0, 0, 0.1);
@@ -207,7 +237,7 @@ $(function(){
                         margin-right: 1rem;
                         border-radius: .25rem;
                         margin-top: 1rem;
-                        margin-bottom: 1rem;">
+                        margin-bottom: 1rem;" id="${el.id + "" + el.nickname}">
               <a href="javascript:void(0)">
                   <img class="contacts-list-img" src="/dist/img/${el.image}" alt="User Image">
                   <div class="contacts-list-info">
@@ -286,7 +316,9 @@ $(function(){
                 }
                 if (left){
                     toastr.success(`Has dejado el grupo ${room} correctamente`);
-                    window.location.reload();
+                    client.emit('updatecontactsroom', {room:room, user:myinfo});
+                    $("body").find("#" + room).remove();
+                    $("body").find("#general.room-asidebox").trigger('click');
                 }
             });
         });
