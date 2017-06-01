@@ -8,7 +8,7 @@ const MessageMongo = schema({
     time: { type: String, required: true },
     message: { type: Object, required: true },
     room: { type: Object, required: true }
-},
+},{collection:'messagemongos'},
 {
     timestamps: {
         createdAt: 'created_at',

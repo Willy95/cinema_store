@@ -77,9 +77,13 @@ class ChatController {
     }
 
     * createFile (req, res) {
-        const param = req.only('room')
-        const message = MessageMongo.find({'message.room': param.room})
-        console.log(message.toJSON());
+        const param = req.all()
+        // const messagesDownload = MessageMongo.find({})
+        // console.log(messagesDownload.toJSON());
+        fs.appendFile('/assets/conversations/conversasion.txt',`probando que jale ${param.room}`, function(err){
+            if (err) throw err;
+            console.log('guardado');
+        })
         return res.json({
             res: 'Archivo de conversación creado correctamente'
         })
