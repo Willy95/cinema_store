@@ -85,6 +85,12 @@ class ChatController {
         }
     }
 
+    * onUpdatecontactsroom(data){
+        console.log(data.room);
+        console.log(data.user);
+        this.socket.toEveryone().inRoom(data.room).emit('onUpdatecontactsroom', data)
+    }
+
     disconnected(socket){
         console.log('socket disconnected', socket.id);
     }
@@ -94,30 +100,28 @@ class ChatController {
     }
 
     * leaveRoom (room, user){
-        console.log(user);
         try {
             let myroom = yield Database.from('rooms').where({ 'room_name': room }).limit(1)
-            yield Database.table('users_rooms').where({ 'user_id': user.id, 'room_id': myroom[0].id }).delete()
+            if (myroom[0].admin_id !== user.id){
+                yield Database.table('users_rooms').where({
+                    'user_id': user.id,
+                    'room_id': myroom[0].id
+                }).delete()
+            }
         } catch (e) {
             console.log(e);
         }
     }
 
-    // * leftRoomUser(user, room){
-    //     try {
-    //         yield Database.table('users_rooms').where({ 'user_id': user, 'room_id': room }).delete()
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
-
     * onDeleteroom(object) {
         try {
             let the_room  = yield Database.from('rooms').where({ 'room_name': object.room }).limit(1)
-
-            let myroom = yield Database.from('rooms').innerJoin('users_rooms','rooms.id','users_rooms.room_id').where({'room_name': object.room}).where({'admin_id':this.socket.currentUser.attributes.id}).where({'users_rooms.room_id':the_room[0].id}).delete()
-
-            this.socket.toMe().emit('onDeleteroom', 'Tu grupo fue borrado correctamente')
+            yield Database.from('users_rooms').where({ 'room_id': the_room[0].id }).delete()
+            this.socket.toEveryone().emit('onDeleteroom', {
+                message: 'Tu grupo fue borrado correctamente',
+                room: object.room,
+                me: this.socket.currentUser.attributes.id
+            })
 
         } catch (err) {
             console.log(err);
