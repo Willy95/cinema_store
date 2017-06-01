@@ -370,18 +370,18 @@ $(function(){
     // ======================================================================
     // Descargar archivo con la conversación del grupo
 
-    $("#download").click(function(){
-        $.ajax({
-            url: '/download',
-            type: 'POST',
-            dataType: 'JSON',
-            data: {room: room}
-        }).done(function(response){
-            toastr.success("archivo creado correctamente !")
-        }).fail(function(e){
-            console.log(e);
-            toastr.warning("Error al intentar crear archivo de conversación");
-        })
+    $("#download").click(function(){        
+        // $.ajax({
+        //     url: '/download',
+        //     type: 'POST',
+        //     dataType: 'JSON',
+        //     data: {room: room}
+        // }).done(function(response){
+        //     toastr.success("archivo creado correctamente !")
+        // }).fail(function(e){
+        //     console.log(e);
+        //     toastr.warning("Error al intentar crear archivo de conversación");
+        // })
     })
 
     // ======================================================================
