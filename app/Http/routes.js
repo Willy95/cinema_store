@@ -16,24 +16,3 @@
 */
 
 const Route = use('Route')
-
-//Route.on('/').render('buy_ticket')
-// Route.get('/','ClienteController.getDate')
-// Route.post('/guardar','ClienteController.register')
-//
-// Route.post('/assigned-tickets','ClienteController.assigned')
-
-Route.post('/assigned-tickets','ClienteController.assigned')
-
-//************************************************************************//
-// RUTAS DE CHAT
-
-Route.get('/', 'UserController.registerView')
-Route.post('/register', 'UserController.register')
-Route.get('/login', 'UserController.loginView')
-Route.post('/auth', 'UserController.auth')
-Route.get('/logout', 'UserController.logOut')
-Route.get('/chat/:room?','ChatController.viewChat').middleware('auth')
-Route.post('/createRoom', 'ChatController.createRoom')
-Route.get('/find-users/:user/:room','ChatController.findUsersToRoom').middleware('auth')
-Route.get('/download/:room', 'ChatController.createFile')
