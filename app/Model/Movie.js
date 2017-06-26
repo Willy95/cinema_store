@@ -5,7 +5,7 @@ const schema = mongoose.Schema
 
 const MovieMongo = schema({
 
-    id: { type: ObjectId, required: true},
+    id: { type: Number, required: true},
     title: { type: String, required: true },
     poster: { type: String, required: true },
     year: { type: Number, required: true },
