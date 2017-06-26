@@ -18,6 +18,7 @@
 const Route = use('Route')
 
 Route.get('/', 'LandingController.sendIndex')
+Route.get('/pelicula', 'LandingController.sendMovie')
 
 Route.get('/customer-register', 'CustomerController.renderPage')
 Route.post('/save-customer', 'CustomerController.save')

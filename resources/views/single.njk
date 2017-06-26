@@ -1,0 +1,62 @@
+{% extends 'templates.landing' %}
+
+{% block css %}
+	<style media="screen">
+		.btn-buy{
+			background: #dfb636;
+			margin-top: 3rem;
+			padding-left: 3rem;
+			padding-right: 3rem;
+			color: #fff !important;
+			text-decoration: none !important;
+			outline: none !important;
+		}
+	</style>
+{% endblock %}
+
+{% block htmlconf %}
+<div class="single-content">
+	<div class="top-header span_top">
+{% endblock %}
+
+{% block headerinfo %}
+<div class="reviews-section">
+	<div class="col-md-12 reviews-grids">
+		<div class="review">
+			<div class="movie-pic">
+				<a href="javascript:void(0)"><img src="/dist/images/r4.jpg" alt="" /></a>
+			</div>
+			<div class="review-info">
+				<a class="span" href="javascript:void(0)">Interestelar</a>
+				<p class="dirctr"><a href="javascript:void(0)">Reagan Gavin Rasquinha, </a>TNN, Mar 12, 2015, 12.47PM IST</p>
+				<div class="clearfix"></div>
+				<label class="info" id="cast">
+					Actores: Will Smith, Margot Robbie, Adrian Martinez, Rodrigo Santoro, BD Wong, Robert Taylor
+				</label><br>
+				<label class="info" id="direction">
+					Director: Glenn Ficarra, John Requa
+				</label><br>
+				<label class="info" id="genre">
+					Género: Crime
+				</label><br>
+				<label class="info" id="duration">
+					Duración: 1 hour 45 minutes
+				</label><br><br>
+				<h3>Sinopsis</h3>
+				<p><br>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim doloribus ipsam saepe, fugiat odio, a numquam voluptate ex dolorem accusamus ut eum quam iure nihil sint qui reprehenderit, temporibus! Consectetur, ut iste nesciunt dolore animi excepturi maiores earum repudiandae facere!
+				</p>
+				<p>
+					<a href="javascript:void(0)" class="btn btn-buy">
+						Comprar Boletos
+					</a>
+				</p>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+{% endblock %}
+
+{% block js %}{% endblock %}
