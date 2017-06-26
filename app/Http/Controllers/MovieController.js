@@ -15,7 +15,7 @@ class MovieController {
         }
         api.post("http://filmdate-filmdate.rhcloud.com/api/api.php/getPeliculas",args, function (data,response){
             console.log(data);
-            console.log(response);
+            console.log(response.read);
         })
 
         return res.json({
