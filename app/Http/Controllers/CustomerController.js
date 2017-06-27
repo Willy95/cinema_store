@@ -59,8 +59,8 @@ class CustomerController {
               try {
                 // let dataa = {'user': user.attributes.id, 'card': data.number}
                 let dataa = {'user': '001', 'card': '9090'}
-                let customer = new CustomerMongo(dataa)
-                customer.save()
+                let customer = new CustomerMongo(dataa);
+                customer.save();
                 return res.send({
                   status: 'c200',
                   message: 'success',
