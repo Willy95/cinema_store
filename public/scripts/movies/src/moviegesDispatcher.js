@@ -35,7 +35,7 @@ $(function(){
 
     $("#save-movie").click(function(event){
         let movie = getDataForm();
-        
+        moviegesController.saveMovie(movie, successAlert, errorAlert)
     })
 
 })
