@@ -2,8 +2,10 @@
 
 const Validator = use('Validator')
 const Database = use('Database')
+const mongoose = use('mongoose')
 const User = use('App/Model/User')
 const Hash = use('Hash')
+const CustomerMongo = use('App/Model/Mongo/CustomerMongo')
 
 class CustomerController {
 
@@ -46,7 +48,7 @@ class CustomerController {
             })
           }
           else {
-            let user = new User()
+            var user = new User()
             user.email = data.email
             user.password = yield Hash.make(data.password)
             user.token = yield Hash.make(data.email)
@@ -54,13 +56,21 @@ class CustomerController {
             user.role_name = 'customer'
             user.full_name = data.name
             if (yield user.save()){
-              return res.send({
-                status: 'c200',
-                message: 'success',
-                data: user
-              })
+              try {
+                // let dataa = {'user': user.attributes.id, 'card': data.number}
+                let dataa = {'user': '001', 'card': '9090'}
+                let customer = new CustomerMongo(dataa)
+                customer.save()
+                return res.send({
+                  status: 'c200',
+                  message: 'success',
+                  data: user
+                })
+              } catch (e) {
+                console.log(e);
+              }
             }
-            return response.json({
+            return res.json({
               status: 'c500',
               message: 'Error al registrar al usuario, intentalo nuevamente'
             })
