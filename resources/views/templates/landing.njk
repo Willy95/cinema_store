@@ -4,6 +4,7 @@
 <head>
 	<link href="/dist/css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="/dist/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" href="/libs/toastr/toastr.min.css">
 	<link rel="stylesheet" href="/scripts/css/landing.css">
 	{% block css %}{% endblock %}
 	<script src="/dist/js/jquery.min.js"></script>
@@ -46,8 +47,12 @@
 						<p>Movie Theater</p>
 					</div>
 					<div class="buttons">
+						{% if currentUser %}
+						<a href="/logout" id="logout">Salir</a>
+						{% else %}
 						<a href="/iniciar-sesion" id="login">Entrar</a>
 						<a href="/customer-register" id="register">Registrarme</a>
+						{% endif %}
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -111,6 +116,7 @@
 		});
 	</script>
 	<script type="text/javascript" src="/dist/js/jquery.flexisel.js"></script>
+	<script src="/libs/toastr/toastr.min.js" charset="utf-8"></script>
 	<script src="/scripts/js/landing.js" charset="utf-8"></script>
 	{% block js %}{% endblock %}
 </body>

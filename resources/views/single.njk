@@ -11,6 +11,29 @@
 			text-decoration: none !important;
 			outline: none !important;
 		}
+		.reviews-section{
+	    border-top: none !important;
+		}
+		#horarios-list > li{
+			list-style: none;
+			background: #d2d2d2;
+			padding: 1.3rem;
+			width: 20rem;
+			text-align: center;
+			box-sizing: border-box;
+			float: left;
+	    margin: 1rem;
+		}
+		.horarios-box{
+			float: left;
+			border: solid 1px #dfb636;
+			padding: 2rem;
+			border-radius: 1rem;
+			margin-top: 3rem;
+		}
+		hr{
+	    border: solid 1px #dfb636;
+		}
 	</style>
 {% endblock %}
 
@@ -46,13 +69,25 @@
 				<p><br>
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim doloribus ipsam saepe, fugiat odio, a numquam voluptate ex dolorem accusamus ut eum quam iure nihil sint qui reprehenderit, temporibus! Consectetur, ut iste nesciunt dolore animi excepturi maiores earum repudiandae facere!
 				</p>
-				<p>
-					<a href="javascript:void(0)" class="btn btn-buy">
-						Comprar Boletos
-					</a>
-				</p>
 			</div>
 			<div class="clearfix"></div>
+			<div class="horarios-box">
+				<h4>Horarios Cinema XXII Platino</h4>
+				<hr>
+				<ul id="horarios-list">
+					<li>15:00 | ESP | 2D</li>
+					<li>16:00 | ESP | 3D</li>
+					<li>17:00 | ING | 2D</li>
+					<li>18:00 | ING | 3D</li>
+					<li>19:00 | ESP | 3D</li>
+					<li>20:00 | ESP | 2D</li>
+				</ul>
+			</div>
+			<p class="text-right">
+				<a href="javascript:void(0)" class="btn btn-buy">
+					Comprar Boletos
+				</a>
+			</p>
 		</div>
 	</div>
 	<div class="clearfix"></div>
