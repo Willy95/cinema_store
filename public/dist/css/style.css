@@ -25,8 +25,8 @@ input[type="button"],input[type="submit"]{
 	-ms-transition:0.5s all;
 }
 h1,h2,h3,h4,h5,h6{
-	margin:0;			   
-}	
+	margin:0;
+}
 p{
 	margin:0;
 }
@@ -38,7 +38,7 @@ label{
 	margin:0;
 }
 /*-----start-header----*/
-.full {	
+.full {
 	border-left: 5px solid #2b2b2b;
 }
 .main{
@@ -55,7 +55,7 @@ label{
 	-moz-background-size:cover;
 	-o-background-size:cover;
 	-ms-background-size:cover;
-	min-height:750px;	
+	min-height:750px;
 }
 .header-info {
 	float:right;
@@ -102,7 +102,7 @@ p.review{
 	font-size:1em;
 	font-weight:400;
 	line-height:1.7em;
-	margin:0.8em 0;	
+	margin:0.8em 0;
 }
 a.video {
   background: #dfb636;
@@ -379,7 +379,7 @@ i.contact1 {
 	line-height: 0px;
 }
 .nbs-flexisel-item > img {
-	
+
 	cursor: pointer;
 	position: relative;
 	  width: 90%;
@@ -391,7 +391,7 @@ i.contact1 {
 }
 .nbs-flexisel-nav-right {
 	display:none;
-}	
+}
 .review-slider {
 	background: #dfb636;
 	padding: 3em 0;
@@ -406,7 +406,7 @@ i.contact1 {
 }
 .news {
 	background:#fff;
-	padding:4em 3em;	
+	padding:4em 3em;
 }
 .news-left-grid h3 {
 	color:#b8b8b8;
@@ -760,7 +760,7 @@ p.info {
 .wt a {
 	text-decoration:none;
 	color:#fff;
-	background:#37a4c5;	
+	background:#37a4c5;
 	padding:5px 10px;
 }
 /*-- error-page --*/
@@ -784,7 +784,7 @@ p.info {
 	color: #4f4844;
 	margin: 0;
 	font-size: 1.4em;
-} 
+}
 a.b-home{
 	background:#272e34;
 	padding:0.7em 2.5em;
@@ -959,7 +959,7 @@ a.b-home:hover{
 	color:#dfb636;
 	font-size:1em;
 	display:inline-block;
-	padding: 1em 0 0;	
+	padding: 1em 0 0;
 }
 .might-top a:hover{
 	color:#ec098d;
@@ -1022,14 +1022,14 @@ a.b-home:hover{
 }
 .grid-top-in p a.dan{
 	font-size:1.6em;
-	font-weight: 500;	
+	font-weight: 500;
 }
 .grid-top-in p a.eva{
-	font-size:1.4em;	
+	font-size:1.4em;
 }
 .grid-top-in p a.jol{
 	font-size:1.4em;
-font-weight: 700;	
+font-weight: 700;
 }
 .grid-top {
 	padding:1em 0 0.5em;
@@ -1075,16 +1075,16 @@ font-weight: 700;
 	color:#000;
 	font-size:1.6em;
 	font-weight:600;
-	margin-bottom:0.7em;	
+	margin-bottom:0.7em;
 }
 .best-review  h4 {
 	color:#000;
 	font-size:1.6em;
 	font-weight:600;
-	margin-bottom:0.7em;	
+	margin-bottom:0.7em;
 }
 .story-review p {
-	color:#000;	
+	color:#000;
 	font-weight: 400;
 	font-size: 1em;
 	line-height:1.8em;
@@ -1299,7 +1299,7 @@ font-weight: 700;
 	}
 	p.special {
 		font-size: 0.95em;
-	}	
+	}
 	.header {
 		min-height: 630px;
 	}
@@ -1329,7 +1329,7 @@ font-weight: 700;
 		width: 67%;
 	}
 	.movie-pic {
-		width: 30%;
+		width: 20%;
 	}
 	.rtm, .wt {
 		width: 32%;
@@ -1356,9 +1356,9 @@ font-weight: 700;
 		padding: 3em 2em;
 	}
 	.news-left-grid h2 {
-		font-size: 2.5em;	
+		font-size: 2.5em;
 		margin: 8px 0;
-	}	
+	}
 	.news-left-grid h3,.news-right-grid h3 {
 		font-size: 2em;
 	}
@@ -1420,7 +1420,7 @@ font-weight: 700;
 @media screen and (max-width: 1024px) {
 	.main {
 		border-left: 80px solid #383838;
-	}	
+	}
 	.full {
 		border-left: 3px solid #2b2b2b;
 	}
@@ -1435,14 +1435,14 @@ font-weight: 700;
 	}
 	.news {
 		padding: 2em 1em;
-	}	
+	}
 	.news-left-grid p {
 		font-size: 1.2em;
 	}
 	.news-left-grid h2 {
 		font-size: 2.3em;
 		margin: 7px 0;
-	}	
+	}
 	.news-left-grid h4 {
 		font-size: 2em;
 	}
@@ -1538,7 +1538,7 @@ font-weight: 700;
 	}
 	a.span {
 		font-size: 1.6em;
-	}	
+	}
 	p.dirctr {
 		font-size: 0.95em;
 		margin-bottom: 8px;
@@ -1548,7 +1548,7 @@ font-weight: 700;
 	}
 	.rtm, .wt {
 		width: 36%;
-	}	
+	}
 	p.info {
 		font-size: 0.95em;
 		margin: 5px 0px;
@@ -1638,7 +1638,7 @@ font-weight: 700;
 	}
 	.header-info h1 {
 		font-size: 1.8em;
-	}	
+	}
 	p.review.reviewgo {
 		display: none;
 	}
@@ -1658,7 +1658,7 @@ font-weight: 700;
 		padding: 6px 17px 3px 11px;
 		width: 82%;
 		margin-top: 25px;
-	}	
+	}
 	.menu {
 		top: 45px;
 	}
@@ -1713,10 +1713,10 @@ font-weight: 700;
 	.featured {
 		border-top: 3px solid #000;
 		border-bottom: 3px solid #000;
-	}	
+	}
 	.entertainment {
 		border-bottom: 3px solid #000;
-	}	
+	}
 	.comments-section-grid-image {
 		width: 15%;
 		float: left;
@@ -1740,7 +1740,7 @@ font-weight: 700;
 	}
 	.news-left-grid h2 {
 		font-size: 2.1em;
-	}	
+	}
 	.news-left-grid h3, .news-right-grid h3 {
 		font-size: 1.8em;
 	}
@@ -1961,7 +1961,7 @@ font-weight: 700;
 	}
 	.main-contact p {
 		font-size: 1em;
-		word-spacing: 0px;	
+		word-spacing: 0px;
 	}
 	.main-contact {
 		padding: 2em 0em;
@@ -1971,7 +1971,7 @@ font-weight: 700;
 	}
 	a.span {
 		font-size: 1.3em;
-	}			
+	}
 	p.ratingview {
 		font-size: 0.9em;
 		margin: 2px 0;
@@ -1992,7 +1992,7 @@ font-weight: 700;
 	}
 	.single h3 {
 		font-size: 1em;
-	}	
+	}
 	.best-review h4 {
 		font-size: 1.4em;
 		margin-bottom: 0.5em;
@@ -2090,7 +2090,7 @@ font-weight: 700;
 	}
 	.news-left-grid h3, .news-right-grid h3 {
 		font-size: 1.5em;
-	}	
+	}
 	.news-left-grid h4 {
 		font-size: 1.4em;
 	}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link href="/dist/css/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link href="/dist/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" href="/libs/toastr/toastr.min.css">
+	<link rel="stylesheet" href="/scripts/css/landing.css">
+	{% block css %}{% endblock %}
+	<script src="/dist/js/jquery.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Cinema XXII</title>
+</head>
+
+<body>
+	<div class="full">
+		<div class="menu">
+			<ul>
+				<li><a class="active" href="/"><i class="home"></i></a></li>
+				<li>
+					<a href="videos.html">
+						<div class="video"><i class="videos"></i><i class="videos1"></i></div>
+					</a>
+				</li>
+				<!-- <li>
+					<a href="reviews.html">
+						<div class="cat"><i class="watching"></i><i class="watching1"></i></div>
+					</a>
+				</li>
+				<li>
+					<a href="404.html">
+						<div class="bk"><i class="booking"></i><i class="booking1"></i></div>
+					</a>
+				</li>
+				<li>
+					<a href="contact.html">
+						<div class="cnt"><i class="contact"></i><i class="contact1"></i></div>
+					</a>
+				</li> -->
+			</ul>
+		</div>
+		<div class="main">
+			{% block htmlconf %}{% endblock %}
+					<div class="logo">
+						<a href="index.html"><img src="/dist/images/logo.png" alt="" /></a>
+						<p>Movie Theater</p>
+					</div>
+					<div class="buttons">
+						{% if currentUser %}
+						<a href="/logout" id="logout">Salir</a>
+						{% else %}
+						<a href="/iniciar-sesion" id="login">Entrar</a>
+						<a href="/customer-register" id="register">Registrarme</a>
+						{% endif %}
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				{% block headerinfo %}{% endblock %}
+			</div>
+			<div class="review-slider">
+				<ul id="flexiselDemo1">
+					<li><img src="/dist/images/r1.jpg" alt="" /></li>
+					<li><img src="/dist/images/r2.jpg" alt="" /></li>
+					<li><img src="/dist/images/r3.jpg" alt="" /></li>
+					<li><img src="/dist/images/r4.jpg" alt="" /></li>
+					<li><img src="/dist/images/r5.jpg" alt="" /></li>
+					<li><img src="/dist/images/r6.jpg" alt="" /></li>
+				</ul>
+			</div>
+			{% block body %}{% endblock %}
+			<div class="footer">
+				<h6>Disclaimer : </h6>
+				<p class="claim">This is a freebies and not an official website, I have no intention of disclose any movie, brand, news.My goal here is to train or excercise my skill and share this freebies.</p>
+				<a href="example@mail.com">example@mail.com</a>
+				<div class="copyright">
+					<p> Template by <a href="http://w3layouts.com">  W3layouts</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+
+	<script type="application/x-javascript">
+		addEventListener("load", function() {
+			setTimeout(hideURLbar, 0);
+		}, false);
+		function hideURLbar(){
+			window.scrollTo(0,1);
+		}
+	</script>
+	<script type="text/javascript">
+		$(window).load(function() {
+			$("#flexiselDemo1").flexisel({
+				visibleItems: 6,
+				animationSpeed: 1000,
+				autoPlay: true,
+				autoPlaySpeed: 3000,
+				pauseOnHover: false,
+				enableResponsiveBreakpoints: true,
+				responsiveBreakpoints: {
+					portrait: {
+						changePoint:480,
+						visibleItems: 2
+					},
+					landscape: {
+						changePoint:640,
+						visibleItems: 3
+					},
+					tablet: {
+						changePoint:768,
+						visibleItems: 4
+					}
+				}
+			});
+		});
+	</script>
+	<script type="text/javascript" src="/dist/js/jquery.flexisel.js"></script>
+	<script src="/libs/toastr/toastr.min.js" charset="utf-8"></script>
+	<script src="/scripts/js/landing.js" charset="utf-8"></script>
+	{% block js %}{% endblock %}
+</body>
+</html>

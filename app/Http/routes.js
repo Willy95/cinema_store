@@ -18,7 +18,14 @@
 const Route = use('Route')
 
 Route.get('/', 'LandingController.sendIndex')
+Route.get('/pelicula', 'LandingController.sendMovie')
 
+// login
+Route.get('/iniciar-sesion', 'LandingController.sendLogin')
+Route.post('/login', 'LandingController.login')
+Route.get('/logout', 'LandingController.logout')
+
+// Registro de clientes
 Route.get('/customer-register', 'CustomerController.renderPage')
 Route.post('/save-customer', 'CustomerController.save')
 

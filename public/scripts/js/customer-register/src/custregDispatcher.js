@@ -14,23 +14,28 @@ $(function(){
   function saveSuccess(res){
     switch (res.status) {
       case 'c200':
-        alert("usuario registrado correctamente");
+        $("#btn-save").prop('disabled', false);
+        $("#btn-save").text('Guardar registro');
+        $('input').val('');
+        toastr.success("usuario registrado correctamente");
         break;
       case 'c403':
-        alert(res.message + ': ' + res.data);
+        toastr.warning(res.message + ': ' + res.data);
         break;
       case 'c404':
-        alert(res.message);
+        toastr.warning(res.message);
         break;
       default:
-        alert('Error desconocido');
+        toastr.error('Error desconocido, intentalo nuevamente más tarde');
         break;
     }
     console.log(res);
   }
 
   function saveError(err){
-    alert("error");
+    $("#btn-save").prop('disabled', false);
+    $("#btn-save").text('Guardar registro');
+    toastr.error('Error desconocido, intentalo nuevamente más tarde');
     console.log(err);
   }
 
@@ -42,14 +47,16 @@ $(function(){
     });
     if (!isnull){
       if (customer.password === customer.cpassword){
+        $(this).prop('disabled', true);
+        $(this).text('Guardando...');
         custregController.saveCustomer(customer, saveSuccess, saveError);
       }
       else {
-        alert("Las contraseñas ingresadas no coinciden");
+        toastr.warning("Las contraseñas ingresadas no coinciden");
       }
     }
     else {
-      alert("Todos los campos son requeridos");
+      toastr.info("Todos los campos son requeridos");
     }
   });
 
