@@ -1,3 +1,6 @@
+body{
+  padding-top: 7rem;
+}
 .buttons{
   text-align: right;
   padding-top: 1.2rem;
@@ -15,5 +18,11 @@
 }
 #login{
   background: transparent !important;
-  color: #dfb636 !important;  
+  color: #dfb636 !important;
+}
+.top-header{
+  background: #fff !important;
+}
+.header{
+  padding-top: 10rem;
 }
