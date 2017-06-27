@@ -32,3 +32,6 @@ Route.post('/save-customer', 'CustomerController.save')
 // REGISTRO DE PELICULAS CONSUMIENDO UNA API
 Route.get('/', 'MovieController.registerMovie')
 Route.get('/register-movie', 'MovieController.registerMovie')
+
+// Estadisticas
+Route.get('/reporte-ventas-boletos', 'StadisticsController.sendView')
