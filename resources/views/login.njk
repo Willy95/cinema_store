@@ -1,0 +1,75 @@
+{% extends 'templates.landing' %}
+
+{% block css %}
+  <style media="screen">
+    #login{
+      display: none;
+    }
+    #btn-login{
+      background: #dfb636;
+      color: #fff;
+      outline: none;
+      padding-left: 3rem;
+      padding-right: 3rem;
+      border: solid 2px #dfb636;
+    }
+    label{
+      font-weight: lighter;
+      margin-bottom: .5rem;
+    }
+    .login-box{
+      border: solid 1px #dfb636;
+      padding: 4rem;
+      border-radius: 2rem;
+    }
+  </style>
+{% endblock %}
+
+{% block htmlconf %}
+<div class="single-content">
+	<div class="top-header span_top">
+{% endblock %}
+
+{% block headerinfo %}
+  <div class="container"><br><br>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-5">
+        <div class="login-box">
+          <h3><b>Iniciar Sesión</b></h3><br><br>
+          <form class="" id="login-form">
+            <div class="form-group">
+              <label for="">E-Mail</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="fa fa-envelope"></span>
+                </span>
+                <input type="email" name="email" id="email" class="form-control" placeholder="alguien@email.com">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="">Contraseña</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="fa fa-envelope"></span>
+                </span>
+                <input type="password" name="password" id="password" class="form-control">
+              </div>
+            </div>
+            <div class="form-group text-right">
+              <button type="button" class="btn btn-primary" id="btn-login">
+                Iniciar Sesión
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+    </div><br><br>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script src="/scripts/js/login/loginCtrl.js" charset="utf-8"></script>
+  <script src="/scripts/js/login/loginDispatcher.js" charset="utf-8"></script>
+{% endblock %}

@@ -14,6 +14,9 @@ $(function(){
   function saveSuccess(res){
     switch (res.status) {
       case 'c200':
+        $("#btn-save").prop('disabled', false);
+        $("#btn-save").text('Guardar registro');
+        $('input').val('');
         alert("usuario registrado correctamente");
         break;
       case 'c403':
@@ -30,6 +33,8 @@ $(function(){
   }
 
   function saveError(err){
+    $("#btn-save").prop('disabled', false);
+    $("#btn-save").text('Guardar registro');
     alert("error");
     console.log(err);
   }
@@ -42,6 +47,8 @@ $(function(){
     });
     if (!isnull){
       if (customer.password === customer.cpassword){
+        $(this).prop('disabled', true);
+        $(this).text('Guardando...');
         custregController.saveCustomer(customer, saveSuccess, saveError);
       }
       else {

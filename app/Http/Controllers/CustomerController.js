@@ -3,6 +3,7 @@
 const Validator = use('Validator')
 const Database = use('Database')
 const User = use('App/Model/User')
+const Hash = use('Hash')
 
 class CustomerController {
 
@@ -38,8 +39,8 @@ class CustomerController {
           })
         }else {
           let emailStored = yield Database.from('users').where({ 'email': data.email }).limit(1)
-          if (emailStored){
-            return response.json({
+          if (emailStored.length > 0){
+            return res.json({
               status: 'c404',
               message: 'El usuario ingresado ya existe, intenta con otro'
             })
@@ -47,8 +48,8 @@ class CustomerController {
           else {
             let user = new User()
             user.email = data.email
-            user.password = data.password
-            user.token = data.email
+            user.password = yield Hash.make(data.password)
+            user.token = yield Hash.make(data.email)
             user.active = 1
             user.role_name = 'customer'
             user.full_name = data.name
