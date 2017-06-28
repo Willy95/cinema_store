@@ -18,7 +18,8 @@
 const Route = use('Route')
 
 Route.get('/', 'LandingController.sendIndex')
-Route.get('/pelicula', 'LandingController.sendMovie')
+Route.get('/pelicula/:movie', 'LandingController.sendMovie')
+Route.post('/pelicula-info', 'LandingController.sendMovieInfo')
 
 // login
 Route.get('/iniciar-sesion', 'LandingController.sendLogin')

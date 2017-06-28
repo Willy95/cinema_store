@@ -1,9 +1,9 @@
 [
   {
-    nombre: '',
-    lat: '',
-    long: '',
-    direccion: '',
-    active: ''
+    nombre: 'Cinema Oriente',
+    lat: '25.537473',
+    long: '-103.325373',
+    direccion: 'Avenida Universidad 201, Torreón, Coahuila',
+    active: '1'
   }
 ]
