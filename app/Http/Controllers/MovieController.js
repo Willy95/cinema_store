@@ -6,6 +6,10 @@ const Api = require('node-rest-client').Client
 
 class MovieController {
 
+    * sendView(req, res) {
+        return yield res.sendView('movies_gest')
+    }
+
     * registerMovie(req, res){
         const api = new Api()
         const args = {
