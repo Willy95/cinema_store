@@ -219,7 +219,8 @@ font-size: 14px;
 				<div class="modal-body">
 
 		            <!-- content goes here -->
-					<form>
+					<form action="/register-movie" method="post" id="registerMovieForm">
+						{{csrfField}}
 		              <div class="form-group">
 		                <label for="exampleInputEmail1">Email address</label>
 		                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
@@ -267,7 +268,8 @@ font-size: 14px;
 				<div class="modal-body">
 
 		            <!-- content goes here -->
-					<form>
+					<form action="/register-movie" method="post" id="registerMovieForm">
+					  {{csrfField}}
 		              <div class="form-group">
 		                <label for="exampleInputEmail1">Email address</label>
 		                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
