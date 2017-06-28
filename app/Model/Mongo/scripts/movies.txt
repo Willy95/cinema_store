@@ -1,15 +1,15 @@
 [
   {
-    nombre: '',
-    sinopsis: '',
-    actores: '',
-    director: '',
-    trailer: '',
-    duracion: '',
-    poster: '',
-    idioma: '',
-    active: '',
-    cinema_id: '',
-    tipo: ''
+    nombre: "The Amazing Spiderman 2",
+    sinopsis: "Peter Parker, que ahora tiene una ajetreada vida, tiene que debatirse entre deshacerse de los delincuentes como Spider-Man y pasar tiempo con la persona que ama, Gwen.Así es como la graduación de la secundaria llega rápido. Sin embargo, Peter no olvidó la promesa que le hizo al padre de Gwen antes de morir, la cual era cuidarla alejándose de ella, pero simplemente es una promesa que no puede cumplir.Las cosas van a cambiar para Peter cuando un nuevo villano, Electro, emerja, mientras que un viejo amigo, Harry Osborn, regrese y Peter descubra nuevas pistas sobre su pasado.",
+    actores: "Andrew Garfield, Emma Stone, Jamie Foxx, Dane DeHaan, Campbell Scott, Embeth Davidtz, Paul Giamatti, Chris Cooper, Sally Field, Colm Feore, B.J. Novak, Felicity Jones, Marton Csokas, Denis Leary",
+    director: "Marc Webb",
+    trailer: "https://www.youtube-nocookie.com/embed/ayi5y0Y4s2A?rel=0&amp;showinfo=0",
+    duracion: "142 min",
+    poster: "r2.jpg",
+    idioma: "Español",
+    active: "1",
+    cinema_id: ObjectId(""),
+    tipo: "2D"
   }
 ]

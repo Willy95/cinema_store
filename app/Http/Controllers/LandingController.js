@@ -1,15 +1,56 @@
 'use strict'
 
 const Validator = use('Validator')
+const Movie = use('App/Model/Mongo/MovieMongo')
+const Cinema = use('App/Model/Mongo/CinemaMongo')
+const LocalStorage = require('node-localstorage').LocalStorage;
+const localStorage = new LocalStorage('./scratch');
 
 class LandingController {
 
   * sendIndex(req, res){
+    localStorage.setItem('cinema_selected', '5953cded401a95163ee76315')
     return yield res.sendView('index')
   }
 
   * sendMovie(req, res){
+    let id = req.param('movie')
+    localStorage.setItem('movie_selected', id)
     return yield res.sendView('single')
+  }
+
+  * sendMovieInfo(req, res){
+    let id = localStorage.getItem('movie_selected')
+    localStorage.removeItem('movie_selected')
+    Movie.find({'_id': id}, (err, obj) => {
+      if (err){
+        return res.send({
+          status: 'c500',
+          message: 'Error en el servidor de base de datos'
+        })
+      }
+      else {
+        let cinema_id = localStorage.getItem('cinema_selected')
+        Cinema.find({'_id': cinema_id}, (err, cinema) => {
+          if (err){
+            return res.send({
+              status: 'c500',
+              message: 'Error en el servidor de base de datos'
+            })
+          }
+          else {
+            return res.send({
+              status: 'c200',
+              message: 'success',
+              data: {
+                movie: obj,
+                cinema: cinema
+              }
+            })
+          }
+        })
+      }
+    })
   }
 
   * sendLogin(req, res){

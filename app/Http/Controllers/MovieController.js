@@ -1,6 +1,7 @@
 'use strict'
 
 const Movie = use('App/Model/Mongo/MovieMongo')
+const Cinema = use('App/Model/Mongo/CinemaMongo')
 const Validator = use('Validator')
 //const Api = require('node-rest-client').Client
 
@@ -82,7 +83,8 @@ class MovieController {
     // }
 
     * getMoviesAll(req, res){
-      Movie.find({}, (err, obj) => {
+      let cinema_id = req.all().cinema
+      Movie.find((err, obj) => {
         if (err){
           return res.send({
             status: 'c500',

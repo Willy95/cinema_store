@@ -5,9 +5,8 @@ const schema = mongoose.Schema
 
 const CinemaMongo = schema({
 
-    id: { type: ObjectId, required: true},
-    name: { type: String, required: true },
-    address: { type: String, required: true },
+    nombre: { type: String, required: true },
+    direccion: { type: String, required: true },
     lat: { type: String, required: true },
     long: { type: String, required: true },
     active: { type: String, required: true },

@@ -2,7 +2,7 @@
 
 {% block css %}
 	<style media="screen">
-		.btn-buy{
+		.btn-buy, .btn-standby{
 			background: #dfb636;
 			margin-top: 3rem;
 			padding-left: 3rem;
@@ -34,6 +34,16 @@
 		hr{
 	    border: solid 1px #dfb636;
 		}
+		label > span{
+			font-weight: lighter;
+		}
+		#category{
+			font-size: 2.5rem;
+			font-weight: lighter;
+		}
+		.horarios-box{
+			width: 100%;
+		}
 	</style>
 {% endblock %}
 
@@ -47,51 +57,69 @@
 	<div class="col-md-12 reviews-grids">
 		<div class="review">
 			<div class="movie-pic">
-				<a href="javascript:void(0)"><img src="/dist/images/r4.jpg" alt="" /></a>
+				<a href="javascript:void(0)"><img src="" /></a>
 			</div>
 			<div class="review-info">
-				<a class="span" href="javascript:void(0)">Interestelar</a>
-				<p class="dirctr"><a href="javascript:void(0)">Reagan Gavin Rasquinha, </a>TNN, Mar 12, 2015, 12.47PM IST</p>
+				<a class="span" href="javascript:void(0)" id="name"></a>
 				<div class="clearfix"></div>
-				<label class="info" id="cast">
-					Actores: Will Smith, Margot Robbie, Adrian Martinez, Rodrigo Santoro, BD Wong, Robert Taylor
-				</label><br>
-				<label class="info" id="direction">
-					Director: Glenn Ficarra, John Requa
-				</label><br>
-				<label class="info" id="genre">
-					Género: Crime
-				</label><br>
-				<label class="info" id="duration">
-					Duración: 1 hour 45 minutes
-				</label><br><br>
+				<label class="info" id="cast">Actores: <span></span></label><br>
+				<label class="info" id="direction">Director: <span></span></label><br>
+				<label class="info" id="duration">Duración: <span></span></label><br>
+				<label class="info" id="language">Idioma: <span></span></label><br>
+				<label class="info" id="category"></label><br><br>
 				<h3>Sinopsis</h3>
-				<p><br>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim doloribus ipsam saepe, fugiat odio, a numquam voluptate ex dolorem accusamus ut eum quam iure nihil sint qui reprehenderit, temporibus! Consectetur, ut iste nesciunt dolore animi excepturi maiores earum repudiandae facere!
-				</p>
+				<p id="sinopsis"><br></p>
 			</div>
 			<div class="clearfix"></div>
 			<div class="horarios-box">
-				<h4>Horarios Cinema XXII Platino</h4>
+				<h4>Horarios Cinema XXII ( <span></span> )</h4>
 				<hr>
 				<ul id="horarios-list">
-					<li>15:00 | ESP | 2D</li>
-					<li>16:00 | ESP | 3D</li>
-					<li>17:00 | ING | 2D</li>
-					<li>18:00 | ING | 3D</li>
-					<li>19:00 | ESP | 3D</li>
-					<li>20:00 | ESP | 2D</li>
+					<li>15:00 hrs</li>
 				</ul>
 			</div>
-			<p class="text-right">
-				<a href="javascript:void(0)" class="btn btn-buy">
-					Comprar Boletos
-				</a>
-			</p>
+			<div class="row">
+			  <div class="col-md-12">
+			  	<div class="">
+						<p class="text-right">
+							{% if currentUser.role_name == 'customer' %}
+							<a href="javascript:void(0)" class="btn btn-buy">
+								Comprar Boletos
+							</a>
+							{% else %}
+							<a href="javascript:void(0)" class="btn btn-standby" disabled>
+								Inicia sesión para comprar boletos
+							</a>
+							{% endif %}
+						</p>
+			  	</div>
+			  </div>
+			</div>
 		</div>
 	</div>
 	<div class="clearfix"></div>
 </div>
 {% endblock %}
 
-{% block js %}{% endblock %}
+{% block js %}
+<script type="text/javascript">
+	$.ajax({
+		url: '/pelicula-info',
+		type: 'POST'
+	})
+	.done(function(res) {
+		$(".horarios-box h4 span").text(res.data.cinema[0].nombre)
+		$("#name").text(res.data.movie[0].nombre);
+		$("#cast span").text(res.data.movie[0].actores);
+		$("#direction span").text(res.data.movie[0].director);
+		$("#duration span").text(res.data.movie[0].duracion);
+		$("#sinopsis").text(res.data.movie[0].sinopsis);
+		$("#language span").text(res.data.movie[0].idioma);
+		$("#category").text(res.data.movie[0].tipo);
+		$(".movie-pic a img").attr('src', `/dist/images/${res.data.movie[0].poster}`);
+	})
+	.fail(function(res) {
+		console.log(res);
+	});
+</script>
+{% endblock %}
