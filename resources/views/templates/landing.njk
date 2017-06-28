@@ -6,6 +6,7 @@
 	<link href="/dist/css/style.css" rel="stylesheet" type="text/css" media="all" />
 	<link rel="stylesheet" href="/libs/toastr/toastr.min.css">
 	<link rel="stylesheet" href="/scripts/css/landing.css">
+	<link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css">
 	{% block css %}{% endblock %}
 	<script src="/dist/js/jquery.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,8 +21,8 @@
 				<li><a href="/"><i class="home"></i></a></li>
 				<li><a href=""><i class="videos"></i></a></li>
 				{% if currentUser.role_name == 'administer' %}
-				<li><a href="/reporte-ventas-boletos"><i class="watching"></i></a></li>
-				<li><a href="/management-movie"><i class="watching"></i></a></li>
+				<li title="Venta de boletos"><a href="/reporte-ventas-boletos"><i class="watching"></i></a></li>
+				<li title="Gestion de pelicula"><a href="/management-movie"><i class="watching"></i></a></li>
 				{% endif %}
 				<!-- <li>
 					<a href="404.html">
@@ -125,6 +126,7 @@
 		});
 	</script>
 	<script type="text/javascript" src="/dist/js/jquery.flexisel.js"></script>
+	<script type="text/javascript" src="/dist/js/bootstrap.min.js"></script>
 	<script src="/libs/toastr/toastr.min.js" charset="utf-8"></script>
 	<script src="/scripts/js/landing.js" charset="utf-8"></script>
 	{% block js %}{% endblock %}
