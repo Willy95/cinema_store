@@ -9,7 +9,20 @@
     poster: "r2.jpg",
     idioma: "Español",
     active: "1",
-    cinema_id: ObjectId(""),
+    cinema_id: ObjectId("59542d34401a95163ee76319"),
     tipo: "2D"
+  },
+  {
+    nombre: "Life of Pi",
+    sinopsis: "Tras un naufragio en medio del océano Pacífico, el joven hindú Pi, hijo de un guarda de zoo que viajaba de la India a Canadá, se encuentra en un bote salvavidas con un único superviviente, un tigre de bengala con quien labrará una emocionante, increíble e inesperada relación.",
+    actores: "Adril Hussain, Ayush Tandon, Gérard Depardieu, Irrfan Khan, Rafe Spall, Shravanthi Sainath, Suraj Sharma, Tabu, Vibish Sivakumar",
+    director: "Ang Lee",
+    trailer: "https://www.youtube.com/embed/A5flfQz9aVI?rel=0&amp;showinfo=0",
+    duracion: "127 min",
+    poster: "m4.jpg",
+    idioma: "Ingles",
+    active: "1",
+    cinema_id: ObjectId("59542d34401a95163ee76319"),
+    tipo: "3D"
   }
 ]

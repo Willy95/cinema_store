@@ -39,6 +39,8 @@ Route.get('/reporte-ventas-boletos', 'StadisticsController.sendView')
 
 // Shows
 Route.get('/administrar-funciones', 'ShowController.sendViewManage')
+Route.post('/getInfoMovie', 'ShowController.getInfoMovie')
+Route.post('/save-show', 'ShowController.saveShow')
 
 // rooms
 Route.post('/getRoomsByType', 'RoomController.getRoomsByType')
