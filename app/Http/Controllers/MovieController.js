@@ -8,8 +8,12 @@ class MovieController {
 
     * sendView(req, res) {
         const movies = yield Movie.find({})
-        console.log(movies);
-        return res.sendView('movies_gest', { movies: movies })
+        return yield res.sendView('movies_gest', { movies: movies })
+    }
+
+    * movieToUpdate (req, res) {
+        const movie = yield Movie.findById(req.input('id'))
+        return res.json({ data: movie })
     }
 
     * saveMovie(req, res) {
