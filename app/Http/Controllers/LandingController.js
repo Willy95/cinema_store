@@ -28,22 +28,22 @@ class LandingController {
     const validation = yield Validator.validate(data, rules, messages)
     if (validation.fails()) {
       let resp = validation.messages()[0].message
-      return yield res.send({
+      return res.send({
         status: 'c404',
         message: resp
       })
     } else {
       try {
-        const login = yield req.auth.attempt(data.email, data.password)
+        const login = req.auth.attempt(data.email, data.password)
         if (login) {
-          return yield res.send({
+          return res.send({
             status: 'c200',
             message: `Bienvenido ${data.email}`
           })
         }
       } catch (err) {
         console.log(err);
-        return yield res.send({
+        return res.send({
           status: 'c403',
           message: 'Credenciales no validas'
         })
