@@ -1,0 +1,62 @@
+[
+  {
+    numero: 1,
+    cant_asientos: 30,
+    tipo: '2D'
+    costo: 45
+  },
+  {
+    numero: 2,
+    cant_asientos: 30,
+    tipo: '2D'
+    costo: 45
+  },
+  {
+    numero: 3,
+    cant_asientos: 30,
+    tipo: '2D'
+    costo: 45
+  },
+  {
+    numero: 4,
+    cant_asientos: 30,
+    tipo: '2D'
+    costo: 45
+  },
+  {
+    numero: 5,
+    cant_asientos: 30,
+    tipo: '2D'
+    costo: 45
+  },
+  {
+    numero: 6,
+    cant_asientos: 45,
+    tipo: '3D'
+    costo: 60
+  },
+  {
+    numero: 7,
+    cant_asientos: 45,
+    tipo: '3D'
+    costo: 60
+  },
+  {
+    numero: 8,
+    cant_asientos: 45,
+    tipo: '3D'
+    costo: 60
+  },
+  {
+    numero: 9,
+    cant_asientos: 45,
+    tipo: '3D'
+    costo: 60
+  },
+  {
+    numero: 10,
+    cant_asientos: 15,
+    tipo: '4D'
+    costo: 90
+  }
+]

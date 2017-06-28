@@ -1,0 +1,121 @@
+{% extends 'templates.landing' %}
+
+{% block css %}
+<style media="screen">
+	#register{
+		display: none;
+	}
+	#btn-save{
+		background: #dfb636;
+		color: #fff;
+		outline: none;
+		padding-left: 3rem;
+		padding-right: 3rem;
+		border: solid 2px #dfb636;
+	}
+	label{
+		font-weight: lighter;
+		margin-bottom: .5rem;
+	}
+	.prev-assigments{
+		border: solid 1px #dfb636;
+		padding: 2rem;
+		border-radius: 1rem;
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+	}
+	.assigment-card{
+		padding: 1rem;
+		background: #dfb636;
+		color: #fff;
+		padding-left: 2rem;
+		padding-right: 2rem;
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		border-radius: .5rem;
+	}
+	.assigment-delete{
+		float: right;
+		background: #fff;
+		width: 2.5rem;
+		height: 2.5rem;
+		color: #dfb636;
+		text-align: center;
+		box-sizing: border-box;
+		padding-top: .3rem;
+		border-radius: 50%;
+		cursor: pointer;
+	}
+</style>
+{% endblock %}
+
+{% block htmlconf %}
+<div class="single-content">
+	<div class="top-header span_top navbar-fixed-top">
+{% endblock %}
+
+{% block headerinfo %}
+  <div class="container"><br><br>
+    <div class="row">
+      <div class="col-md-12">
+        <h3><b>Asigna las funciones</b></h3><br><br>
+				<div class="row">
+				  <div class="col-md-2">
+				  	<div class="">
+				  		<img src="/dist/images/m3.jpg" class="img-responsive img-thumbnail">
+				  	</div>
+				  </div>
+					<div class="col-md-3">
+						<div class="">
+							<h4><b>Transcendence</b></h4>
+							<hr>
+							<label><b>Tipo:</b> 3D</label>
+							<br><label><b>Idioma:</b> Ingles</label>
+							<br><label><b>Duración:</b> 120 min</label>
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="">
+							<form>
+								<fieldset class="form-group">
+							    <label for="">Selecciona la sala</label>
+							    <select class="form-control" name="rooms" id="rooms">
+							    	<option disabled selected></option>
+							    </select>
+							  </fieldset>
+								<fieldset class="form-group">
+							    <label for="">Selecciona el día</label>
+							    <input type="date" class="form-control">
+							  </fieldset>
+								<fieldset class="form-group">
+							    <label for="">Selecciona la hora</label>
+							    <input type="time" class="form-control">
+							  </fieldset>
+							</form>
+						</div>
+					</div>
+					<div class="row">
+					  <div class="col-md-12">
+					  	<div class="prev-assigments">
+								<h5><b>Asignación de la película</b></h5>
+								<div class="info-assigment">
+									<div class="assigment-card">
+										<label>Día 30-Diciembre-2017</label>&nbsp;|&nbsp;
+										<label>14:00 hrs</label>&nbsp;|&nbsp;
+										<label>Sala 8</label>
+										<label class="assigment-delete">X</label>
+									</div>
+								</div>
+					  	</div>
+					  </div>
+					</div>
+				</div>
+      </div>
+    </div><br><br>
+  </div>
+{% endblock %}
+
+{% block js %}
+<script src="/scripts/js/assign_shows/assign_showsCtrl.js" charset="utf-8"></script>
+<script src="/scripts/js/assign_shows/assign_showsDispatcher.js" charset="utf-8"></script>
+{% endblock %}
