@@ -12,8 +12,17 @@ class MovieController {
     }
 
     * movieToUpdate (req, res) {
-        const movie = yield Movie.findById(req.input('id'))
-        return res.json({ data: movie })
+        Movie.find({}, function(err, movies){
+            Cinema.populate(movies, {path: "cinema_id"}, function(err, movies){
+                if (error) {
+                    
+                } else {
+
+                }
+            })
+        })
+
+        // return res.json({ data: movie })
     }
 
     * saveMovie(req, res) {

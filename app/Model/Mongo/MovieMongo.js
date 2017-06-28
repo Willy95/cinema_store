@@ -14,7 +14,7 @@ const MovieMongo = schema({
     poster: { type: String, required: true },
     idioma: { type: String, required: true },
     active: { type: Number, required: true },
-    cinema_id: { type: String, required: true }
+    cinema_id: { type: mongoose.Schema.Types.ObjectId, ref:"cinemas" ,required: true }
 
 },{collection: 'movies'},{
 

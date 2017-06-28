@@ -11,7 +11,7 @@ class moviegesController {
         }).done(function(r){
             success(r)
         }).fail(function(e){
-            console.log(error);
+            console.log(e);
         })
     }
 
