@@ -56,19 +56,15 @@ class CustomerController {
             user.role_name = 'customer'
             user.full_name = data.name
             if (yield user.save()){
-              try {
-                // let dataa = {'user': user.attributes.id, 'card': data.number}
-                let dataa = {'user': '001', 'card': '9090'}
-                let customer = new CustomerMongo(dataa);
-                customer.save();
-                return res.send({
-                  status: 'c200',
-                  message: 'success',
-                  data: user
-                })
-              } catch (e) {
-                console.log(e);
-              }
+              let customer = new CustomerMongo();
+              customer.user = user.attributes.id
+              customer.card = data.number
+              customer.save()
+              return res.send({
+                status: 'c200',
+                message: 'Usuario registrado correctamente',
+                data: user
+              })
             }
             return res.json({
               status: 'c500',
