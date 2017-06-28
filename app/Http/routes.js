@@ -41,3 +41,6 @@ Route.get('/administrar-funciones', 'ShowController.sendViewManage')
 
 // rooms
 Route.post('/getRoomsByType', 'RoomController.getRoomsByType')
+
+// Movies
+Route.post('/getMoviesAll', 'MovieController.getMoviesAll')
