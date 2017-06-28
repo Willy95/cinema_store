@@ -1,17 +1,20 @@
 'use strict'
 
-const mongoose = use('mongoose')
+const mongoose = use('Mongoose')
 const schema = mongoose.Schema
 
 const MovieMongo = schema({
 
-    id: { type: Number, required: true},
-    title: { type: String, required: true },
-    poster: { type: String, required: true },
-    year: { type: Number, required: true },
-    runtime: { type: Number, required: true },
+    nombre: { type: String, required: true },
+    sinopsis: { type: String, required: true },
+    actores: { type: String, required: true },
+    director: { type: String, required: true },
     trailer: { type: String, required: true },
-    synopsis: { type: String, required: true }
+    duracion: { type: String, required: true }
+    poster: { type: String, required: true }
+    idioma: { type: String, required: true }
+    active: { type: Number, required: true }
+    cinema_id: { type: String, required: true }
 
 },{collection: 'movies'},{
 
