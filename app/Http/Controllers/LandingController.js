@@ -34,7 +34,7 @@ class LandingController {
       })
     } else {
       try {
-        const login = req.auth.attempt(data.email, data.password)
+        const login = yield req.auth.attempt(data.email, data.password)
         if (login) {
           return res.send({
             status: 'c200',
