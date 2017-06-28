@@ -1,9 +1,8 @@
 'use strict'
-
 const Movie = use('App/Model/Mongo/MovieMongo')
 const Cinema = use('App/Model/Mongo/CinemaMongo')
 const Validator = use('Validator')
-//const Api = require('node-rest-client').Client
+const Helpers = use('Helpers')
 
 class MovieController {
 
@@ -14,6 +13,9 @@ class MovieController {
     }
 
     * saveMovie(req, res) {
+        const poster = req.file('poster')
+        const namePoster = req.only('nombre')+'.'+poster.extension()
+        yield poster.move(Helpers.publicPath('/dist/images/posters/'), namePoster)
         // < Validacion
         const data = req.only('nombre','sinopsis','actores','director','trailer','duracion','poster','idioma','cinema_id')
 
