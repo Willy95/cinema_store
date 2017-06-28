@@ -1,0 +1,15 @@
+[
+  {
+    nombre: '',
+    sinopsis: '',
+    actores: '',
+    director: '',
+    trailer: '',
+    duracion: '',
+    poster: '',
+    idioma: '',
+    active: '',
+    cinema_id: '',
+    tipo: ''
+  }
+]
