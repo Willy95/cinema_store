@@ -96,7 +96,7 @@ class ShowController {
               else {
                 return res.send({
                   status: 'c200',
-                  message: 'success',
+                  message: 'Función creada',
                   data: stored
                 })
               }
