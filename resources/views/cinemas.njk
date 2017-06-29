@@ -87,8 +87,7 @@
 	  //  var marker;
 	  //  var icon = 'public/dist/images/iconcinema.png';
 
-	   createMarkers();
-	//    initMap();
+		initMap();
 
 	   // INICIAR EL MAPA
 	  //  function initMap() {
@@ -150,11 +149,12 @@
 					marker.addListener('dblclick', function() {
 						window.location.href = '/asignar-cine/' + this.indice;
 	        });
+
 			   })
 		   }).fail(function(e){
 			   console.log(e);
 		   })
-	   }
+	   }createMarkers();
    </script>
 	{% block js %}{% endblock %}
 </body>
