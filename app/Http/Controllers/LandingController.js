@@ -10,8 +10,6 @@ const localStorage = new LocalStorage('./scratch');
 class LandingController {
 
   * sendIndex(req, res){
-    // localStorage.setItem('cinema_selected', '59542d34401a95163ee76319')
-    // localStorage.removeItem('cinema_selected')
     let cinema = localStorage.getItem('cinema_selected')
     if (!cinema == null || !cinema == ""){
       return yield res.sendView('index')
@@ -98,6 +96,11 @@ class LandingController {
 
   * forgetCinema(req, res){
     localStorage.removeItem('cinema_selected')
+    return res.redirect('/')
+  }
+
+  * assignCinema(req, res){
+    localStorage.setItem('cinema_selected', req.params('cinema'))
     return res.redirect('/')
   }
 

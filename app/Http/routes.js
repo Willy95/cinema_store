@@ -21,6 +21,7 @@ Route.get('/', 'LandingController.sendIndex')
 Route.get('/olvidar-cine', 'LandingController.forgetCinema')
 Route.get('/pelicula/:movie', 'LandingController.sendMovie')
 Route.post('/pelicula-info', 'LandingController.sendMovieInfo')
+Route.get('/asignar-cine/:cinema', 'LandingController.assignCinema')
 
 // login
 Route.get('/iniciar-sesion', 'LandingController.sendLogin')
