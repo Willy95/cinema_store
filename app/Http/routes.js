@@ -29,23 +29,23 @@ Route.post('/login', 'LandingController.login')
 Route.get('/logout', 'LandingController.logout')
 
 // Registro de clientes
-Route.get('/customer-register', 'CustomerController.renderPage')
-Route.post('/save-customer', 'CustomerController.save')
+Route.get('/customer-register', 'CustomerController.renderPage').middleware('auth')
+Route.post('/save-customer', 'CustomerController.save').middleware('auth')
 
 // REGISTRO DE PELICULAS CONSUMIENDO UNA API
-Route.get('/management-movie', 'MovieController.sendView')
-Route.get('/register-movie', 'MovieController.registerMovie')
-Route.post('/movieToUpdate','MovieController.movieToUpdate')
+Route.get('/management-movie', 'MovieController.sendView').middleware('auth')
+Route.get('/register-movie', 'MovieController.registerMovie').middleware('auth')
+Route.post('/movieToUpdate','MovieController.movieToUpdate').middleware('auth')
 
 // Estadisticas
-Route.get('/reporte-ventas-boletos', 'StadisticsController.sendView')
-Route.post('/getStadistics', 'StadisticsController.getStadistics')
+Route.get('/reporte-ventas-boletos', 'StadisticsController.sendView').middleware('auth')
+Route.post('/getStadistics', 'StadisticsController.getStadistics').middleware('auth')
 
 // Shows
 Route.get('/administrar-funciones', 'ShowController.sendViewManage')
 Route.post('/getInfoMovie', 'ShowController.getInfoMovie')
-Route.post('/save-show', 'ShowController.saveShow')
-Route.post('/delete-show', 'ShowController.deleteShow')
+Route.post('/save-show', 'ShowController.saveShow').middleware('auth')
+Route.post('/delete-show', 'ShowController.deleteShow').middleware('auth')
 
 // rooms
 Route.post('/getRoomsByType', 'RoomController.getRoomsByType')

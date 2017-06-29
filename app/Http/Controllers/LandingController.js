@@ -100,7 +100,8 @@ class LandingController {
   }
 
   * assignCinema(req, res){
-    localStorage.setItem('cinema_selected', req.params('cinema'))
+    localStorage.removeItem('cinema_selected')
+    localStorage.setItem('cinema_selected', req.params('cinema').cinema)
     return res.redirect('/')
   }
 

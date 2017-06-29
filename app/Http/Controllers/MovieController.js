@@ -107,34 +107,38 @@ class MovieController {
     // }
 
     * getMoviesAll(req, res){
-      let cinema_id = localStorage.getItem('cinema_selected')
-      Movie.find({'cinema_id': cinema_id},  (err, obj) => {
-        Cinema.populate(obj, {path: 'cinema_id'}, (err, obj) => {
-          if (err){
-            return res.send({
-              status: 'c500',
-              message: 'Error en el servidor',
-              data: err
-            })
-          }
-          else {
-            if (obj){
+      try {
+        let cinema_id = localStorage.getItem('cinema_selected')
+        Movie.find({'cinema_id': cinema_id},  (err, obj) => {
+          Cinema.populate(obj, {path: 'cinema_id'}, (err, obj) => {
+            if (err){
               return res.send({
-                status: 'c200',
-                message: 'success',
-                data: obj
+                status: 'c500',
+                message: 'Error en el servidor',
+                data: err
               })
             }
             else {
-              return res.send({
-                status: 'c404',
-                message: 'No fue posible obtener respuesta',
-                data: null
-              })
+              if (obj){
+                return res.send({
+                  status: 'c200',
+                  message: 'success',
+                  data: obj
+                })
+              }
+              else {
+                return res.send({
+                  status: 'c404',
+                  message: 'No fue posible obtener respuesta',
+                  data: null
+                })
+              }
             }
-          }
+          })
         })
-      })
+      } catch (e) {
+        console.log(e);
+      }
     }
 }
 
