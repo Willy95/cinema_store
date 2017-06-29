@@ -38,12 +38,26 @@ $(function(){
 
     $('#agregar').click(function(){
         $('#lineModalLabel').text('Registrar Pelicula');
+        $('.edit-input').hide();
+        $('.save-input').show();
 
+        $("#nombre").val('');
+        $("#sinopsis").val('');
+        $("#actores").val('');
+        $("#director").val('');
+        $("#trailer").val('');
+        $("#duracion").val('');
+        $("#poster").val('');
+        $("#idioma").val('');
+        $("#cinema_id").val('');
     })
+
+    $('.edit-input').hide();
 
     $('.editar').click(function(){
         $('#lineModalLabel').text('Editar Pelicula');
-        $('#')
+        $('.save-input').hide();
+        $('.edit-input').show();
         const movieId = $(this).data('id');
         moviegesController.movieToUpdate(movieId, dataModal)
     })

@@ -178,6 +178,7 @@ font-size: 14px;
 												<div class="ckbox">
 													<a class="editar" href="#" title="editar" data-id="{{movie._id}}" data-toggle="modal" data-target="#crudModal"><i class="fa fa-edit"></i></a>
 													<a href="#" data-id="{{movie._id}}" title="desactivar"><i class="fa fa-trash"></i></a>
+													<a href="/administrar-funciones" data-id="{{movie._id}}" title="crear funcion"><i class="fa fa-eye"></i></a>
 												</div>
 											</td>
 											<td>
@@ -225,23 +226,48 @@ font-size: 14px;
 						{{csrfField}}
 		              <div class="form-group">
 		                <label for="nombre">Nombre</label>
-		                <input type="email" class="form-control" id="nombre" name="nombre" placeholder="Enter email">
+		                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="nombre de la pelicula">
 		              </div>
 		              <div class="form-group">
-		                <label for="exampleInputPassword1">Password</label>
-		                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+		                <label for="actores">Actores</label>
+		                <input type="text" class="form-control" name="actores" id="actores" placeholder="actores principales">
+		              </div>
+					  <div class="form-group">
+		                <label for="director">Director</label>
+		                <input type="text" class="form-control" name="director" id="director" placeholder="director de la pelicula">
+		              </div>
+					  <div class="form-group">
+		                <label for="duracion">Duración</label>
+		                <input type="text" class="form-control edit-input" name="duracion" id="duracion" placeholder="ejemplo: 90 'minutos'">
+		                <input type="number" class="form-control save-input" name="duracion" id="duracion" placeholder="ejemplo: 90 'minutos'">
+		              </div>
+					  <div class="form-group">
+		                <label for="trailer">Trailer</label>
+		                <input type="text" class="form-control" name="trailer" id="trailer" placeholder="link del video">
 		              </div>
 		              <div class="form-group">
-		                <label for="exampleInputFile">File input</label>
-		                <input type="file" id="exampleInputFile">
-		                <p class="help-block">Example block-level help text here.</p>
+		                <label for="poster">Poster</label>
+		                <input type="file" id="poster" name="poster">
+		                {# <p class="help-block">Example block-level help text here.</p> #}
 		              </div>
-		              <div class="checkbox">
-		                <label>
-		                  <input type="checkbox"> Check me out
-		                </label>
+					  <div class="form-group">
+		                <label for="idioma">Idioma</label>
+		                <select class="form-control" name="idioma" id="idioma">
+		                	<option value="" disabled="" selected>selecciona un idioma</option>
+		                	<option value="español">español</option>
+		                	<option value="ingles">ingles</option>
+		                </select>
 		              </div>
-		              <button type="submit" class="btn btn-default">Submit</button>
+					  <div class="form-group">
+		                <label for="cinema_id">Cines</label>
+		                <select class="form-control" name="cinema_id" id="cinema_id">
+		                	<option value="" disabled="" selected>selecciona un cine</option>
+							{# {% for cinema in  %}
+
+							{% endfor %} #}
+		                	<option value="español">español</option>
+		                </select>
+		              </div>
 		            </form>
 
 				</div>
