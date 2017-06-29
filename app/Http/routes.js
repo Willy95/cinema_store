@@ -18,8 +18,10 @@
 const Route = use('Route')
 
 Route.get('/', 'LandingController.sendIndex')
+Route.get('/olvidar-cine', 'LandingController.forgetCinema')
 Route.get('/pelicula/:movie', 'LandingController.sendMovie')
 Route.post('/pelicula-info', 'LandingController.sendMovieInfo')
+Route.get('/asignar-cine/:cinema', 'LandingController.assignCinema')
 
 // login
 Route.get('/iniciar-sesion', 'LandingController.sendLogin')
@@ -37,11 +39,13 @@ Route.post('/movieToUpdate','MovieController.movieToUpdate')
 
 // Estadisticas
 Route.get('/reporte-ventas-boletos', 'StadisticsController.sendView')
+Route.post('/getStadistics', 'StadisticsController.getStadistics')
 
 // Shows
 Route.get('/administrar-funciones', 'ShowController.sendViewManage')
 Route.post('/getInfoMovie', 'ShowController.getInfoMovie')
 Route.post('/save-show', 'ShowController.saveShow')
+Route.post('/delete-show', 'ShowController.deleteShow')
 
 // rooms
 Route.post('/getRoomsByType', 'RoomController.getRoomsByType')

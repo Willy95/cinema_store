@@ -6,7 +6,7 @@ const schema = mongoose.Schema
 const ShowMongo = schema({
 
     room_id: { type: mongoose.Schema.Types.ObjectId, ref: 'rooms', required: true },
-    movie_id: { type: mongoose.Schema.Types.ObjectId, ref: 'MovieMongo', required: true },
+    movie_id: { type: mongoose.Schema.Types.ObjectId, ref: 'movies', required: true },
     day: { type: String, required: true },
     hour: { type: String, required: true }
 

@@ -1,0 +1,17 @@
+[
+  {
+    show: ObjectId("5954941e9e582c3bc3129adc"),
+    customer: ObjectId("595494ba9e582c3bc3129ade"),
+    site_num: 1
+  },
+  {
+    show: ObjectId("5954941e9e582c3bc3129adc"),
+    customer: ObjectId("595494ba9e582c3bc3129ade"),
+    site_num: 5
+  },
+  {
+    show: ObjectId("5954942d9e582c3bc3129add"),
+    customer: ObjectId("595494ba9e582c3bc3129ade"),
+    site_num: 10
+  }
+]

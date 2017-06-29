@@ -15,16 +15,14 @@ $(function(){
   $.ajax({
     url: '/getMoviesAll',
     type: 'POST',
-    dataType: 'JSON',
-    data: {'cinema': '59542da4401a95163ee76325'}
+    dataType: 'JSON'
   })
   .done(function(res) {
     switch (res.status) {
       case 'c200':
+        $(".logo p").text((res.data.length > 0) ? res.data[0].cinema_id.nombre : '');
         for (var i = 0; i < res.data.length; i++) {
-          if (res.data[i].cinema_id == "59542da4401a95163ee76325"){
-            $(".flexiselDemo1").append(`<li><img src="/dist/images/${res.data[i].poster}" data-info="${res.data[i]._id}"/></li>`)
-          }
+          $("body").find('.flexiselDemo1').append(`<li><img src="/dist/images/${res.data[i].poster}" data-info="${res.data[i]._id}"/></li>`);
         }
         makeMoviesCarousel();
         break;

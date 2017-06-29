@@ -72,11 +72,9 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="horarios-box">
-				<h4>Horarios Cinema XXII ( <span></span> )</h4>
+				<h4>Horarios</h4>
 				<hr>
-				<ul id="horarios-list">
-					<li>15:00 hrs</li>
-				</ul>
+				<ul id="horarios-list"></ul>
 			</div>
 			<div class="row">
 			  <div class="col-md-12">
@@ -108,15 +106,23 @@
 		type: 'POST'
 	})
 	.done(function(res) {
-		$(".horarios-box h4 span").text(res.data.cinema[0].nombre)
-		$("#name").text(res.data.movie[0].nombre);
-		$("#cast span").text(res.data.movie[0].actores);
-		$("#direction span").text(res.data.movie[0].director);
-		$("#duration span").text(res.data.movie[0].duracion);
-		$("#sinopsis").text(res.data.movie[0].sinopsis);
-		$("#language span").text(res.data.movie[0].idioma);
-		$("#category").text(res.data.movie[0].tipo);
-		$(".movie-pic a img").attr('src', `/dist/images/${res.data.movie[0].poster}`);
+		if (res.data.movie == null || res.data.shows == null){
+			alert('Una disculpa, no hay información válida por el momento. Estamos trabajando en eso');
+			window.location.href = '/';
+		}
+		else {
+			$("#name").text(res.data.movie.nombre);
+			$("#cast span").text(res.data.movie.actores);
+			$("#direction span").text(res.data.movie.director);
+			$("#duration span").text(res.data.movie.duracion);
+			$("#sinopsis").text(res.data.movie.sinopsis);
+			$("#language span").text(res.data.movie.idioma);
+			$("#category").text(res.data.movie.tipo);
+			$(".movie-pic a img").attr('src', `/dist/images/${res.data.movie.poster}`);
+			$.each(res.data.shows, function(index, el) {
+				$("#horarios-list").append(`<li>${el.day + " | " + el.hour + " Hrs"}</li>`);
+			});
+		}
 	})
 	.fail(function(res) {
 		console.log(res);

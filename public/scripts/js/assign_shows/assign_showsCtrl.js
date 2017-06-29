@@ -44,4 +44,19 @@ class assign_showsCtrl {
     });
   }
 
+  static delet_show(show, callback){
+    $.ajax({
+      url: '/delete-show',
+      type: 'POST',
+      dataType: 'JSON',
+      data: {id: show}
+    })
+    .done(function(res) {
+      callback(res);
+    })
+    .fail(function(res) {
+      callback(res);
+    });
+  }
+
 }
