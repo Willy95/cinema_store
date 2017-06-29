@@ -74,8 +74,33 @@
 	<script type="text/javascript" src="/dist/js/bootstrap.min.js"></script>
 	<script src="/libs/toastr/toastr.min.js" charset="utf-8"></script>
 	<script src="/scripts/js/landing.js" charset="utf-8"></script>
-  <script src="/scripts/js/cinemas_map/mapCtrl.js" charset="utf-8"></script>
-  <script src="/scripts/js/cinemas_map/mapDispatcher.js" charset="utf-8"></script>
+
+	<!-- KEY MAPA -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR6mmHY1TBXJgxb_nBXXLnlH2V-THjU0M&callback=initMap"
+   async defer></script>
+   {# <script src="/scripts/js/cinemas_map/mapCtrl.js" charset="utf-8"></script>
+   <script src="/scripts/js/cinemas_map/mapDispatcher.js" charset="utf-8"></script> #}
+   <script type="text/javascript">
+
+	   $.ajax({
+		   url: '/getCinemas',
+		   type: 'post'
+	   }).done(function(r){
+		   console.log(r);
+	   }).fail(function(e){
+		   console.log(e);
+	   })
+
+	   var map;
+
+	   function initMap() {
+		   map = new google.maps.Map(document.getElementById('map'), {
+			 center: {lat: 25.5428, lng: -103.4068},
+			 zoom: 12,
+			 mapTypeControl: false
+		   });
+	   }initMap();
+   </script>
 	{% block js %}{% endblock %}
 </body>
 </html>

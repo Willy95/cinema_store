@@ -10,6 +10,11 @@ const localStorage = new LocalStorage('./scratch');
 
 class LandingController {
 
+  * getCinemas(req, res){
+      const cinemas = yield Cinema.find({ active: })
+      res.json({status: 200, data: cinemas})
+  }
+
   * sendIndex(req, res){
     let cinema = localStorage.getItem('cinema_selected')
     if (!cinema == null || !cinema == ""){
