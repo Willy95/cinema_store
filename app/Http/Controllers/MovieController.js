@@ -50,7 +50,7 @@ class MovieController {
         const namePoster = Math.floor((Math.random() * 999999999999999999) + 1) + '.'+poster.extension()
         yield poster.move(Helpers.publicPath('/dist/images/'), namePoster)
         // < Validacion
-        const data = req.only('nombre','sinopsis','actores','director','trailer','duracion','poster','idioma','cinema_id')
+        const data = req.only('nombre','sinopsis','actores','director','trailer','duracion','poster','idioma','cinema_id', 'tipo')
         const rules = {
             nombre: 'required',
             sinopsis: 'required',
@@ -81,17 +81,19 @@ class MovieController {
             movie.idioma = data.idioma
             movie.active = 1
             movie.cinema_id = data.cinema_id
-            movie.tipo = '2D'
+            movie.tipo = data.tipo
             movie.save((err, _new) => {
               if (err){
                 return res.send({
                   status: 'c500',
+                  msj: 'Error en el servidor de base de datos',
                   data: err
                 })
               }
               else {
                 return res.send({
                   status: 'c200',
+                  msj: 'Pelicula registrada',
                   data: _new
                 })
               }

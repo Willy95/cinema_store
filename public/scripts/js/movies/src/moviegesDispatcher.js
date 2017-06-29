@@ -19,6 +19,7 @@ $(function(){
         switch (res.status) {
             case 'c200':
                 toastr.success(res.msj);
+                window.location.reload();
                 break;
             case 'c403':
                 toastr.warning(res.msj)
@@ -92,6 +93,7 @@ $(function(){
         formData.append('duracion', $("#duracion").val());
         formData.append('idioma', $("#idioma").val());
         formData.append('cinema_id', $("#cinema_id").val());
+        formData.append('tipo', $("#tipo").val());
         moviegesController.saveMovie(formData, successAlert, errorAlert)
     })
 
