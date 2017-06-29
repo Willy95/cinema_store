@@ -17,7 +17,7 @@ class moviegesController {
 
     static saveMovie(data,success,error){
         $.ajax({
-            url: 'register-movie',
+            url: '/register-movie',
             type: 'post',
             data: { data }
         }).done(function(r){

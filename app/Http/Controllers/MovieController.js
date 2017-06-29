@@ -9,8 +9,11 @@ const localStorage = new LocalStorage('./scratch');
 class MovieController {
 
     * sendView(req, res) {
-        const movies = yield Movie.find({})
-        return yield res.sendView('movies_gest', { movies: movies })
+
+        const Movies = yield Movie.find({})
+        const Cinemas = yield Cinema.find({})
+
+        return yield res.sendView('movies_gest', { movies: Movies, cinemas: Cinemas })
     }
 
     * movieToUpdate (req, res) {
@@ -23,11 +26,16 @@ class MovieController {
                         error: err
                     })
                 } else {
-                    res.json({
-                        status: '200',
-                        data: movies
-                    })
-                }
+                    movies.forEach(elem => {
+                        if (elem._id == req.input('id')) {
+                            res.json({
+                                status: '200',
+                                msj: 'datos encontrados',
+                                data: elem
+                            })
+                        }
+                    });
+                } // else />
             })
         })
 
@@ -36,35 +44,37 @@ class MovieController {
 
     * saveMovie(req, res) {
         const poster = req.file('poster')
-        const namePoster = req.only('nombre')+'.'+poster.extension()
-        yield poster.move(Helpers.publicPath('/dist/images/posters/'), namePoster)
-        // < Validacion
-        const data = req.only('nombre','sinopsis','actores','director','trailer','duracion','poster','idioma','cinema_id')
-
-        const rules = {
-            nombre: 'required',
-            sinopsis: 'required',
-            actores: 'required',
-            director: 'required',
-            trailer: 'required',
-            duracion: 'required|min:2|max:3',
-            poster: 'required',
-            idioma: 'required',
-            cinema_id: 'required',
-        }
-        const messages = {
-            required: 'Llena todos los campos',
-            min: 'La duracion en minutos debe tener de 2 a 3 digitos'
-        }
-        const validation = yield Validator.validate(data,rules,messages)
-        if (validation.fails()) {
-            let response = validation.messages()[0].message
-            res.json(response)
-        } else {
-            Movie.create(data)
-        }
-
-        // Validacion />
+        console.log(poster);
+        // const poster = req.file('poster')
+        // const namePoster = req.only('nombre')+'.'+poster.extension()
+        // yield poster.move(Helpers.publicPath('/dist/images/posters/'), namePoster)
+        // // < Validacion
+        // const data = req.only('nombre','sinopsis','actores','director','trailer','duracion','poster','idioma','cinema_id')
+        //
+        // const rules = {
+        //     nombre: 'required',
+        //     sinopsis: 'required',
+        //     actores: 'required',
+        //     director: 'required',
+        //     trailer: 'required',
+        //     duracion: 'required|min:2|max:3',
+        //     poster: 'required',
+        //     idioma: 'required',
+        //     cinema_id: 'required',
+        // }
+        // const messages = {
+        //     required: 'Llena todos los campos',
+        //     min: 'La duracion en minutos debe tener de 2 a 3 digitos'
+        // }
+        // const validation = yield Validator.validate(data,rules,messages)
+        // if (validation.fails()) {
+        //     let response = validation.messages()[0].message
+        //     res.json(response)
+        // } else {
+        //     Movie.create(data)
+        // }
+        //
+        // // Validacion />
     }
 
     * updateMovie(req, res) {
@@ -72,6 +82,8 @@ class MovieController {
     }
 
     * disabledMovie(req, res) {
+        const data = req.input('id')
+        Movie.findById(data, function)
 
     }
 

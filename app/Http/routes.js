@@ -32,9 +32,9 @@ Route.get('/logout', 'LandingController.logout')
 Route.get('/customer-register', 'CustomerController.renderPage')
 Route.post('/save-customer', 'CustomerController.save')
 
-// REGISTRO DE PELICULAS CONSUMIENDO UNA API
+// REGISTRO DE PELICULAS
 Route.get('/management-movie', 'MovieController.sendView')
-Route.get('/register-movie', 'MovieController.registerMovie')
+Route.post('/register-movie', 'MovieController.saveMovie')
 Route.post('/movieToUpdate','MovieController.movieToUpdate')
 
 // Estadisticas
