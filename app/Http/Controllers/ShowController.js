@@ -54,7 +54,6 @@ class ShowController {
   * saveShow(req, res){
     let data = req.all()
     let movie_id = localStorage.getItem('movie_show')
-
     Show.find({day: data.date, 'room_id': data.room}, (err, shows) => {
       Movie.populate(shows, {path: 'movie_id'}, (err, shows) => {
         if (err){
@@ -65,48 +64,76 @@ class ShowController {
           })
         }
         else {
+          let good = true;
           if (shows.length > 0){
-            let good = true;
             for (var i = 0; i < shows.length; i++) {
-              let strTime = shows[i].movie_id.duracion
-              let strDuration = strTime.replace(" min", '')
-              let fulltime = 
-              console.log('duracion: ', strDuration);
+              if (data.hour == shows[i].hour){
+                good = false;
+              }
+              // let strTime = shows[i].movie_id.duracion
+              // let strDuration = strTime.replace(" min", '')
+              // let showDate = new Date(data.date + " " + data.hour)
+              // let showDateAdded = new Date(showDate.setMinutes(10))
+              // console.log('minutos:', strDuration);
+              // console.log('fecha: ', showDate);
+              // console.log('fecha más minutos: ', showDateAdded);
             }
-            return res.send({
-              hola: 1
+          }
+          if (good){
+            let show = new Show();
+            show.room_id = data.room
+            show.movie_id = movie_id
+            show.day = data.date
+            show.hour = data.hour
+            show.save((err, stored) => {
+              if (err){
+                return res.send({
+                  status: 'c500',
+                  message: 'Error en el servidor de base de datos',
+                  date: err
+                })
+              }
+              else {
+                return res.send({
+                  status: 'c200',
+                  message: 'success',
+                  data: stored
+                })
+              }
             })
           }
           else {
             return res.send({
-              hola: 0
+              status: 'c403',
+              message: 'No es posible continuar, la sala se encuentra ocupada'
             })
           }
         }
       })
     })
+  }
 
-    // let show = new Show();
-    // show.room_id = data.room
-    // show.movie_id = movie_id
-    // show.day = data.date
-    // show.hour = data.hour
-    // show.save((err, stored) => {
-    //   if (err){
-    //     return res.send({
-    //       status: 'c500',
-    //       message: 'Error en el servidor de base de datos',
-    //       date: err
-    //     })
-    //   }
-    //   else {
-    //     return res.send({
-    //       status: 'c200',
-    //       message: 'success',
-    //       data: stored
-    //     })
-    //   }
-    // })
+  * deleteShow(req, res){
+    try {
+      Show.findOneAndRemove({'_id': req.all().id}, (err, doc) => {
+        if (err){
+          return res.send({
+            status: 'c500',
+            message: 'La función ha sido eliminada',
+            data: err
+          })
+        }
+        else {
+          return res.send({
+            status: 'c200',
+            message: 'La función ha sido eliminada',
+            doc: doc
+          })
+        }
+      })
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   callback(res){
