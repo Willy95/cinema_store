@@ -82,24 +82,61 @@
    <script src="/scripts/js/cinemas_map/mapDispatcher.js" charset="utf-8"></script> #}
    <script type="text/javascript">
 
-	   $.ajax({
-		   url: '/getCinemas',
-		   type: 'post'
-	   }).done(function(r){
-		   console.log(r);
-	   }).fail(function(e){
-		   console.log(e);
-	   })
-
 	   var map;
+	   var windows;
+	   var marker;
+	   var icon = 'public/dist/images/iconcinema.png';
 
+	   createMarkers();
+	//    initMap();
+
+	   // INICIAR EL MAPA
 	   function initMap() {
 		   map = new google.maps.Map(document.getElementById('map'), {
 			 center: {lat: 25.5428, lng: -103.4068},
 			 zoom: 12,
 			 mapTypeControl: false
 		   });
-	   }initMap();
+	   }
+
+	   // CREAR LAS MARCAS DE LOS CINES
+	   function createMarkers(){
+		   $.ajax({
+			   url: '/getCinemas',
+			   type: 'post'
+		   }).done(function(r){
+			   $.each(r.data, function(i,o){
+
+				   // contenido de la ventana de los marcadores
+					var windowContent =	'<div data-id="content">'+
+											'<h5>Cine: <br>'+ o.nombre +'</h5>'+
+											'<p>Dirección: <br>'+ o.direccion +'</p>'+
+										'</div>';
+					var myLatLng = {
+						lat:parseFloat(o.lat),
+						lng:parseFloat(o.long)
+					} // objeto de longitude y latitude
+
+					marker = new google.maps.Marker({
+						position: myLatLng,
+						draggable:false,
+						animation: google.maps.Animation.DROP,
+						map: map,
+						icon: icon,
+						indice: o._id,
+						title:"doble click para info."
+					});
+					console.log(marker);
+					windows = new google.maps.InfoWindow({
+						content: windowContent
+					});
+
+
+			   })
+		   }).fail(function(e){
+			   console.log(e);
+		   })
+	   }
    </script>
 	{% block js %}{% endblock %}
 </body>

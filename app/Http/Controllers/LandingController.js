@@ -11,7 +11,7 @@ const localStorage = new LocalStorage('./scratch');
 class LandingController {
 
   * getCinemas(req, res){
-      const cinemas = yield Cinema.find({ active: })
+      const cinemas = yield Cinema.find({ active: 1})
       res.json({status: 200, data: cinemas})
   }
 
