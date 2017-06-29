@@ -11,7 +11,8 @@ const localStorage = new LocalStorage('./scratch');
 class ShowController {
 
   * sendViewManage(req, res){
-    localStorage.setItem('movie_show', "59542da4401a95163ee76325")
+    localStorage.removeItem('movie_show')
+    localStorage.setItem('movie_show', req.params('movie').movie)
     return yield res.sendView('assign_shows')
   }
 
