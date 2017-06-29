@@ -20,7 +20,7 @@ $(function(){
   .done(function(res) {
     switch (res.status) {
       case 'c200':
-        $(".logo p").text(res.data[0].cinema_id.nombre);
+        $(".logo p").text((res.data.length > 0) ? res.data[0].cinema_id.nombre : '');
         for (var i = 0; i < res.data.length; i++) {
           $("body").find('.flexiselDemo1').append(`<li><img src="/dist/images/${res.data[i].poster}" data-info="${res.data[i]._id}"/></li>`);
         }

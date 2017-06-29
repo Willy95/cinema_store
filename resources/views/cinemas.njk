@@ -7,43 +7,35 @@
 	<link rel="stylesheet" href="/libs/toastr/toastr.min.css">
 	<link rel="stylesheet" href="/scripts/css/landing.css">
 	<link rel="stylesheet" href="/libs/font-awesome-4.7.0/css/font-awesome.min.css">
-	{% block css %}{% endblock %}
 	<script src="/dist/js/jquery.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Cinema XXII</title>
 </head>
 
+<style media="screen">
+  #map{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    height: 68vh;
+    background-color: rgb(201, 201, 201);
+    border: solid 5px #fff;
+    box-shadow: .2rem .2rem .2rem rgba(0, 0, 0, 0.2);
+    border-radius: .5rem;
+  }
+</style>
+
 <body>
 	<div class="full">
-		<div class="menu">
-			<ul>
-				<li><a href="/"><i class="home"></i></a></li>
-				{# <li><a href=""><i class="videos"></i></a></li> #}
-				{% if currentUser.role_name == 'administer' %}
-				<li title="Venta de boletos"><a href="/reporte-ventas-boletos"><i class="watching"></i></a></li>
-				<li title="Gestion de pelicula"><a href="/management-movie"><i class="watching"></i></a></li>
-				{% endif %}
-				<!-- <li>
-					<a href="404.html">
-						<div class="bk"><i class="booking"></i><i class="booking1"></i></div>
-					</a>
-				</li>
-				<li>
-					<a href="contact.html">
-						<div class="cnt"><i class="contact"></i><i class="contact1"></i></div>
-					</a>
-				</li> -->
-			</ul>
-		</div>
+		<div class="menu"></div>
 		<div class="main">
-			{% block htmlconf %}{% endblock %}
+      <div class="single-content">
+      	<div class="top-header span_top navbar-fixed-top">
 					<div class="logo">
-						<a href="javascript:void(0)"><img src="/dist/images/logo.png"/></a>
+						<a href="javascript:void(0)"><img src="/dist/images/logo.png" alt="" /></a>
 						<p></p>
 					</div>
 					<div class="buttons">
-						<a href="/olvidar-cine" id="gomap">Cambiar Cine</a>
 						{% if currentUser %}
 						<a href="/logout" id="logout">Salir</a>
 						{% else %}
@@ -53,19 +45,19 @@
 					</div>
 					<div class="clearfix"></div>
 				</div>
-				{% block headerinfo %}{% endblock %}
+				<div class="container">
+          <div class="row">
+  				  <div class="col-md-12">
+  				    <div class="">
+                <br><br>
+                <h3><b>Selecciona tu cine favorito y más cerca de tí</b></h3>
+                <small><i><b>Nota:</b> Para una mejor experiencia, habilita tu ubicación. <br>Doble click para acceder</i></small>
+  				      <div id="map"></div>
+  				    </div>
+  				  </div>
+  				</div>
+				</div>
 			</div>
-			{% if currentUser.role_name == 'customer' %}
-			<div class="review-slider">
-				<ul id="flexiselDemo1" class="flexiselDemo1"></ul>
-			</div>
-			{% endif %}
-			{% if not currentUser %}
-			<div class="review-slider">
-				<ul id="flexiselDemo1" class="flexiselDemo1"></ul>
-			</div>
-			{% endif %}
-			{% block body %}{% endblock %}
 			<div class="footer">
 				<h6>Disclaimer : </h6>
 				<p class="claim">This is a freebies and not an official website, I have no intention of disclose any movie, brand, news.My goal here is to train or excercise my skill and share this freebies.</p>
@@ -82,6 +74,8 @@
 	<script type="text/javascript" src="/dist/js/bootstrap.min.js"></script>
 	<script src="/libs/toastr/toastr.min.js" charset="utf-8"></script>
 	<script src="/scripts/js/landing.js" charset="utf-8"></script>
+  <script src="/scripts/js/cinemas_map/mapCtrl.js" charset="utf-8"></script>
+  <script src="/scripts/js/cinemas_map/mapDispatcher.js" charset="utf-8"></script>
 	{% block js %}{% endblock %}
 </body>
 </html>
