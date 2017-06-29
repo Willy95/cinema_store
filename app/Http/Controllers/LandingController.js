@@ -42,7 +42,7 @@ class LandingController {
             message: 'success',
             data: {
               movie: (objShow.length > 0) ? objShow[0].movie_id : null,
-              shows: (objShow.length > 0) ? objShow[0].movie_id : null
+              shows: (objShow.length > 0) ? objShow : null
             }
           })
         }
