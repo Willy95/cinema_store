@@ -9,7 +9,7 @@ const localStorage = new LocalStorage('./scratch');
 class LandingController {
 
   * sendIndex(req, res){
-    localStorage.setItem('cinema_selected', '5953cded401a95163ee76315')
+    localStorage.setItem('cinema_selected', '59542d34401a95163ee76319')
     return yield res.sendView('index')
   }
 

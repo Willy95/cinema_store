@@ -15,7 +15,8 @@ class ShowController {
     return yield res.sendView('assign_shows')
   }
 
-  * getInfoMovie(req, res){    
+  * getInfoMovie(req, res){
+    let movie_id = localStorage.getItem('movie_show')
     Movie.find({'_id': movie_id}, (err, movie) => {
       if (err){
         return res.send({
@@ -53,27 +54,59 @@ class ShowController {
   * saveShow(req, res){
     let data = req.all()
     let movie_id = localStorage.getItem('movie_show')
-    let show = new Show();
-    show.room_id = data.room
-    show.movie_id = movie_id
-    show.day = data.date
-    show.hour = data.hour
-    show.save((err, stored) => {
-      if (err){
-        return res.send({
-          status: 'c500',
-          message: 'Error en el servidor de base de datos',
-          date: err
-        })
-      }
-      else {
-        return res.send({
-          status: 'c200',
-          message: 'success',
-          data: stored
-        })
-      }
+
+    Show.find({day: data.date, 'room_id': data.room}, (err, shows) => {
+      Movie.populate(shows, {path: 'movie_id'}, (err, shows) => {
+        if (err){
+          return res.send({
+            status: 'c500',
+            message: 'Error en el servidor de base de datos',
+            date: err
+          })
+        }
+        else {
+          if (shows.length > 0){
+            let good = true;
+            for (var i = 0; i < shows.length; i++) {
+              let strTime = shows[i].movie_id.duracion
+              let strDuration = strTime.replace(" min", '')
+              let fulltime = 
+              console.log('duracion: ', strDuration);
+            }
+            return res.send({
+              hola: 1
+            })
+          }
+          else {
+            return res.send({
+              hola: 0
+            })
+          }
+        }
+      })
     })
+
+    // let show = new Show();
+    // show.room_id = data.room
+    // show.movie_id = movie_id
+    // show.day = data.date
+    // show.hour = data.hour
+    // show.save((err, stored) => {
+    //   if (err){
+    //     return res.send({
+    //       status: 'c500',
+    //       message: 'Error en el servidor de base de datos',
+    //       date: err
+    //     })
+    //   }
+    //   else {
+    //     return res.send({
+    //       status: 'c200',
+    //       message: 'success',
+    //       data: stored
+    //     })
+    //   }
+    // })
   }
 
   callback(res){

@@ -7,15 +7,13 @@ $(function(){
   }
 
   function drawMovieInfo(res){
-    console.log(res);
     assign_showsCtrl.getRoomsByType(res.data.movie.tipo, makeRoomsList);
     $("#name").text(res.data.movie.nombre);
     $("#type").text(res.data.movie.tipo);
     $("#language").text(res.data.movie.idioma);
     $("#duration").text(res.data.movie.duracion);
     $(".img-movie-show").attr('src', `/dist/images/${res.data.movie.poster}`)
-    $.each(res.data, function(index, el) {
-      console.log(el);
+    $.each(res.data.shows, function(index, el) {
       $(".info-assigment").append(`<div class="assigment-card">
         <label>Día ${el.day}</label>&nbsp;|&nbsp;
         <label>${el.hour} hrs</label>&nbsp;|&nbsp;
