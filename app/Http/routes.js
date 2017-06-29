@@ -33,10 +33,12 @@ Route.get('/logout', 'LandingController.logout')
 Route.get('/customer-register', 'CustomerController.renderPage')
 Route.post('/save-customer', 'CustomerController.save')
 
-// REGISTRO DE PELICULAS CONSUMIENDO UNA API
+
+// REGISTRO DE PELICULAS
 Route.get('/management-movie', 'MovieController.sendView').middleware('auth')
-Route.get('/register-movie', 'MovieController.registerMovie').middleware('auth')
+Route.post('/register-movie', 'MovieController.saveMovie').middleware('auth')
 Route.post('/movieToUpdate','MovieController.movieToUpdate').middleware('auth')
+
 
 // Estadisticas
 Route.get('/reporte-ventas-boletos', 'StadisticsController.sendView').middleware('auth')

@@ -177,7 +177,7 @@ font-size: 14px;
 											<td>
 												<div class="ckbox">
 													<a class="editar" href="#" title="editar" data-id="{{movie._id}}" data-toggle="modal" data-target="#crudModal"><i class="fa fa-edit"></i></a>
-													<a href="#" data-id="{{movie._id}}" title="desactivar"><i class="fa fa-trash"></i></a>
+													<a href="#" data-id="{{movie._id}}"  title="desactivar"><i class="fa fa-trash"></i></a>
 													<a href="/administrar-funciones" data-id="{{movie._id}}" title="crear funcion"><i class="fa fa-eye"></i></a>
 												</div>
 											</td>
@@ -228,6 +228,10 @@ font-size: 14px;
 		                <label for="nombre">Nombre</label>
 		                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="nombre de la pelicula">
 		              </div>
+					  <div class="form-group">
+		                <label for="sinopsis">Sinopsis</label>
+		                <textarea name="sinopsis" id="sinopsis" rows="8" cols="80" placeholder="sinopsis de la pelicula"></textarea>
+		              </div>
 		              <div class="form-group">
 		                <label for="actores">Actores</label>
 		                <input type="text" class="form-control" name="actores" id="actores" placeholder="actores principales">
@@ -248,12 +252,12 @@ font-size: 14px;
 		              <div class="form-group">
 		                <label for="poster">Poster</label>
 		                <input type="file" id="poster" name="poster">
-		                {# <p class="help-block">Example block-level help text here.</p> #}
+		                <p class="help-block" id="posterName"></p>
 		              </div>
 					  <div class="form-group">
 		                <label for="idioma">Idioma</label>
 		                <select class="form-control" name="idioma" id="idioma">
-		                	<option value="" disabled="" selected>selecciona un idioma</option>
+		                	<option value="" disabled="" selected >selecciona un idioma</option>
 		                	<option value="español">español</option>
 		                	<option value="ingles">ingles</option>
 		                </select>
@@ -261,11 +265,10 @@ font-size: 14px;
 					  <div class="form-group">
 		                <label for="cinema_id">Cines</label>
 		                <select class="form-control" name="cinema_id" id="cinema_id">
-		                	<option value="" disabled="" selected>selecciona un cine</option>
-							{# {% for cinema in  %}
-
-							{% endfor %} #}
-		                	<option value="español">español</option>
+		                	<option value="0" disabled="" selected="selected">selecciona un cine</option>
+							{% for cinema in  cinemas %}
+								<option value="{{ cinema._id }}">{{ cinema.nombre }}</option>
+							{% endfor %}
 		                </select>
 		              </div>
 		            </form>
