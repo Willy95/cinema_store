@@ -1,18 +1,27 @@
 $(function(){
 
     function getDataForm() {
-        let data = {
-            nombre:   $("#nombre").val(),
-            sinopsis: $("#sinopsis").val(),
-            actores:  $("#actores").val(),
-            director: $("#director").val(),
-            trailer:  $("#trailer").val(),
-            duracion: $("#duracion").val(),
-            poster:   $("#poster").val(),
-            idioma:   $("#idioma").val(),
-            cinema_id:$("#cinema_id").val()
-        }
-        return data;
+      let formData = new FormData($("#registerMovieForm-poster")[0]);
+      formData.append('nombre', $("#nombre").val());
+      formData.append('sinopsis', $("#sinopsis").val());
+      formData.append('actores', $("#actores").val());
+      formData.append('director', $("#director").val());
+      formData.append('trailer', $("#trailer").val());
+      formData.append('duracion', $("#duracion").val());
+      formData.append('idioma', $("#idioma").val());
+      formData.append('cinema_id', $("#cinema_id").val());
+        // let data = {
+        //     nombre:   $("#nombre").val(),
+        //     sinopsis: $("#sinopsis").val(),
+        //     actores:  $("#actores").val(),
+        //     director: $("#director").val(),
+        //     trailer:  $("#trailer").val(),
+        //     duracion: $("#duracion").val(),
+        //     poster:   $("#poster").val(),
+        //     idioma:   $("#idioma").val(),
+        //     cinema_id:$("#cinema_id").val()
+        // }
+        return formData;
     } // mandar los datos del form como un objeto
 
     function successAlert(res) {
@@ -25,7 +34,7 @@ $(function(){
                 break;
             default:
                 toastr.error('Error desconocido, intentalo nuevamente más tarde');
-
+                break;
         }
 
     }
@@ -37,8 +46,19 @@ $(function(){
 
 
     $("#save-movie").click(function(event){
-        let movie = getDataForm();
-        moviegesController.saveMovie(movie, successAlert, errorAlert)
+        // $("#registerMovieForm").submit();
+        // let movie = getDataForm();
+        let formData = new FormData($("#registerMovieForm-poster")[0]);
+        formData.append('nombre', $("#nombre").val());
+        formData.append('sinopsis', $("#sinopsis").val());
+        formData.append('actores', $("#actores").val());
+        formData.append('director', $("#director").val());
+        formData.append('trailer', $("#trailer").val());
+        formData.append('duracion', $("#duracion").val());
+        formData.append('idioma', $("#idioma").val());
+        formData.append('cinema_id', $("#cinema_id").val());
+        console.log(formData);
+        moviegesController.saveMovie(formData, successAlert, errorAlert)
     })
 
     $('#agregar').click(function(){

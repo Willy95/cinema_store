@@ -222,7 +222,7 @@ font-size: 14px;
 				<div class="modal-body">
 
 		            <!-- content goes here -->
-					<form action="" method="" id="registerMovieForm">
+					<form action="/delete-movie" method="POST" id="registerMovieForm">
 						{{csrfField}}
 		              <div class="form-group">
 		                <label for="nombre">Nombre</label>
@@ -242,17 +242,12 @@ font-size: 14px;
 		              </div>
 					  <div class="form-group">
 		                <label for="duracion">Duración</label>
-		                <input type="text" class="form-control edit-input" name="duracion" id="duracion" placeholder="ejemplo: 90 'minutos'">
+		                {# <input type="text" class="form-control edit-input" name="duracion" id="duracion" placeholder="ejemplo: 90 'minutos'"> #}
 		                <input type="number" class="form-control save-input" name="duracion" id="duracion" placeholder="ejemplo: 90 'minutos'">
 		              </div>
 					  <div class="form-group">
 		                <label for="trailer">Trailer</label>
 		                <input type="text" class="form-control" name="trailer" id="trailer" placeholder="link del video">
-		              </div>
-		              <div class="form-group">
-		                <label for="poster">Poster</label>
-		                <input type="file" id="poster" name="poster">
-		                <p class="help-block" id="posterName"></p>
 		              </div>
 					  <div class="form-group">
 		                <label for="idioma">Idioma</label>
@@ -272,6 +267,13 @@ font-size: 14px;
 		                </select>
 		              </div>
 		            </form>
+								<div class="form-group">
+									<label for="poster">Poster</label>
+									<form action="" method="" id="registerMovieForm-poster">
+										<input type="file" id="poster" name="poster">
+									</form>
+									<p class="help-block" id="posterName"></p>
+								</div>
 
 				</div>
 				<div class="modal-footer">

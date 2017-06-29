@@ -36,7 +36,7 @@ Route.post('/save-customer', 'CustomerController.save')
 
 // REGISTRO DE PELICULAS
 Route.get('/management-movie', 'MovieController.sendView').middleware('auth')
-Route.post('/register-movie', 'MovieController.saveMovie').middleware('auth')
+Route.post('/register-movie', 'MovieController.saveMovie')//.middleware('auth')
 Route.post('/movieToUpdate','MovieController.movieToUpdate').middleware('auth')
 Route.post('/delete-movie','MovieController.deleteMovie').middleware('auth')
 

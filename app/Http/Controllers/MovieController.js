@@ -12,7 +12,6 @@ class MovieController {
 
         const Movies = yield Movie.find({active: 1})
         const Cinemas = yield Cinema.find({active: 1})
-
         return yield res.sendView('movies_gest', { movies: Movies, cinemas: Cinemas })
     }
 
@@ -43,37 +42,62 @@ class MovieController {
     }
 
     * saveMovie(req, res) {
+        // let data = req.all();
+        // // console.log(req.all().poster);
+        // let poster = req.file('poster')
+        // return res.send(null)
         const poster = req.file('poster')
-        console.log(poster);
-        // const poster = req.file('poster')
-        // const namePoster = req.only('nombre')+'.'+poster.extension()
-        // yield poster.move(Helpers.publicPath('/dist/images/posters/'), namePoster)
-        // // < Validacion
-        // const data = req.only('nombre','sinopsis','actores','director','trailer','duracion','poster','idioma','cinema_id')
-        //
-        // const rules = {
-        //     nombre: 'required',
-        //     sinopsis: 'required',
-        //     actores: 'required',
-        //     director: 'required',
-        //     trailer: 'required',
-        //     duracion: 'required|min:2|max:3',
-        //     poster: 'required',
-        //     idioma: 'required',
-        //     cinema_id: 'required',
-        // }
-        // const messages = {
-        //     required: 'Llena todos los campos',
-        //     min: 'La duracion en minutos debe tener de 2 a 3 digitos'
-        // }
-        // const validation = yield Validator.validate(data,rules,messages)
-        // if (validation.fails()) {
-        //     let response = validation.messages()[0].message
-        //     res.json(response)
-        // } else {
-        //     Movie.create(data)
-        // }
-        //
+        const namePoster = Math.floor((Math.random() * 999999999999999999) + 1) + '.'+poster.extension()
+        yield poster.move(Helpers.publicPath('/dist/images/'), namePoster)
+        // < Validacion
+        const data = req.only('nombre','sinopsis','actores','director','trailer','duracion','poster','idioma','cinema_id')
+        const rules = {
+            nombre: 'required',
+            sinopsis: 'required',
+            actores: 'required',
+            director: 'required',
+            trailer: 'required',
+            duracion: 'required|min:2|max:3',
+            idioma: 'required',
+            cinema_id: 'required',
+        }
+        const messages = {
+            required: 'Llena todos los campos',
+            min: 'La duracion en minutos debe tener de 2 a 3 digitos'
+        }
+        const validation = yield Validator.validate(data,rules,messages)
+        if (validation.fails()) {
+            let response = validation.messages()[0].message
+            res.json(response)
+        } else {
+            let movie = new Movie()
+            movie.nombre = data.nombre
+            movie.sinopsis = data.sinopsis
+            movie.actores = data.actores
+            movie.director = data.director
+            movie.trailer = data.trailer
+            movie.duracion = data.duracion
+            movie.poster = namePoster
+            movie.idioma = data.idioma
+            movie.active = 1
+            movie.cinema_id = data.cinema_id
+            movie.tipo = '2D'
+            movie.save((err, _new) => {
+              if (err){
+                return res.send({
+                  status: 'c500',
+                  data: err
+                })
+              }
+              else {
+                return res.send({
+                  status: 'c200',
+                  data: _new
+                })
+              }
+            })
+        }
+
         // // Validacion />
     }
 
