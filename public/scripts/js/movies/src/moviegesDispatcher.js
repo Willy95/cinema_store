@@ -43,6 +43,7 @@ $(function(){
 
     $('.editar').click(function(){
         $('#lineModalLabel').text('Editar Pelicula');
+        $('#')
         const movieId = $(this).data('id');
         moviegesController.movieToUpdate(movieId, dataModal)
     })
@@ -54,16 +55,16 @@ $(function(){
 
     // FUNCION PARA LLENAR EL MODAL CON LOS DATOS PARA LA EDICIÓN
     function dataModal(response){
-        console.log(response.data);
-        $("#nombre").val()
-        $("#sinopsis").val()
-        $("#actores").val()
-        $("#director").val()
-        $("#trailer").val()
-        $("#duracion").val()
-        $("#poster").val()
-        $("#idioma").val()
-        $("#cinema_id").val()
+        // console.log(response.data[0]);
+        $("#nombre").val(response.data[0].nombre)
+        $("#sinopsis").val(response.data[0].sinopsis)
+        $("#actores").val(response.data[0].actores)
+        $("#director").val(response.data[0].director)
+        $("#trailer").val(response.data[0].trailer)
+        $("#duracion").val(response.data[0].duracion)
+        $("#poster").val(response.data[0].poster)
+        $("#idioma").val(response.data[0].idioma)
+        $("#cinema_id").val(response.data[0].cinema_id.nombre)
     }
 
 })

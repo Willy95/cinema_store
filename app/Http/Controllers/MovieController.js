@@ -14,10 +14,17 @@ class MovieController {
     * movieToUpdate (req, res) {
         Movie.find({}, function(err, movies){
             Cinema.populate(movies, {path: "cinema_id"}, function(err, movies){
-                if (error) {
-                    
+                if (err) {
+                    res.json({
+                        status: 'error',
+                        msj: 'server error',
+                        error: err
+                    })
                 } else {
-
+                    res.json({
+                        status: '200',
+                        data: movies
+                    })
                 }
             })
         })
