@@ -39,11 +39,11 @@ class moviegesController {
         })
     }
 
-    static deleteMovie(data,success,error){
+    static deleteMovie(data, success){
         $.ajax({
-            url: 'delete-movie',
+            url: '/delete-movie',
             type: 'post',
-            data: { data }
+            data: { id: data }
         }).done(function(r){
             success(r);
         }).fail(function(e){

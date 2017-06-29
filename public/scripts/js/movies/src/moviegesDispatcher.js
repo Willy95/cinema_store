@@ -90,6 +90,16 @@ $(function(){
         moviegesController.updateMovie(movie, successAlert, errorAlert)
     })
 
+    $(".desactivar").click(function(event){
+        const id = $(this).data('id')
+        moviegesController.deleteMovie(id, function(response){
+            if (response.status == 200) {
+                window.location = '/management-movie';
+            }
+        })
+    })
+
+
     // FUNCION PARA LLENAR EL MODAL CON LOS DATOS PARA LA EDICIÓN
     function dataModal(response){
         $('#posterName').text(response.data.poster);

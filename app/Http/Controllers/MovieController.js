@@ -10,8 +10,8 @@ class MovieController {
 
     * sendView(req, res) {
 
-        const Movies = yield Movie.find({})
-        const Cinemas = yield Cinema.find({})
+        const Movies = yield Movie.find({active: 1})
+        const Cinemas = yield Cinema.find({active: 1})
 
         return yield res.sendView('movies_gest', { movies: Movies, cinemas: Cinemas })
     }
@@ -81,9 +81,20 @@ class MovieController {
 
     }
 
-    * disabledMovie(req, res) {
+    * deleteMovie(req, res) {
         const data = req.input('id')
-        Movie.findById(data, function)
+        Movie.findById(data, function(err, movie){
+            movie.active = 0
+            movie.save(function(err){
+                if (err) {
+                    console.log('Error');
+                }
+            })
+        })
+
+        res.json({
+            status:200
+        })
 
     }
 
