@@ -4,6 +4,7 @@ const Validator = use('Validator')
 const Movie = use('App/Model/Mongo/MovieMongo')
 const Cinema = use('App/Model/Mongo/CinemaMongo')
 const Show = use('App/Model/Mongo/ShowMongo')
+const Room = use('App/Model/Mongo/RoomMongo')
 const LocalStorage = require('node-localstorage').LocalStorage;
 const localStorage = new LocalStorage('./scratch');
 
@@ -21,31 +22,35 @@ class LandingController {
 
   * sendMovie(req, res){
     let id = req.param('movie')
+    localStorage.removeItem('movie_selected')
     localStorage.setItem('movie_selected', id)
     return yield res.sendView('single')
   }
 
   * sendMovieInfo(req, res){
     let movie = localStorage.getItem('movie_selected')
-    localStorage.removeItem('movie_selected')
     Show.find({movie_id: movie}, (err, objShow) => {
       Movie.populate(objShow, {path: 'movie_id'}, (err, objShow) => {
-        if (err){
-          return res.send({
-            status: 'c500',
-            message: 'Error en el servidor de base de datos'
-          })
-        }
-        else {
-          return res.send({
-            status: 'c200',
-            message: 'success',
-            data: {
-              movie: (objShow.length > 0) ? objShow[0].movie_id : null,
-              shows: (objShow.length > 0) ? objShow[0].movie_id : null
-            }
-          })
-        }
+        Room.populate(objShow, {path: 'room_id'}, (err, objShow) => {
+          if (err){
+            return res.send({
+              status: 'c500',
+              message: 'Error en el servidor de base de datos'
+            })
+          }
+          else {
+            localStorage.removeItem('showInfo')
+            localStorage.setItem('showInfo', JSON.stringify(objShow))
+            return res.send({
+              status: 'c200',
+              message: 'success',
+              data: {
+                movie: (objShow.length > 0) ? objShow[0].movie_id : null,
+                shows: (objShow.length > 0) ? objShow : null
+              }
+            })
+          }
+        })
       })
     })
   }

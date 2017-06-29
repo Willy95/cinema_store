@@ -22,6 +22,7 @@ Route.get('/olvidar-cine', 'LandingController.forgetCinema')
 Route.get('/pelicula/:movie', 'LandingController.sendMovie')
 Route.post('/pelicula-info', 'LandingController.sendMovieInfo')
 Route.get('/asignar-cine/:cinema', 'LandingController.assignCinema')
+Route.get('/comprar-boletos', 'SalesController.sendViewToBuy')
 
 // login
 Route.get('/iniciar-sesion', 'LandingController.sendLogin')
@@ -29,8 +30,8 @@ Route.post('/login', 'LandingController.login')
 Route.get('/logout', 'LandingController.logout')
 
 // Registro de clientes
-Route.get('/customer-register', 'CustomerController.renderPage').middleware('auth')
-Route.post('/save-customer', 'CustomerController.save').middleware('auth')
+Route.get('/customer-register', 'CustomerController.renderPage')
+Route.post('/save-customer', 'CustomerController.save')
 
 // REGISTRO DE PELICULAS CONSUMIENDO UNA API
 Route.get('/management-movie', 'MovieController.sendView').middleware('auth')
@@ -52,3 +53,7 @@ Route.post('/getRoomsByType', 'RoomController.getRoomsByType')
 
 // Movies
 Route.post('/getMoviesAll', 'MovieController.getMoviesAll')
+
+// Sales
+Route.post('/getSalesInfo', 'SalesController.getSalesInfo')
+Route.post('/saveBought', 'SalesController.saveBought')

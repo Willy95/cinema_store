@@ -15,6 +15,10 @@ class StadisticsController {
     }
   }
 
+  * onSetsiteelected(info){
+    this.socket.toEveryone().exceptMe().emit('onSetsiteelected', info)
+  }
+
 }
 
 module.exports = StadisticsController
