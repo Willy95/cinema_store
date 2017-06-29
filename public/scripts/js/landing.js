@@ -16,13 +16,13 @@ $(function(){
     url: '/getMoviesAll',
     type: 'POST',
     dataType: 'JSON',
-    data: {'cinema': '5953cded401a95163ee76315'}
+    data: {'cinema': '59542da4401a95163ee76325'}
   })
   .done(function(res) {
     switch (res.status) {
       case 'c200':
         for (var i = 0; i < res.data.length; i++) {
-          if (res.data[i].cinema_id == "5953cded401a95163ee76315"){
+          if (res.data[i].cinema_id == "59542da4401a95163ee76325"){
             $(".flexiselDemo1").append(`<li><img src="/dist/images/${res.data[i].poster}" data-info="${res.data[i]._id}"/></li>`)
           }
         }

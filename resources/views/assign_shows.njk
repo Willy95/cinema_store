@@ -62,16 +62,16 @@
 				<div class="row">
 				  <div class="col-md-2">
 				  	<div class="">
-				  		<img src="/dist/images/m3.jpg" class="img-responsive img-thumbnail">
+				  		<img src="" class="img-responsive img-thumbnail img-movie-show">
 				  	</div>
 				  </div>
 					<div class="col-md-3">
 						<div class="">
-							<h4><b>Transcendence</b></h4>
+							<h4><b id="name">Transcendence</b></h4>
 							<hr>
-							<label><b>Tipo:</b> 3D</label>
-							<br><label><b>Idioma:</b> Ingles</label>
-							<br><label><b>Duración:</b> 120 min</label>
+							<label><b>Tipo:</b> <span id="type"></span></label>
+							<br><label><b>Idioma:</b> <span id="language"></span></label>
+							<br><label><b>Duración:</b> <span id="duration"></span></label>
 						</div>
 					</div>
 					<div class="col-md-7">
@@ -85,12 +85,17 @@
 							  </fieldset>
 								<fieldset class="form-group">
 							    <label for="">Selecciona el día</label>
-							    <input type="date" class="form-control">
+							    <input type="date" class="form-control" id="date">
 							  </fieldset>
 								<fieldset class="form-group">
 							    <label for="">Selecciona la hora</label>
-							    <input type="time" class="form-control">
+							    <input type="time" class="form-control" id="hour">
 							  </fieldset>
+								<div class="text-right">
+									<button type="button" class="btn" id="save-show">
+										Guardar
+									</button>
+								</div>
 							</form>
 						</div>
 					</div>
@@ -98,14 +103,7 @@
 					  <div class="col-md-12">
 					  	<div class="prev-assigments">
 								<h5><b>Asignación de la película</b></h5>
-								<div class="info-assigment">
-									<div class="assigment-card">
-										<label>Día 30-Diciembre-2017</label>&nbsp;|&nbsp;
-										<label>14:00 hrs</label>&nbsp;|&nbsp;
-										<label>Sala 8</label>
-										<label class="assigment-delete">X</label>
-									</div>
-								</div>
+								<div class="info-assigment"></div>
 					  	</div>
 					  </div>
 					</div>
