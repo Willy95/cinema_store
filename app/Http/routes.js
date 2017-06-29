@@ -36,6 +36,7 @@ Route.get('/register-movie', 'MovieController.registerMovie')
 
 // Estadisticas
 Route.get('/reporte-ventas-boletos', 'StadisticsController.sendView')
+Route.post('/getStadistics', 'StadisticsController.getStadistics')
 
 // Shows
 Route.get('/administrar-funciones', 'ShowController.sendViewManage')
