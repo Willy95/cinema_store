@@ -16,7 +16,7 @@ body{
   outline: none !important;
   border: solid 2px #dfb636;
 }
-#login{
+#login, #gomap{
   background: transparent !important;
   color: #dfb636 !important;
 }

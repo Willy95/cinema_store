@@ -18,6 +18,7 @@
 const Route = use('Route')
 
 Route.get('/', 'LandingController.sendIndex')
+Route.get('/olvidar-cine', 'LandingController.forgetCinema')
 Route.get('/pelicula/:movie', 'LandingController.sendMovie')
 Route.post('/pelicula-info', 'LandingController.sendMovieInfo')
 
