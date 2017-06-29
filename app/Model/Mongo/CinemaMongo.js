@@ -9,7 +9,7 @@ const CinemaMongo = schema({
     direccion: { type: String, required: true },
     lat: { type: String, required: true },
     long: { type: String, required: true },
-    active: { type: String, required: true },
+    active: { type: Number, required: true },
 
 },{collection: 'cinemas'},{
 

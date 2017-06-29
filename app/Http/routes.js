@@ -23,6 +23,7 @@ Route.get('/pelicula/:movie', 'LandingController.sendMovie')
 Route.post('/pelicula-info', 'LandingController.sendMovieInfo')
 Route.get('/asignar-cine/:cinema', 'LandingController.assignCinema')
 Route.get('/comprar-boletos', 'SalesController.sendViewToBuy')
+Route.post('/getCinemas', 'LandingController.getCinemas')
 
 // login
 Route.get('/iniciar-sesion', 'LandingController.sendLogin')
