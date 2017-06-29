@@ -2,15 +2,18 @@ $(function(){
 
     function getDataForm() {
         let data = {
-            title:   $("#title").val(),
-            poster:  $("#poster").val()
-            year:    $("#year").val()
-            runtime: $("#runtime").val()
-            trailer: $("#trailer").val()
-            synopsis:$("#synopsis").val()
+            nombre:   $("#nombre").val(),
+            sinopsis: $("#sinopsis").val(),
+            actores:  $("#actores").val(),
+            director: $("#director").val(),
+            trailer:  $("#trailer").val(),
+            duracion: $("#duracion").val(),
+            poster:   $("#poster").val(),
+            idioma:   $("#idioma").val(),
+            cinema_id:$("#cinema_id").val()
         }
         return data;
-    } // mandar los datos del form como un objecto
+    } // mandar los datos del form como un objeto
 
     function successAlert(res) {
         switch (res.status) {
@@ -36,6 +39,15 @@ $(function(){
     $("#save-movie").click(function(event){
         let movie = getDataForm();
         moviegesController.saveMovie(movie, successAlert, errorAlert)
+    })
+
+    $('#agregar').click(function(){
+        $('#lineModalLabel').text('Registrar Peliculas');
+        console.log("msj");
+    })
+
+    $('.editar').click(function(){
+
     })
 
 })
