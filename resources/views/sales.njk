@@ -1,0 +1,100 @@
+{% extends 'templates.landing' %}
+
+{% block css %}
+<style media="screen">
+  #container{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background-color: rgb(201, 201, 201);
+    border: solid 5px #fff;
+    box-shadow: .2rem .2rem .2rem rgba(0, 0, 0, 0.2);
+    border-radius: .5rem;
+    float: left;
+    width: 100%;
+  }
+  div.site, .nonsite, .site-pre, .siteSelectedOut, .sitebought{
+    list-style: none;
+    width: 7rem;
+    background: white;
+    margin: 1rem;
+    float: left;
+    height: 5rem;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 1.3rem;
+    border-radius: .8rem;
+    cursor: pointer;
+    border: solid 3px #fff;
+  }
+  .nonsite{
+    background: transparent !important;
+    cursor: default !important;
+  }
+  .site-pre{
+    background: rgb(21, 144, 107) !important;
+  }
+  .siteSelectedOut{
+    background-color: rgb(224, 121, 223) !important;
+    cursor: default;
+  }
+  .sitebought{
+    background-color: #dfb636 !important;
+    cursor: default;
+  }
+</style>
+{% endblock %}
+
+{% block htmlconf %}
+<div class="single-content">
+	<div class="top-header span_top navbar-fixed-top">
+{% endblock %}
+
+{% block headerinfo %}
+  <div class="container"><br><br>
+    <div class="row">
+      <div class="col-md-12">
+        <h3><b>Compra tus boletos facilmente</b></h3>
+        <p>
+          <small><br>
+            <b>Selecciona los asientos que desees comprar.</b><br>
+            Pantalla Abajo
+          </small>
+        </p>
+        <div class=""><br><br>
+          <select class="form-control" name="date" id="date-select"></select>
+        </div>
+        <div id="container">
+          <center>
+          </center>
+        </div>
+        <br><br>
+        {# <div class="row">
+          <div class="col-md-12">
+            <div class="">
+              <p><div id="disponible"></div> Disponible</p>
+              <p><div id="siteout"></div> Seleccionado por otro usuario</p>
+              <p><div id="nodisponible"></div> No disponible</p>
+              <p><div id="seleccionado"></div> Seleccionado por ti</p>
+            </div>
+          </div>
+        </div> #}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="text-right">
+              <button type="button" class="btn btn-primary" id="buy">
+                Comprar mis boletos
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><br><br>
+  </div>
+{% endblock %}
+
+{% block js %}
+<script src="/websocket-client.js" charset="utf-8"></script>
+<script src="/scripts/js/sales/salesCtrl.js" charset="utf-8"></script>
+<script src="/scripts/js/sales/salesDispatcher.js" charset="utf-8"></script>
+{% endblock %}

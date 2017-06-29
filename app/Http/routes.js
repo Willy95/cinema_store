@@ -22,6 +22,7 @@ Route.get('/olvidar-cine', 'LandingController.forgetCinema')
 Route.get('/pelicula/:movie', 'LandingController.sendMovie')
 Route.post('/pelicula-info', 'LandingController.sendMovieInfo')
 Route.get('/asignar-cine/:cinema', 'LandingController.assignCinema')
+Route.get('/comprar-boletos', 'SalesController.sendViewToBuy')
 
 // login
 Route.get('/iniciar-sesion', 'LandingController.sendLogin')
@@ -32,23 +33,29 @@ Route.get('/logout', 'LandingController.logout')
 Route.get('/customer-register', 'CustomerController.renderPage')
 Route.post('/save-customer', 'CustomerController.save')
 
+
 // REGISTRO DE PELICULAS
-Route.get('/management-movie', 'MovieController.sendView')
-Route.post('/register-movie', 'MovieController.saveMovie')
-Route.post('/movieToUpdate','MovieController.movieToUpdate')
+Route.get('/management-movie', 'MovieController.sendView').middleware('auth')
+Route.post('/register-movie', 'MovieController.saveMovie').middleware('auth')
+Route.post('/movieToUpdate','MovieController.movieToUpdate').middleware('auth')
+
 
 // Estadisticas
-Route.get('/reporte-ventas-boletos', 'StadisticsController.sendView')
-Route.post('/getStadistics', 'StadisticsController.getStadistics')
+Route.get('/reporte-ventas-boletos', 'StadisticsController.sendView').middleware('auth')
+Route.post('/getStadistics', 'StadisticsController.getStadistics').middleware('auth')
 
 // Shows
 Route.get('/administrar-funciones', 'ShowController.sendViewManage')
 Route.post('/getInfoMovie', 'ShowController.getInfoMovie')
-Route.post('/save-show', 'ShowController.saveShow')
-Route.post('/delete-show', 'ShowController.deleteShow')
+Route.post('/save-show', 'ShowController.saveShow').middleware('auth')
+Route.post('/delete-show', 'ShowController.deleteShow').middleware('auth')
 
 // rooms
 Route.post('/getRoomsByType', 'RoomController.getRoomsByType')
 
 // Movies
 Route.post('/getMoviesAll', 'MovieController.getMoviesAll')
+
+// Sales
+Route.post('/getSalesInfo', 'SalesController.getSalesInfo')
+Route.post('/saveBought', 'SalesController.saveBought')
