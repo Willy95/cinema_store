@@ -106,17 +106,23 @@
 		type: 'POST'
 	})
 	.done(function(res) {
-		$("#name").text(res.data.movie.nombre);
-		$("#cast span").text(res.data.movie.actores);
-		$("#direction span").text(res.data.movie.director);
-		$("#duration span").text(res.data.movie.duracion);
-		$("#sinopsis").text(res.data.movie.sinopsis);
-		$("#language span").text(res.data.movie.idioma);
-		$("#category").text(res.data.movie.tipo);
-		$(".movie-pic a img").attr('src', `/dist/images/${res.data.movie.poster}`);
-		$.each(res.data.shows, function(index, el) {
-			$("#horarios-list").append(`<li>${el.day + " | " + el.hour + " Hrs"}</li>`);
-		});
+		if (res.data.movie == null || res.data.shows == null){
+			alert('Una disculpa, no hay información válida por el momento. Estamos trabajando en eso');
+			window.location.href = '/';
+		}
+		else {
+			$("#name").text(res.data.movie.nombre);
+			$("#cast span").text(res.data.movie.actores);
+			$("#direction span").text(res.data.movie.director);
+			$("#duration span").text(res.data.movie.duracion);
+			$("#sinopsis").text(res.data.movie.sinopsis);
+			$("#language span").text(res.data.movie.idioma);
+			$("#category").text(res.data.movie.tipo);
+			$(".movie-pic a img").attr('src', `/dist/images/${res.data.movie.poster}`);
+			$.each(res.data.shows, function(index, el) {
+				$("#horarios-list").append(`<li>${el.day + " | " + el.hour + " Hrs"}</li>`);
+			});
+		}
 	})
 	.fail(function(res) {
 		console.log(res);

@@ -36,8 +36,8 @@ class LandingController {
             status: 'c200',
             message: 'success',
             data: {
-              movie: objShow[0].movie_id,
-              shows: objShow
+              movie: (objShow.length > 0) ? objShow[0].movie_id : null,
+              shows: (objShow.length > 0) ? objShow[0].movie_id : null
             }
           })
         }
