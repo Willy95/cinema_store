@@ -3,6 +3,8 @@ const Movie = use('App/Model/Mongo/MovieMongo')
 const Cinema = use('App/Model/Mongo/CinemaMongo')
 const Validator = use('Validator')
 const Helpers = use('Helpers')
+const LocalStorage = require('node-localstorage').LocalStorage;
+const localStorage = new LocalStorage('./scratch');
 
 class MovieController {
 
@@ -105,31 +107,33 @@ class MovieController {
     // }
 
     * getMoviesAll(req, res){
-      let cinema_id = req.all().cinema
-      Movie.find((err, obj) => {
-        if (err){
-          return res.send({
-            status: 'c500',
-            message: 'Error en el servidor',
-            data: err
-          })
-        }
-        else {
-          if (obj){
+      let cinema_id = localStorage.getItem('cinema_selected')
+      Movie.find({'cinema_id': cinema_id},  (err, obj) => {
+        Cinema.populate(obj, {path: 'cinema_id'}, (err, obj) => {
+          if (err){
             return res.send({
-              status: 'c200',
-              message: 'success',
-              data: obj
+              status: 'c500',
+              message: 'Error en el servidor',
+              data: err
             })
           }
           else {
-            return res.send({
-              status: 'c404',
-              message: 'No fue posible obtener respuesta',
-              data: null
-            })
+            if (obj){
+              return res.send({
+                status: 'c200',
+                message: 'success',
+                data: obj
+              })
+            }
+            else {
+              return res.send({
+                status: 'c404',
+                message: 'No fue posible obtener respuesta',
+                data: null
+              })
+            }
           }
-        }
+        })
       })
     }
 }

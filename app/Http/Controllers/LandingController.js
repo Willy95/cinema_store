@@ -3,13 +3,14 @@
 const Validator = use('Validator')
 const Movie = use('App/Model/Mongo/MovieMongo')
 const Cinema = use('App/Model/Mongo/CinemaMongo')
+const Show = use('App/Model/Mongo/ShowMongo')
 const LocalStorage = require('node-localstorage').LocalStorage;
 const localStorage = new LocalStorage('./scratch');
 
 class LandingController {
 
   * sendIndex(req, res){
-    localStorage.setItem('cinema_selected', '5953cded401a95163ee76315')
+    localStorage.setItem('cinema_selected', '59542d34401a95163ee76319')
     return yield res.sendView('index')
   }
 
@@ -20,36 +21,27 @@ class LandingController {
   }
 
   * sendMovieInfo(req, res){
-    let id = localStorage.getItem('movie_selected')
+    let movie = localStorage.getItem('movie_selected')
     localStorage.removeItem('movie_selected')
-    Movie.find({'_id': id}, (err, obj) => {
-      if (err){
-        return res.send({
-          status: 'c500',
-          message: 'Error en el servidor de base de datos'
-        })
-      }
-      else {
-        let cinema_id = localStorage.getItem('cinema_selected')
-        Cinema.find({'_id': cinema_id}, (err, cinema) => {
-          if (err){
-            return res.send({
-              status: 'c500',
-              message: 'Error en el servidor de base de datos'
-            })
-          }
-          else {
-            return res.send({
-              status: 'c200',
-              message: 'success',
-              data: {
-                movie: obj,
-                cinema: cinema
-              }
-            })
-          }
-        })
-      }
+    Show.find({movie_id: movie}, (err, objShow) => {
+      Movie.populate(objShow, {path: 'movie_id'}, (err, objShow) => {
+        if (err){
+          return res.send({
+            status: 'c500',
+            message: 'Error en el servidor de base de datos'
+          })
+        }
+        else {
+          return res.send({
+            status: 'c200',
+            message: 'success',
+            data: {
+              movie: (objShow.length > 0) ? objShow[0].movie_id : null,
+              shows: (objShow.length > 0) ? objShow[0].movie_id : null
+            }
+          })
+        }
+      })
     })
   }
 

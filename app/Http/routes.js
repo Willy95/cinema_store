@@ -37,11 +37,13 @@ Route.post('/movieToUpdate','MovieController.movieToUpdate')
 
 // Estadisticas
 Route.get('/reporte-ventas-boletos', 'StadisticsController.sendView')
+Route.post('/getStadistics', 'StadisticsController.getStadistics')
 
 // Shows
 Route.get('/administrar-funciones', 'ShowController.sendViewManage')
 Route.post('/getInfoMovie', 'ShowController.getInfoMovie')
 Route.post('/save-show', 'ShowController.saveShow')
+Route.post('/delete-show', 'ShowController.deleteShow')
 
 // rooms
 Route.post('/getRoomsByType', 'RoomController.getRoomsByType')
