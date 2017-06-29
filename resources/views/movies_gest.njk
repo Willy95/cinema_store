@@ -176,9 +176,9 @@ font-size: 14px;
 										<tr data-status="pagado">
 											<td>
 												<div class="ckbox">
-													<a class="editar" href="#" title="editar" data-id="{{movie._id}}" data-toggle="modal" data-target="#crudModal"><i class="fa fa-edit"></i></a>
-													<a class="desactivar" href="#" data-id="{{movie._id}}"  title="desactivar"><i class="fa fa-trash"></i></a>
-													<a href="/administrar-funciones" data-id="{{movie._id}}" title="crear funcion"><i class="fa fa-eye"></i></a>
+													{# <a class="editar" href="#" title="editar" data-id="{{movie._id}}" data-toggle="modal" data-target="#crudModal"><i class="fa fa-edit"></i></a>
+													<a class="desactivar" href="#" data-id="{{movie._id}}"  title="desactivar"><i class="fa fa-trash"></i></a> #}
+													<a href="/administrar-funciones/{{movie._id}}" data-id="{{movie._id}}" title="crear funcion"><i class="fa fa-cog"></i></a>
 												</div>
 											</td>
 											<td>
@@ -187,7 +187,7 @@ font-size: 14px;
 											<td>
 												<div class="media">
 													<a href="#" class="pull-left">
-														<img src="/dist/images/posters/{{movie.poster}}" class="media-photo">
+														<img src="/dist/images/{{movie.poster}}" class="media-photo">
 													</a>
 													<div class="media-body">
 														<span class="media-meta pull-right">{{movie.duracion}}</span>
@@ -222,7 +222,7 @@ font-size: 14px;
 				<div class="modal-body">
 
 		            <!-- content goes here -->
-					<form action="" method="" id="registerMovieForm">
+					<form action="/delete-movie" method="POST" id="registerMovieForm">
 						{{csrfField}}
 		              <div class="form-group">
 		                <label for="nombre">Nombre</label>
@@ -242,17 +242,20 @@ font-size: 14px;
 		              </div>
 					  <div class="form-group">
 		                <label for="duracion">Duración</label>
-		                <input type="text" class="form-control edit-input" name="duracion" id="duracion" placeholder="ejemplo: 90 'minutos'">
+		                {# <input type="text" class="form-control edit-input" name="duracion" id="duracion" placeholder="ejemplo: 90 'minutos'"> #}
 		                <input type="number" class="form-control save-input" name="duracion" id="duracion" placeholder="ejemplo: 90 'minutos'">
 		              </div>
 					  <div class="form-group">
 		                <label for="trailer">Trailer</label>
 		                <input type="text" class="form-control" name="trailer" id="trailer" placeholder="link del video">
 		              </div>
-		              <div class="form-group">
-		                <label for="poster">Poster</label>
-		                <input type="file" id="poster" name="poster">
-		                <p class="help-block" id="posterName"></p>
+						<div class="form-group">
+									<label for="tipo">Tipo</label>
+									<select class="form-control" name="tipo" id="tipo">
+										<option value="3D">2D</option>
+										<option value="3D">3D</option>
+										<option value="4D">4D</option>
+									</select>
 		              </div>
 					  <div class="form-group">
 		                <label for="idioma">Idioma</label>
@@ -272,6 +275,13 @@ font-size: 14px;
 		                </select>
 		              </div>
 		            </form>
+								<div class="form-group">
+									<label for="poster">Poster</label>
+									<form action="" method="" id="registerMovieForm-poster">
+										<input type="file" id="poster" name="poster">
+									</form>
+									<p class="help-block" id="posterName"></p>
+								</div>
 
 				</div>
 				<div class="modal-footer">

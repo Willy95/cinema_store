@@ -19,6 +19,7 @@ $(function(){
         switch (res.status) {
             case 'c200':
                 toastr.success(res.msj);
+                window.location.reload();
                 break;
             case 'c403':
                 toastr.warning(res.msj)
@@ -81,8 +82,19 @@ $(function(){
     })
 
     $("#save-movie").click(function(event){
-        let movie = getDataForm();
-        moviegesController.saveMovie(movie, successAlert, errorAlert)
+        // let movie = getDataForm();
+        // moviegesController.saveMovie(movie, successAlert, errorAlert)
+        let formData = new FormData($("#registerMovieForm-poster")[0]);
+        formData.append('nombre', $("#nombre").val());
+        formData.append('sinopsis', $("#sinopsis").val());
+        formData.append('actores', $("#actores").val());
+        formData.append('director', $("#director").val());
+        formData.append('trailer', $("#trailer").val());
+        formData.append('duracion', $("#duracion").val());
+        formData.append('idioma', $("#idioma").val());
+        formData.append('cinema_id', $("#cinema_id").val());
+        formData.append('tipo', $("#tipo").val());
+        moviegesController.saveMovie(formData, successAlert, errorAlert)
     })
 
     $("#update-movie").click(function(event){

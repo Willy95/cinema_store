@@ -13,7 +13,8 @@ const MovieMongo = schema({
     duracion: { type: String, required: true },
     poster: { type: String, required: true },
     idioma: { type: String, required: true },
-    active: { type: Number, required: true },
+    active: { type: String, required: true },
+    tipo: { type: String, required: true },
     cinema_id: { type: mongoose.Schema.Types.ObjectId, ref: "cinemas", required: true }
 
 },{collection: 'movies'},{

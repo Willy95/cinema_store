@@ -36,7 +36,7 @@ Route.post('/save-customer', 'CustomerController.save')
 
 // REGISTRO DE PELICULAS
 Route.get('/management-movie', 'MovieController.sendView').middleware('auth')
-Route.post('/register-movie', 'MovieController.saveMovie').middleware('auth')
+Route.post('/register-movie', 'MovieController.saveMovie')//.middleware('auth')
 Route.post('/movieToUpdate','MovieController.movieToUpdate').middleware('auth')
 Route.post('/delete-movie','MovieController.deleteMovie').middleware('auth')
 
@@ -46,7 +46,7 @@ Route.get('/reporte-ventas-boletos', 'StadisticsController.sendView').middleware
 Route.post('/getStadistics', 'StadisticsController.getStadistics').middleware('auth')
 
 // Shows
-Route.get('/administrar-funciones', 'ShowController.sendViewManage')
+Route.get('/administrar-funciones/:movie', 'ShowController.sendViewManage')
 Route.post('/getInfoMovie', 'ShowController.getInfoMovie')
 Route.post('/save-show', 'ShowController.saveShow').middleware('auth')
 Route.post('/delete-show', 'ShowController.deleteShow').middleware('auth')
